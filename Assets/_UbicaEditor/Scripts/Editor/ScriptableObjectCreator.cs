@@ -125,7 +125,7 @@ namespace UbicaEditor
                     AssetDatabase.CreateAsset(obj, dest);
 
                     if (obj is EditorMeta editorMeta)
-                        editorMeta.SetNewName(metaName);
+                        editorMeta.SetNewName(obj.name);
 
                     AssetDatabase.Refresh();
 

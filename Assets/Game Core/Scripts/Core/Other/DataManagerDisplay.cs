@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
-namespace GameCore.Utilities
+namespace GameCore.Other
 {
     public class DataManagerDisplay : MonoBehaviour
     {

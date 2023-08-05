@@ -15,6 +15,7 @@ namespace GameCore.AllConstants
         public const string GameDataKey = "GameData";
         public const string PlayerDataKey = "PlayerData";
         public const string GameSettingsDataKey = "GameSettingsData";
+        public const string InventoryDataKey = "InventoryData";
         public const string LevelsDataKey = "LevelsData";
     }
 }

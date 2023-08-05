@@ -17,6 +17,7 @@ namespace GameCore.Infrastructure.Data
             _gameData = new GameData();
             _gameSettingsData = new GameSettingsData();
             _playerData = new PlayerData();
+            _inventoryData = new InventoryData();
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
@@ -25,32 +26,38 @@ namespace GameCore.Infrastructure.Data
         [BoxGroup(EditorConstants.GameData, showLabel: false), SerializeField]
         private GameData _gameData;
 
+        [BoxGroup(EditorConstants.PlayerData, showLabel: false), SerializeField]
+        private PlayerData _playerData;
+
         [BoxGroup(EditorConstants.GameSettings, showLabel: false), SerializeField]
         private GameSettingsData _gameSettingsData;
 
-        [BoxGroup(EditorConstants.PlayerData, showLabel: false), SerializeField]
-        private PlayerData _playerData;
+        [BoxGroup(EditorConstants.InventoryData, showLabel: false), SerializeField]
+        private InventoryData _inventoryData;
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
         public GameData GameData => _gameData ??= new();
-        public GameSettingsData GameSettingsData => _gameSettingsData ??= new();
         public PlayerData PlayerData => _playerData ??= new();
+        public GameSettingsData GameSettingsData => _gameSettingsData ??= new();
+        public InventoryData InventoryData => _inventoryData ??= new();
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public void LoadLocalData()
         {
             TryLoadData(ref _gameData);
-            TryLoadData(ref _gameSettingsData);
             TryLoadData(ref _playerData);
+            TryLoadData(ref _gameSettingsData);
+            TryLoadData(ref _inventoryData);
         }
 
         public void SaveLocalData()
         {
             TrySaveData(_gameData);
-            TrySaveData(_gameSettingsData);
             TrySaveData(_playerData);
+            TrySaveData(_gameSettingsData);
+            TrySaveData(_inventoryData);
         }
 
         public void SaveLocalData<T>(T t) where T : DataBase => TrySaveData(t);
@@ -58,8 +65,9 @@ namespace GameCore.Infrastructure.Data
         public void DeleteLocalData()
         {
             TryDeleteData(ref _gameData);
-            TryDeleteData(ref _gameSettingsData);
             TryDeleteData(ref _playerData);
+            TryDeleteData(ref _gameSettingsData);
+            TryDeleteData(ref _inventoryData);
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------

@@ -22,7 +22,7 @@ namespace GameCore.Infrastructure.Data
         public float MusicVolume => _musicVolume;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
-        
+
         public void SetSoundVolume(float value) =>
             _soundVolume = Mathf.Clamp01(value);
 

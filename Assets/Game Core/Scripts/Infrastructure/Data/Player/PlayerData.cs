@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace GameCore.Infrastructure.Data
 {
-     [Serializable]
+    [Serializable]
     public class PlayerData : DataBase
     {
         // MEMBERS: -------------------------------------------------------------------------------
-        
+
         [SerializeField, Min(0)]
         private long _gold;
-        
+
         [SerializeField, Min(0)]
         private int _gems;
 
@@ -20,9 +20,9 @@ namespace GameCore.Infrastructure.Data
 
         [SerializeField, Min(0)]
         private int _experience;
-        
+
         // PROPERTIES: ----------------------------------------------------------------------------
-        
+
         public override string DataKey => Constants.PlayerDataKey;
         public long Gold => _gold;
         public int Gems => _gems;
@@ -45,10 +45,10 @@ namespace GameCore.Infrastructure.Data
 
         public void SetGold(long amount) =>
             _gold = Math.Max(amount, 0);
-        
+
         public void SetGems(int amount) =>
             _gems = Mathf.Max(amount, 0);
-        
+
         public void SetLevel(int amount) =>
             _level = Mathf.Max(amount, 1);
 

@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.IO;
 using System.Linq;
+using GameCore.Items;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
@@ -34,10 +35,10 @@ namespace UbicaEditor
                 includeSubDirectories: true);
             
             // Add icons to items
-            //tree.EnumerateTree().AddIcons<UnitMeta>(m => m.UnitAvatar);
+            tree.EnumerateTree().AddIcons<WearableItemMeta>(m => m.Icon);
 
             // Add drag handles to items, so they can be easily dragged...
-            //tree.EnumerateTree().Where(x => x.Value as AbilityMeta).ForEach(AddDragHandles);
+            tree.EnumerateTree().Where(x => x.Value as WearableItemMeta).ForEach(AddDragHandles);
 
             tree.EnumerateTree().SortMenuItemsByName();
             tree.EnumerateTree().AddThumbnailIcons();
@@ -130,7 +131,7 @@ namespace UbicaEditor
             tree.DefaultMenuStyle = OdinMenuStyle.TreeViewStyle;
             tree.DefaultMenuStyle.Height = 28;
             tree.DefaultMenuStyle.IndentAmount = 12;
-            tree.DefaultMenuStyle.IconSize = 26;
+            tree.DefaultMenuStyle.IconSize = 24;
             tree.DefaultMenuStyle.NotSelectedIconAlpha = 1;
             tree.DefaultMenuStyle.IconPadding = 4;
             tree.DefaultMenuStyle.SelectedColorDarkSkin = EditorDatabase.SelectedColor;

@@ -30,6 +30,9 @@ namespace GameCore.Infrastructure.Providers.Global.Data
         public GameSettingsData GetGameSettingsData() =>
             _dataManager.GameSettingsData;
 
+        public InventoryData GetInventoryData() =>
+            _dataManager.InventoryData;
+
         public void Dispose() =>
             _dataManager.SaveLocalData();
     }
