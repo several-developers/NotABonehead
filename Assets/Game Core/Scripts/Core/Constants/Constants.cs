@@ -1,4 +1,4 @@
-namespace GameCore.AllConstants
+namespace GameCore
 {
     public static class Constants
     {

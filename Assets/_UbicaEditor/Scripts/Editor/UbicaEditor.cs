@@ -35,10 +35,10 @@ namespace UbicaEditor
                 includeSubDirectories: true);
             
             // Add icons to items
-            tree.EnumerateTree().AddIcons<WearableItemMeta>(m => m.Icon);
+            tree.EnumerateTree().AddIcons<ItemMeta>(m => m.Icon);
 
             // Add drag handles to items, so they can be easily dragged...
-            tree.EnumerateTree().Where(x => x.Value as WearableItemMeta).ForEach(AddDragHandles);
+            tree.EnumerateTree().Where(x => x.Value as ItemMeta).ForEach(AddDragHandles);
 
             tree.EnumerateTree().SortMenuItemsByName();
             tree.EnumerateTree().AddThumbnailIcons();

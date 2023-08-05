@@ -1,5 +1,6 @@
 using GameCore.Infrastructure.Services.Global;
 using GameCore.Infrastructure.Services.Global.Data;
+using GameCore.Infrastructure.Services.Global.Inventory;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.Global
@@ -12,6 +13,7 @@ namespace GameCore.Infrastructure.Installers.Global
         {
             BindSaveLoad();
             BindAllData();
+            BindInventory();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
@@ -29,6 +31,7 @@ namespace GameCore.Infrastructure.Installers.Global
             BindGameData();
             BindPlayerData();
             BindGameSettingsData();
+            BindInventoryData();
             
             // METHODS: -----------------------------------
 
@@ -55,6 +58,22 @@ namespace GameCore.Infrastructure.Installers.Global
                     .AsSingle()
                     .NonLazy();
             }
+            
+            void BindInventoryData()
+            {
+                Container
+                    .BindInterfacesTo<InventoryDataService>()
+                    .AsSingle()
+                    .NonLazy();
+            }
+        }
+
+        private void BindInventory()
+        {
+            Container
+                .BindInterfacesTo<InventoryService>()
+                .AsSingle()
+                .NonLazy();
         }
     }
 }

@@ -232,6 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52432273}
+  - component: {fileID: 52432277}
   - component: {fileID: 52432276}
   - component: {fileID: 52432275}
   - component: {fileID: 52432274}
@@ -317,6 +318,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &52432277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52432272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503ebbc1ea5d44fc98fac95644d92ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hiddenByAwake: 0
+  _ignoreScaleTime: 0
+  _changeCanvasState: 0
+  _canvas: {fileID: 0}
+  _fadeTime: 0.35
+  _targetCG: {fileID: 52432274}
 --- !u!1001 &96975062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1711,6 +1730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1780655528}
+  - component: {fileID: 1780655530}
   - component: {fileID: 1780655529}
   - component: {fileID: 1780655527}
   - component: {fileID: 1780655526}
@@ -1821,6 +1841,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useWidthOnPhone: 1
+--- !u!114 &1780655530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780655524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d20fd2aad3a4ee39b1cb690130db3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 1780655527}
 --- !u!1001 &1898385448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2233,19 +2266,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._equippedItemsData.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._level
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemID
-      value: item_id
+      value: helmet_1
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemKey
-      value: aab-c64a4e6657d8
+      value: f80-f1b4275c9631
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[0]._itemKey
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[1]._itemKey
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[2]._itemKey
+      value: f80-f1b4275c9631
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[1]._itemType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[2]._itemType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._health
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._defense
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

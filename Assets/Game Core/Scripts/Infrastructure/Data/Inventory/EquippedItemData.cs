@@ -16,9 +16,6 @@ namespace GameCore.Infrastructure.Data
         public EquippedItemData(ItemType itemType) =>
             _itemType = itemType;
 
-        public EquippedItemData(ItemType itemType, string itemKey) : this(itemType) =>
-            _itemKey = itemKey;
-
         // MEMBERS: -------------------------------------------------------------------------------
 
         [SerializeField]
@@ -29,7 +26,15 @@ namespace GameCore.Infrastructure.Data
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
+        public ItemType ItemType => _itemType;
+        public string ItemKey => _itemKey;
+
         private string Label =>
             $"'Item type: {_itemType}',    'Item key: {(string.IsNullOrEmpty(_itemKey) ? "none" : _itemKey)}'";
+
+        // PUBLIC METHODS: ------------------------------------------------------------------------
+        
+        public void SetItemKey(string itemKey) =>
+            _itemKey = itemKey;
     }
 }

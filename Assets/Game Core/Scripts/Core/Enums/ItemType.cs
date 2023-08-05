@@ -2,7 +2,7 @@
 {
     public enum ItemType
     {
-        Sword = 0,
+        Weapon = 0,
         Shield = 1,
         Helmet = 2
     }
