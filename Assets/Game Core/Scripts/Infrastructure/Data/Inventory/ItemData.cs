@@ -26,7 +26,7 @@ namespace GameCore.Infrastructure.Data
         // MEMBERS: -------------------------------------------------------------------------------
 
         [BoxGroup(InfoGroup), SerializeField]
-        private string _itemID = "item_id";
+        private string _itemID;
 
         [BoxGroup(InfoGroup), SerializeField, ReadOnly]
         [Tooltip("Unique key of the item.")]

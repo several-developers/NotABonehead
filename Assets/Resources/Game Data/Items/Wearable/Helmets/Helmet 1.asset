@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Helmet 1
   _icon: {fileID: 21300000, guid: b76cb9bece2ae4b44a4c4478f2ceff00, type: 3}
   _itemID: helmet_1
+  _itemName: Viking Helmet
   _itemType: 2

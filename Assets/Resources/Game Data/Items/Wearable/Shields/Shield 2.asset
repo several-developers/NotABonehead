@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Shield 1
   _icon: {fileID: 21300000, guid: 33a16661ed2096a48ad6c8e715b25845, type: 3}
   _itemID: shield_2
+  _itemName: Knight's Shield
   _itemType: 1

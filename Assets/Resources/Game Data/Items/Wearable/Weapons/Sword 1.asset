@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Sword 1
   _icon: {fileID: 21300000, guid: 0c91d6fd223720e4abe6782ec5e10426, type: 3}
   _itemID: sword_1
+  _itemName: Knight's Sword
   _itemType: 0

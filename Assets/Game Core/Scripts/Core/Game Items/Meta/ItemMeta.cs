@@ -15,11 +15,15 @@ namespace GameCore.Items
 
         [VerticalGroup(RowRight), SerializeField]
         private string _itemID = "item_id";
+        
+        [VerticalGroup(RowRight), SerializeField]
+        private string _itemName = "item_name";
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
         public Sprite Icon => _icon;
         public string ItemID => _itemID;
+        public string ItemName => _itemName;
         
         // FIELDS: --------------------------------------------------------------------------------
 

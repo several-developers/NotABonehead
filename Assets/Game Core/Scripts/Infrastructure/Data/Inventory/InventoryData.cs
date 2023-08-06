@@ -21,8 +21,8 @@ namespace GameCore.Infrastructure.Data
         
         // MEMBERS: -------------------------------------------------------------------------------
 
-        [Title("Dropped Item Data")]
-        [SerializeField]
+        [TitleGroup("Dropped Item Data")]
+        [BoxGroup("Dropped Item Data/In", showLabel: false), SerializeField]
         private ItemData _droppedItemData;
 
         [Title("Items Data")]
@@ -52,7 +52,10 @@ namespace GameCore.Infrastructure.Data
             _droppedItemData.SetItemID(itemID);
             _droppedItemData.SetItemStats(itemStats);
         }
-        
+
+        public void RemoveDroppedItemData() =>
+            _droppedItemData.SetItemID(string.Empty);
+
         public void EquipItem(ItemType itemType, string itemKey)
         {
             foreach (EquippedItemData equippedItemData in _equippedItemsData)

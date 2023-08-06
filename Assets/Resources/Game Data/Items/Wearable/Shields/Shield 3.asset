@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Shield 1
   _icon: {fileID: 21300000, guid: c3acb55d34fa40a42ad4a4afd18ebec9, type: 3}
   _itemID: shield_3
+  _itemName: Wooden Shield
   _itemType: 1

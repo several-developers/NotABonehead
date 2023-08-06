@@ -53,6 +53,12 @@ namespace GameCore.Infrastructure.Services.Global.Data
             SaveLocalData(autoSave);
         }
 
+        public void RemoveDroppedItemData(bool autoSave)
+        {
+            _inventoryData.RemoveDroppedItemData();
+            SaveLocalData(autoSave);
+        }
+
         public IEnumerable<string> GetAllEquippedItemsKeys()
         {
             IEnumerable<EquippedItemData> allEquippedItemsData = _inventoryData.GetAllEquippedItemsData();
@@ -80,6 +86,9 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         public bool TryGetItemData(string itemKey, out ItemData itemData) =>
             _inventoryData.TryGetItemData(itemKey, out itemData);
+
+        public bool TryGetDroppedItemData(out ItemData itemData) =>
+            _inventoryData.TryGetDroppedItemData(out itemData);
 
         public bool ContainsEquippedItemData(ItemType itemType) =>
             _inventoryData.ContainsEquippedItemData(itemType);

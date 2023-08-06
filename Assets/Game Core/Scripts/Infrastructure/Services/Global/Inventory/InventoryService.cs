@@ -52,6 +52,9 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
             OnItemUnEquippedEvent?.Invoke();
         }
 
+        public void RemoveDroppedItemData(bool autoSave) =>
+            _inventoryDataService.RemoveDroppedItemData(autoSave);
+
         public IEnumerable<string> GetAllEquippedItemsKeys() =>
             _inventoryDataService.GetAllEquippedItemsKeys();
 
@@ -74,6 +77,9 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
 
         public bool TryGetEquippedItemKey(ItemType itemType, out string itemKey) =>
             _inventoryDataService.TryGetEquippedItemKey(itemType, out itemKey);
+
+        public bool TryGetDroppedItemData(out ItemData itemData) =>
+            _inventoryDataService.TryGetDroppedItemData(out itemData);
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 

@@ -15,3 +15,4 @@ MonoBehaviour:
   _metaName: Menu Prefabs List
   _menuPrefabs:
   - {fileID: 1953633235798441007, guid: 24d72502194a4f645ad5304af3ca464b, type: 3}
+  - {fileID: 4894213882728628234, guid: a9e06af0adc2ac84fa35306ab0c1b194, type: 3}

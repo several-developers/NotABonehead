@@ -13,11 +13,15 @@ namespace GameCore.UI.MainMenu.ItemsDropChancesMenu
         [SerializeField, Required]
         private Button _closeButton;
         
+        [SerializeField, Required]
+        private Button _overlayCloseButton;
+        
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
         private void Awake()
         {
             _closeButton.onClick.AddListener(OnCloseClicked);
+            _overlayCloseButton.onClick.AddListener(OnCloseClicked);
             
             DestroyOnHide();
         }

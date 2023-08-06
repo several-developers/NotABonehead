@@ -20,7 +20,7 @@ namespace GameCore.UI.MainMenu.ItemsDropChancesMenu
 
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
-        private void OnButtonClicked() =>
+        private static void OnButtonClicked() =>
             MenuFactory.Create<ItemsDropChancesMenuView>();
     }
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Helmet 2
   _icon: {fileID: 21300000, guid: afead1a3ff1da7d4181e7b27cfe3b1c2, type: 3}
   _itemID: helmet_2
+  _itemName: Samurai Helmet
   _itemType: 2

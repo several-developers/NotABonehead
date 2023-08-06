@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6893454203121409729}
+  - component: {fileID: 2883920409449826597}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -41,6 +42,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 920, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2883920409449826597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765533196137547806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442fde626a744510a8ef2c2da487784f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scalePercent: 0.5
+  _scaleTime: 0.35
+  _scaleEase: 27
+  _menuRT: {fileID: 6893454203121409729}
 --- !u!1 &1260440799254783634
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,8 +69,9 @@ GameObject:
   - component: {fileID: 7183326971978065525}
   - component: {fileID: 8787045842529972292}
   - component: {fileID: 4441039638171008772}
+  - component: {fileID: 7723191165207482954}
   m_Layer: 5
-  m_Name: Overlay
+  m_Name: Overlay (Button)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,6 +134,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7723191165207482954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260440799254783634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4441039638171008772}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1417352923732458658
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -299,7 +361,7 @@ RectTransform:
   - {fileID: 6897281953870602965}
   - {fileID: 3789975330478406654}
   - {fileID: 4816848166254444681}
-  - {fileID: 5439148604134801820}
+  - {fileID: 4558129675821814075}
   m_Father: {fileID: 6893454203121409729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -393,6 +455,7 @@ MonoBehaviour:
   _fadeTime: 0.35
   _targetCG: {fileID: 1370049527134731046}
   _closeButton: {fileID: 6774643131168238419}
+  _overlayCloseButton: {fileID: 7723191165207482954}
 --- !u!223 &5107889709548313007
 Canvas:
   m_ObjectHideFlags: 0
@@ -411,7 +474,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1260,7 +1323,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a62bda6d475c3c74d9ada725cdbd9ec6, type: 3}
---- !u!224 &5439148604134801820 stripped
+--- !u!224 &4558129675821814075 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8375013175074148512, guid: a62bda6d475c3c74d9ada725cdbd9ec6, type: 3}
   m_PrefabInstance: {fileID: 5439148604134801819}

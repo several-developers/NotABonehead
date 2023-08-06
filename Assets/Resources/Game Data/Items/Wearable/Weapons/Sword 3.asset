@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Sword 3
   _icon: {fileID: 21300000, guid: baa4ae69b3a736e4bbff4eec81150928, type: 3}
   _itemID: sword_3
+  _itemName: Blue Sword
   _itemType: 0

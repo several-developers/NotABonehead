@@ -15,4 +15,5 @@ MonoBehaviour:
   _metaName: Shield 1
   _icon: {fileID: 21300000, guid: a58ce6f33f76cd6498c26424e1d21b0d, type: 3}
   _itemID: shield_1
+  _itemName: Round Shield
   _itemType: 1

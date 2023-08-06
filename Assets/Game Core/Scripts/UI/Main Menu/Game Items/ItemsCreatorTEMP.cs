@@ -1,7 +1,9 @@
 ﻿using GameCore.Enums;
 using GameCore.Factories;
 using GameCore.Infrastructure.Services.Global.Rewards;
+using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
 using GameCore.Items;
+using GameCore.UI.MainMenu.ItemsShowcaseMenu;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -13,8 +15,11 @@ namespace GameCore.UI.MainMenu.GameItems
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IRewardsService rewardsService) =>
+        private void Construct(IRewardsService rewardsService, IItemsShowcaseService itemsShowcaseService)
+        {
             _rewardsService = rewardsService;
+            _itemsShowcaseService = itemsShowcaseService;
+        }
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -35,6 +40,7 @@ namespace GameCore.UI.MainMenu.GameItems
         // FIELDS: --------------------------------------------------------------------------------
 
         private IRewardsService _rewardsService;
+        private IItemsShowcaseService _itemsShowcaseService;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
@@ -78,6 +84,13 @@ namespace GameCore.UI.MainMenu.GameItems
                 return;
             
             Destroy(gameItemView.gameObject, _destroyDelay);
+        }
+
+        [Button(35, ButtonStyle.FoldoutButton)]
+        private void SelectItem(ItemType itemType)
+        {
+            _itemsShowcaseService.SetSelectedItemType(itemType);
+            MenuFactory.Create<ItemsShowcaseMenuView>();
         }
     }
 }
