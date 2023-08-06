@@ -72,7 +72,7 @@ namespace GameCore.UI.MainMenu.GameItems
         [Button(35, ButtonStyle.FoldoutButton)]
         private void GiveItemReward(ItemType itemType)
         {
-            bool isSuccessful = _rewardsService.GiveItemReward(transform, itemType, out GameItemView gameItemView);
+            bool isSuccessful = _rewardsService.GiveItemReward(transform, itemType, _itemRarity, out GameItemView gameItemView);
 
             if (!isSuccessful)
                 return;

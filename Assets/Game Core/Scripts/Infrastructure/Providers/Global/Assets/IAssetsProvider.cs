@@ -10,5 +10,6 @@ namespace GameCore.Infrastructure.Providers.Global
         MenuPrefabsListMeta GetMenuPrefabsListMeta();
         GameItemPrefabsListMeta GetGameItemPrefabsListMeta();
         ItemsRarityConfigMeta GetItemsRarityConfigMeta();
+        ItemsDropChancesConfigMeta GetItemsDropChancesConfigMeta();
     }
 }

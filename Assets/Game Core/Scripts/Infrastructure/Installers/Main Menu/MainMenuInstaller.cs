@@ -9,6 +9,7 @@ namespace GameCore.Infrastructure.Installers.MainMenu
 
         public override void InstallBindings()
         {
+            BindMenuFactory();
             BindGameItemsFactory();
         }
 
@@ -18,6 +19,14 @@ namespace GameCore.Infrastructure.Installers.MainMenu
         {
             Container
                 .BindInterfacesAndSelfTo<GameItemsFactory>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindMenuFactory()
+        {
+            Container
+                .BindInterfacesAndSelfTo<MenuFactory>()
                 .AsSingle()
                 .NonLazy();
         }

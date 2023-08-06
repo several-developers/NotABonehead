@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Menu Prefabs List
   m_EditorClassIdentifier: 
   _metaName: Menu Prefabs List
-  _menuPrefabs: []
+  _menuPrefabs:
+  - {fileID: 1953633235798441007, guid: 24d72502194a4f645ad5304af3ca464b, type: 3}

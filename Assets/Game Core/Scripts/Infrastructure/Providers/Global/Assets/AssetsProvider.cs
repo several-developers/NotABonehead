@@ -15,6 +15,7 @@ namespace GameCore.Infrastructure.Providers.Global
             _menuPrefabsListMeta = Load<MenuPrefabsListMeta>(path: AssetsPaths.MenuPrefabsListMeta);
             _gameItemPrefabsListMeta = Load<GameItemPrefabsListMeta>(path: AssetsPaths.GameItemPrefabsListMeta);
             _itemsRarityConfigMeta = Load<ItemsRarityConfigMeta>(path: AssetsPaths.ItemsRarityConfigMeta);
+            _itemsDropChancesConfigMeta = Load<ItemsDropChancesConfigMeta>(path: AssetsPaths.ItemsDropChancesConfigMeta);
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -23,6 +24,7 @@ namespace GameCore.Infrastructure.Providers.Global
         private readonly MenuPrefabsListMeta _menuPrefabsListMeta;
         private readonly GameItemPrefabsListMeta _gameItemPrefabsListMeta;
         private readonly ItemsRarityConfigMeta _itemsRarityConfigMeta;
+        private readonly ItemsDropChancesConfigMeta _itemsDropChancesConfigMeta;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -30,6 +32,7 @@ namespace GameCore.Infrastructure.Providers.Global
         public MenuPrefabsListMeta GetMenuPrefabsListMeta() => _menuPrefabsListMeta;
         public GameItemPrefabsListMeta GetGameItemPrefabsListMeta() => _gameItemPrefabsListMeta;
         public ItemsRarityConfigMeta GetItemsRarityConfigMeta() => _itemsRarityConfigMeta;
+        public ItemsDropChancesConfigMeta GetItemsDropChancesConfigMeta() => _itemsDropChancesConfigMeta;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
