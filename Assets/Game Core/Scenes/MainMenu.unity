@@ -1447,11 +1447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._playerData._gems
-      value: 4
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._playerData._gold
-      value: 10
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.size
@@ -1463,7 +1463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._level
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemID

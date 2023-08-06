@@ -1,13 +1,21 @@
 ﻿using GameCore.Enums;
 using GameCore.Factories;
+using GameCore.Infrastructure.Services.Global.Rewards;
 using GameCore.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace GameCore.UI.MainMenu.GameItems
 {
     public class ItemsCreatorTEMP : MonoBehaviour
     {
+        // CONSTRUCTORS: --------------------------------------------------------------------------
+
+        [Inject]
+        private void Construct(IRewardsService rewardsService) =>
+            _rewardsService = rewardsService;
+
         // MEMBERS: -------------------------------------------------------------------------------
 
         [Title(Constants.Settings)]
@@ -23,6 +31,12 @@ namespace GameCore.UI.MainMenu.GameItems
         [Title(Constants.References)]
         [SerializeField]
         private WearableItemMeta _itemMeta;
+
+        // FIELDS: --------------------------------------------------------------------------------
+
+        private IRewardsService _rewardsService;
+
+        // PRIVATE METHODS: -----------------------------------------------------------------------
 
         [Button(35)]
         private void CreateItem()
@@ -42,6 +56,28 @@ namespace GameCore.UI.MainMenu.GameItems
                 GameItemsFactory.Create<WearableItemView, ItemViewParams>(transform, itemViewParams);
             
             Destroy(itemInstance.gameObject, _destroyDelay);
+        }
+
+        [Button(35)]
+        private void GiveRandomItemReward()
+        {
+            bool isSuccessful = _rewardsService.GiveRandomItemReward(transform, out GameItemView gameItemView);
+            
+            if (!isSuccessful)
+                return;
+            
+            Destroy(gameItemView.gameObject, _destroyDelay);
+        }
+
+        [Button(35, ButtonStyle.FoldoutButton)]
+        private void GiveItemReward(ItemType itemType)
+        {
+            bool isSuccessful = _rewardsService.GiveItemReward(transform, itemType, out GameItemView gameItemView);
+
+            if (!isSuccessful)
+                return;
+            
+            Destroy(gameItemView.gameObject, _destroyDelay);
         }
     }
 }

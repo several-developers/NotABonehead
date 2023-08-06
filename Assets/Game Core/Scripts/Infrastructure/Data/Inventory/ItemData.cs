@@ -17,11 +17,11 @@ namespace GameCore.Infrastructure.Data
         public ItemData(string itemID) : this() =>
             _itemID = itemID;
 
-        public ItemData(string itemID, int level) : this(itemID) =>
-            _level = level;
+        public ItemData(string itemID, int level, ItemRarity itemRarity = ItemRarity.Common) : this(itemID) =>
+            _itemStats = new ItemStats(itemRarity, level, health: 0, damage: 0, defense: 0);
 
-        public ItemData(string itemID, int level, ItemRarity itemRarity) : this(itemID, level) =>
-            _itemRarity = itemRarity;
+        public ItemData(string itemID, ItemStats itemStats) : this(itemID) =>
+            _itemStats = itemStats;
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -31,12 +31,6 @@ namespace GameCore.Infrastructure.Data
         [BoxGroup(InfoGroup), SerializeField, ReadOnly]
         [Tooltip("Unique key of the item.")]
         private string _itemKey;
-
-        [BoxGroup(InfoGroup), SerializeField]
-        private ItemRarity _itemRarity;
-        
-        [BoxGroup(InfoGroup), SerializeField, Min(1)]
-        private int _level = 1;
 
         [BoxGroup(StatsGroup), SerializeField, InlineProperty, HideLabel]
         private ItemStats _itemStats;
@@ -50,11 +44,18 @@ namespace GameCore.Infrastructure.Data
 
         public string ItemID => _itemID;
         public string ItemKey => _itemKey;
-        public ItemRarity ItemRarity => _itemRarity;
-        public int Level => _level;
         public ItemStats ItemStats => _itemStats;
 
-        private string Label => $"'Item ID: {_itemID}',   'Level: {_level}'";
+        private string Label =>
+            $"'Item ID: {_itemID}',    'Rarity: {_itemStats.Rarity}',   'Level: {_itemStats.Level}'";
+
+        // PUBLIC METHODS: ------------------------------------------------------------------------
+
+        public void SetItemID(string itemID) =>
+            _itemID = itemID;
+
+        public void SetItemStats(ItemStats itemStats) =>
+            _itemStats = itemStats;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 

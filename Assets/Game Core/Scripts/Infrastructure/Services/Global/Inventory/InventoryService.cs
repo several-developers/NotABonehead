@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameCore.Enums;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global.ItemsMeta;
@@ -23,12 +24,36 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
         }
 
         // FIELDS: --------------------------------------------------------------------------------
+        
+        public event Action OnItemEquippedEvent;
+        public event Action OnItemUnEquippedEvent;
 
         private readonly ISaveLoadService _saveLoadService;
         private readonly IInventoryDataService _inventoryDataService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
+
+        public void AddItem(string itemID, ItemStats itemStats, bool autoSave) =>
+            _inventoryDataService.AddItemData(itemID, itemStats, autoSave);
+
+        public void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave) =>
+            _inventoryDataService.SetDroppedItemData(itemID, itemStats, autoSave);
+
+        public void EquipItem(ItemType itemType, string itemKey, bool autoSave)
+        {
+            _inventoryDataService.EquipItem(itemType, itemKey, autoSave);
+            OnItemEquippedEvent?.Invoke();
+        }
+
+        public void UnEquipItem(ItemType itemType, bool autoSave)
+        {
+            _inventoryDataService.UnEquipItem(itemType, autoSave);
+            OnItemUnEquippedEvent?.Invoke();
+        }
+
+        public IEnumerable<string> GetAllEquippedItemsKeys() =>
+            _inventoryDataService.GetAllEquippedItemsKeys();
 
         public bool TryGetItemData(string itemKey, out ItemData itemData) =>
             _inventoryDataService.TryGetItemData(itemKey, out itemData);
@@ -101,7 +126,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 if (!containsItemData)
                 {
                     autoSave = true;
-                    UnEquipItem(itemType);
+                    UnEquip(itemType);
                     return;
                 }
 
@@ -110,7 +135,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 if (!containsItemMeta)
                 {
                     autoSave = true;
-                    UnEquipItem(itemType);
+                    UnEquip(itemType);
                     return;
                 }
 
@@ -119,7 +144,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 if (!isCorrectMetaType)
                 {
                     autoSave = true;
-                    UnEquipItem(itemType);
+                    UnEquip(itemType);
                     return;
                 }
 
@@ -130,10 +155,10 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                     return;
                 
                 autoSave = true;
-                UnEquipItem(itemType);
+                UnEquip(itemType);
             }
 
-            void UnEquipItem(ItemType itemType) =>
+            void UnEquip(ItemType itemType) =>
                 _inventoryDataService.UnEquipItem(itemType, autoSave: false);
         }
     }

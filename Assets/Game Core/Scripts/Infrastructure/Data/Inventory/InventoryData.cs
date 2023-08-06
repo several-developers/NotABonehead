@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameCore.Enums;
+using GameCore.Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,14 +14,19 @@ namespace GameCore.Infrastructure.Data
 
         public InventoryData()
         {
+            _droppedItemData = new ItemData();
             _itemsData = new List<ItemData>(capacity: 3);
             _equippedItemsData = new List<EquippedItemData>(capacity: 3);
         }
         
         // MEMBERS: -------------------------------------------------------------------------------
 
+        [Title("Dropped Item Data")]
+        [SerializeField]
+        private ItemData _droppedItemData;
+
         [Title("Items Data")]
-        [SerializeField, Space(-10)]
+        [SerializeField, Space(5)]
         [ListDrawerSettings(ListElementLabelName = "Label")]
         private List<ItemData> _itemsData;
 
@@ -35,6 +41,18 @@ namespace GameCore.Infrastructure.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
+        public void AddItemData(string itemID, ItemStats itemStats)
+        {
+            ItemData itemData = new(itemID, itemStats);
+            _itemsData.Add(itemData);
+        }
+
+        public void SetDroppedItemData(string itemID, ItemStats itemStats)
+        {
+            _droppedItemData.SetItemID(itemID);
+            _droppedItemData.SetItemStats(itemStats);
+        }
+        
         public void EquipItem(ItemType itemType, string itemKey)
         {
             foreach (EquippedItemData equippedItemData in _equippedItemsData)
@@ -58,12 +76,14 @@ namespace GameCore.Infrastructure.Data
                 break;
             }
         }
-        
+
         public void CreateEquippedItemData(ItemType itemType)
         {
             EquippedItemData equippedItemData = new(itemType);
             _equippedItemsData.Add(equippedItemData);
         }
+
+        public IEnumerable<EquippedItemData> GetAllEquippedItemsData() => _equippedItemsData;
 
         public string GetEquippedItemKey(ItemType itemType)
         {
@@ -92,7 +112,14 @@ namespace GameCore.Infrastructure.Data
             result = null;
             return false;
         }
-        
+
+        public bool TryGetDroppedItemData(out ItemData itemData)
+        {
+            itemData = _droppedItemData;
+            bool isItemDataValid = !string.IsNullOrEmpty(_droppedItemData.ItemKey);
+            return isItemDataValid;
+        }
+
         public bool ContainsEquippedItemData(ItemType itemType)
         {
             foreach (EquippedItemData equippedItemData in _equippedItemsData)

@@ -1,4 +1,5 @@
 using System;
+using GameCore.Enums;
 using UnityEngine;
 
 namespace GameCore.Items
@@ -8,28 +9,38 @@ namespace GameCore.Items
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public ItemStats(int damage, int defense, int health)
+        public ItemStats(ItemRarity rarity, int level, int health, int damage, int defense)
         {
+            _rarity = rarity;
+            _level = level;
+            _health = health;
             _damage = damage;
             _defense = defense;
-            _health = health;
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
 
+        [SerializeField]
+        private ItemRarity _rarity;
+        
+        [SerializeField, Min(1)]
+        private int _level;
+        
+        [SerializeField, Min(0)]
+        private int _health;
+        
         [SerializeField, Min(0)]
         private int _damage;
         
         [SerializeField, Min(0)]
         private int _defense;
-        
-        [SerializeField, Min(0)]
-        private int _health;
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
+        public ItemRarity Rarity => _rarity;
+        public int Level => _level;
+        public int Health => _health;
         public int Damage => _damage;
         public int Defense => _defense;
-        public int Health => _health;
     }
 }

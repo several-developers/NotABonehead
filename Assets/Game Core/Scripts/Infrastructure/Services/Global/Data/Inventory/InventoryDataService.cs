@@ -1,6 +1,8 @@
-﻿using GameCore.Enums;
+﻿using System.Collections.Generic;
+using GameCore.Enums;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global.Data;
+using GameCore.Items;
 
 namespace GameCore.Infrastructure.Services.Global.Data
 {
@@ -21,6 +23,18 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
+        public void AddItemData(string itemID, ItemStats itemStats, bool autoSave)
+        {
+            _inventoryData.AddItemData(itemID, itemStats);
+            SaveLocalData(autoSave);
+        }
+
+        public void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave)
+        {
+            _inventoryData.SetDroppedItemData(itemID, itemStats);
+            SaveLocalData(autoSave);
+        }
+
         public void EquipItem(ItemType itemType, string itemKey, bool autoSave)
         {
             _inventoryData.EquipItem(itemType, itemKey);
@@ -37,6 +51,24 @@ namespace GameCore.Infrastructure.Services.Global.Data
         {
             _inventoryData.CreateEquippedItemData(itemType);
             SaveLocalData(autoSave);
+        }
+
+        public IEnumerable<string> GetAllEquippedItemsKeys()
+        {
+            IEnumerable<EquippedItemData> allEquippedItemsData = _inventoryData.GetAllEquippedItemsData();
+            List<string> itemKeys = new(capacity: 6);
+
+            foreach (EquippedItemData equippedItemData in allEquippedItemsData)
+            {
+                bool isItemKeyValid = !string.IsNullOrEmpty(equippedItemData.ItemKey);
+                
+                if (!isItemKeyValid)
+                    continue;
+                
+                itemKeys.Add(equippedItemData.ItemKey);
+            }
+
+            return itemKeys;
         }
 
         public bool TryGetEquippedItemKey(ItemType itemType, out string itemKey)

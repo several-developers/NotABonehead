@@ -47,8 +47,8 @@ namespace GameCore.UI.MainMenu.InventoryMenu
 
         private void UpdateInfo(WearableItemMeta itemMeta, ItemData itemData)
         {
-            ItemRarity itemRarity = itemData.ItemRarity;
-            int itemLevel = itemData.Level;
+            ItemRarity itemRarity = itemData.ItemStats.Rarity;
+            int itemLevel = itemData.ItemStats.Level;
             Sprite itemIcon = itemMeta.Icon;
             
             ItemRarityConfig itemRarityConfig = _itemsRarityConfig.GetItemRarityConfig(itemRarity);

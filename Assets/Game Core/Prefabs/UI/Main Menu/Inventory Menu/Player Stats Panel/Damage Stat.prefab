@@ -90,7 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6977891142510731236, guid: 13ea69e5782290b45b4c0ae5d062ce49, type: 3}
       propertyPath: m_Name
-      value: Base Stat
+      value: Damage Stat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738035953792354400, guid: 13ea69e5782290b45b4c0ae5d062ce49, type: 3}
+      propertyPath: _statType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
