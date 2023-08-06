@@ -1,4 +1,5 @@
-﻿using GameCore.Enums;
+﻿using GameCore.Configs;
+using GameCore.Enums;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Inventory;
@@ -15,7 +16,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu
             ItemSlotVisualizer itemSlotVisualizer, ItemType itemType)
         {
             _inventoryService = inventoryService;
-            _assetsProvider = assetsProvider;
+            _itemsRarityConfig = assetsProvider.GetItemsRarityConfigMeta();
             _itemSlotVisualizer = itemSlotVisualizer;
             _itemType = itemType;
         }
@@ -23,7 +24,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu
         // FIELDS: --------------------------------------------------------------------------------
 
         private readonly IInventoryService _inventoryService;
-        private readonly IAssetsProvider _assetsProvider;
+        private readonly ItemsRarityConfigMeta _itemsRarityConfig;
         private readonly ItemSlotVisualizer _itemSlotVisualizer;
         private readonly ItemType _itemType;
 
@@ -46,10 +47,15 @@ namespace GameCore.UI.MainMenu.InventoryMenu
 
         private void UpdateInfo(WearableItemMeta itemMeta, ItemData itemData)
         {
+            ItemRarity itemRarity = itemData.ItemRarity;
             int itemLevel = itemData.Level;
             Sprite itemIcon = itemMeta.Icon;
             
+            ItemRarityConfig itemRarityConfig = _itemsRarityConfig.GetItemRarityConfig(itemRarity);
+            Sprite rarityFrame = itemRarityConfig.RarityFrame;
+            
             _itemSlotVisualizer.SetItemIcon(itemIcon);
+            _itemSlotVisualizer.SetFrameImage(rarityFrame);
             _itemSlotVisualizer.SetItemLevel(itemLevel);
             _itemSlotVisualizer.SetItemAvailableState(isAvailable: true);
         }

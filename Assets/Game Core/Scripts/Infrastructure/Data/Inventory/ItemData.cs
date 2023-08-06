@@ -1,4 +1,5 @@
 using System;
+using GameCore.Enums;
 using GameCore.Items;
 using GameCore.Utilities;
 using Sirenix.OdinInspector;
@@ -19,6 +20,9 @@ namespace GameCore.Infrastructure.Data
         public ItemData(string itemID, int level) : this(itemID) =>
             _level = level;
 
+        public ItemData(string itemID, int level, ItemRarity itemRarity) : this(itemID, level) =>
+            _itemRarity = itemRarity;
+
         // MEMBERS: -------------------------------------------------------------------------------
 
         [BoxGroup(InfoGroup), SerializeField]
@@ -28,6 +32,9 @@ namespace GameCore.Infrastructure.Data
         [Tooltip("Unique key of the item.")]
         private string _itemKey;
 
+        [BoxGroup(InfoGroup), SerializeField]
+        private ItemRarity _itemRarity;
+        
         [BoxGroup(InfoGroup), SerializeField, Min(1)]
         private int _level = 1;
 
@@ -43,7 +50,9 @@ namespace GameCore.Infrastructure.Data
 
         public string ItemID => _itemID;
         public string ItemKey => _itemKey;
+        public ItemRarity ItemRarity => _itemRarity;
         public int Level => _level;
+        public ItemStats ItemStats => _itemStats;
 
         private string Label => $"'Item ID: {_itemID}',   'Level: {_level}'";
 

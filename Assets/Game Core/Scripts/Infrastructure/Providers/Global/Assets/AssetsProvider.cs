@@ -13,6 +13,7 @@ namespace GameCore.Infrastructure.Providers.Global
         {
             _itemsMeta = LoadAll<ItemMeta>(path: AssetsPaths.Items);
             _menuPrefabsListMeta = Load<MenuPrefabsListMeta>(path: AssetsPaths.MenuPrefabsListMeta);
+            _gameItemPrefabsListMeta = Load<GameItemPrefabsListMeta>(path: AssetsPaths.GameItemPrefabsListMeta);
             _itemsRarityConfigMeta = Load<ItemsRarityConfigMeta>(path: AssetsPaths.ItemsRarityConfigMeta);
         }
 
@@ -20,12 +21,14 @@ namespace GameCore.Infrastructure.Providers.Global
 
         private readonly ItemMeta[] _itemsMeta;
         private readonly MenuPrefabsListMeta _menuPrefabsListMeta;
+        private readonly GameItemPrefabsListMeta _gameItemPrefabsListMeta;
         private readonly ItemsRarityConfigMeta _itemsRarityConfigMeta;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public ItemMeta[] GetItemsMeta() => _itemsMeta;
         public MenuPrefabsListMeta GetMenuPrefabsListMeta() => _menuPrefabsListMeta;
+        public GameItemPrefabsListMeta GetGameItemPrefabsListMeta() => _gameItemPrefabsListMeta;
         public ItemsRarityConfigMeta GetItemsRarityConfigMeta() => _itemsRarityConfigMeta;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------

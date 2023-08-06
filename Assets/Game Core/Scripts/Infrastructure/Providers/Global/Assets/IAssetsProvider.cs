@@ -8,6 +8,7 @@ namespace GameCore.Infrastructure.Providers.Global
     {
         ItemMeta[] GetItemsMeta();
         MenuPrefabsListMeta GetMenuPrefabsListMeta();
+        GameItemPrefabsListMeta GetGameItemPrefabsListMeta();
         ItemsRarityConfigMeta GetItemsRarityConfigMeta();
     }
 }

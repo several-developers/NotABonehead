@@ -7,13 +7,6 @@ using GameCore.Items;
 
 namespace GameCore.Infrastructure.Services.Global.Inventory
 {
-    public interface IInventoryService
-    {
-        bool TryGetItemData(string itemKey, out ItemData itemData);
-        bool TryGetItemMetaByKey(string itemKey, out ItemMeta itemMeta);
-        bool TryGetEquippedItemKey(ItemType itemType, out string itemKey);
-    }
-
     public class InventoryService : IInventoryService
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
@@ -50,6 +43,9 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
             itemMeta = null;
             return false;
         }
+        
+        public bool TryGetItemMetaByID(string itemID, out ItemMeta itemMeta) =>
+            _itemsMetaProvider.TryGetItemMeta(itemID, out itemMeta);
 
         public bool TryGetEquippedItemKey(ItemType itemType, out string itemKey) =>
             _inventoryDataService.TryGetEquippedItemKey(itemType, out itemKey);

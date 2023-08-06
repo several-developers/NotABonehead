@@ -31,7 +31,17 @@ namespace GameCore.UI.MainMenu.InventoryMenu
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
-        private void Start() =>
+        private void Start() => UpdateSlotInfo();
+
+        // PRIVATE METHODS: -----------------------------------------------------------------------
+
+        private void UpdateSlotInfo() =>
             _itemSlotLogic.UpdateSlotInfo();
+         
+        // DEBUG BUTTONS: -------------------------------------------------------------------------
+
+        [Title(Constants.DebugButtons)]
+        [Button(25)]
+        private void DebugUpdateSlotInfo() => UpdateSlotInfo();
     }
 }

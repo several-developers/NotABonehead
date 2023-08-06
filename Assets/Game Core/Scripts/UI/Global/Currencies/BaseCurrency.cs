@@ -5,6 +5,7 @@ using GameCore.Utilities;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace GameCore.UI.Global.Currency
@@ -25,8 +26,11 @@ namespace GameCore.UI.Global.Currency
 
         [SerializeField]
         private bool _updateOnEnable;
-        
+
         [Title(Constants.References)]
+        [SerializeField, Required]
+        private Button _button;
+        
         [SerializeField, Required]
         private TextMeshProUGUI _valueTMP;
         
@@ -39,8 +43,12 @@ namespace GameCore.UI.Global.Currency
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
-        protected virtual void Awake() =>
+        protected virtual void Awake()
+        {
+            _button.onClick.AddListener(OnCurrencyClicked);
+            
             GlobalEvents.OnCurrencyChanged += OnCurrencyChanged;
+        }
 
         private void Start() => UpdateValueInstant();
 
@@ -61,6 +69,8 @@ namespace GameCore.UI.Global.Currency
 
         protected abstract void UpdateValueInstant();
 
+        protected abstract void ClickLogic();
+        
         protected void StartValueUpdater(float endValue)
         {
             if (!gameObject.activeSelf)
@@ -103,7 +113,9 @@ namespace GameCore.UI.Global.Currency
         }
 
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
-        
+
+        private void OnCurrencyClicked() => ClickLogic();
+
         private void OnCurrencyChanged() => UpdateValue();
     }
 }

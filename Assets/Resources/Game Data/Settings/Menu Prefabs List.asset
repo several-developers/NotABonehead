@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10639b263554b1ca51871216ecc6f01, type: 3}
   m_Name: Menu Prefabs List
   m_EditorClassIdentifier: 
-  _metaName: 
+  _metaName: Menu Prefabs List
   _menuPrefabs: []

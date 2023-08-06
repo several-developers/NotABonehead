@@ -19,6 +19,22 @@ namespace GameCore.Infrastructure.Services.Global.Data
         private readonly PlayerData _playerData;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
+
+        public void AddGold(long gold, bool autoSave = true)
+        {
+            long newGold = _playerData.Gold + gold;
+            
+            _playerData.SetGold(newGold);
+            SaveLocalData(autoSave);
+        }
+
+        public void AddGems(int gems, bool autoSave = true)
+        {
+            int newGems = _playerData.Gems + gems;
+            
+            _playerData.SetGems(newGems);
+            SaveLocalData(autoSave);
+        }
         
         public void SetGold(long gold, bool autoSave = true)
         {
@@ -26,9 +42,9 @@ namespace GameCore.Infrastructure.Services.Global.Data
             SaveLocalData(autoSave);
         }
 
-        public void SetGems(int crystals, bool autoSave = true)
+        public void SetGems(int gems, bool autoSave = true)
         {
-            _playerData.SetGems(crystals);
+            _playerData.SetGems(gems);
             SaveLocalData(autoSave);
         }
 
