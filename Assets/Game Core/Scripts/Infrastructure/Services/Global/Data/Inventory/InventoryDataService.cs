@@ -23,9 +23,17 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void AddItemData(string itemID, ItemStats itemStats, bool autoSave)
+        public string AddItemData(string itemID, ItemStats itemStats, bool autoSave)
         {
-            _inventoryData.AddItemData(itemID, itemStats);
+            string itemKey = _inventoryData.AddItemData(itemID, itemStats);
+            SaveLocalData(autoSave);
+
+            return itemKey;
+        }
+
+        public void RemoveItemData(string itemKey, bool autoSave)
+        {
+            _inventoryData.RemoveItemData(itemKey);
             SaveLocalData(autoSave);
         }
 
@@ -67,10 +75,10 @@ namespace GameCore.Infrastructure.Services.Global.Data
             foreach (EquippedItemData equippedItemData in allEquippedItemsData)
             {
                 bool isItemKeyValid = !string.IsNullOrEmpty(equippedItemData.ItemKey);
-                
+
                 if (!isItemKeyValid)
                     continue;
-                
+
                 itemKeys.Add(equippedItemData.ItemKey);
             }
 

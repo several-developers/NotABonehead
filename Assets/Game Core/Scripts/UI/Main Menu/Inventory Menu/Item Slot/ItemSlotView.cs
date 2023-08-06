@@ -1,3 +1,4 @@
+using System;
 using GameCore.Enums;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Inventory;
@@ -32,6 +33,9 @@ namespace GameCore.UI.MainMenu.InventoryMenu
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
         private void Start() => UpdateSlotInfo();
+
+        private void OnDestroy() =>
+            _itemSlotLogic.Dispose();
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 

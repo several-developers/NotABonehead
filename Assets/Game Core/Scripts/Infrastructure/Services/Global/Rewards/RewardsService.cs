@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using GameCore.Configs;
 using GameCore.Enums;
+using GameCore.Events;
 using GameCore.Factories;
+using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Providers.Global.ItemsMeta;
+using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Items;
 using GameCore.UI.MainMenu.GameItems;
@@ -19,14 +22,17 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         public RewardsService(IInventoryService inventoryService, IItemsMetaProvider itemsMetaProvider,
-            IAssetsProvider assetsProvider)
+            IAssetsProvider assetsProvider, IPlayerDataService playerDataService)
         {
             _inventoryService = inventoryService;
             _itemsMetaProvider = itemsMetaProvider;
             _assetsProvider = assetsProvider;
+            _playerDataService = playerDataService;
         }
 
         // FIELDS: --------------------------------------------------------------------------------
+
+        public event Action<int> OnDroppedItemSoldEvent;
 
         private const int MaxItemTypesRepeats = 3;
         private const int MinStatValue = 1;
@@ -35,20 +41,24 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         private readonly IInventoryService _inventoryService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
         private readonly IAssetsProvider _assetsProvider;
+        private readonly IPlayerDataService _playerDataService;
 
         private ItemType _previousItemType;
         private int _sameItemTypeRepeats;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void GiveItemReward(string itemID, ItemStats itemStats, bool autoSave = true) =>
-            _inventoryService.AddItem(itemID, itemStats, autoSave);
+        public void GiveRandomItem(bool autoSave = true)
+        {
+            ItemType itemType = GetRandomItemType();
+            ItemRarity itemRarity = GetRandomItemRarity();
 
-        public bool GiveItemReward(Transform container, ItemType itemType, ItemRarity itemRarity,
-            out GameItemView gameItemView)
+            GiveItem(itemType, itemRarity, autoSave);
+        }
+
+        public void GiveItem(ItemType itemType, ItemRarity itemRarity, bool autoSave = true)
         {
             bool itemsTypeRepeats = CheckIfItemsTypeRepeats(itemType);
-            gameItemView = null;
 
             if (itemsTypeRepeats)
                 itemType = GetRandomItemType(itemType);
@@ -58,66 +68,43 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             bool isItemMetaFound = TryGetRandomItemMeta(itemType, out ItemMeta itemMeta);
 
             if (!isItemMetaFound)
-                return false;
+                return;
 
             ItemStats itemStats = CreateItemStats(itemRarity);
-            GiveItemReward(itemMeta.ItemID, itemStats);
-
-            ItemViewParams itemViewParams = new(itemMeta.ItemID, useItemKey: false, isInteractable: true);
-
-            ItemRarityParam itemRarityParam = new(itemStats.Rarity);
-            ItemLevelParam itemLevelParam = new(itemStats.Level);
-
-            itemViewParams.AddParam(itemRarityParam);
-            itemViewParams.AddParam(itemLevelParam);
-
-            gameItemView = GameItemsFactory.Create<WearableItemView, ItemViewParams>(container, itemViewParams);
-            return true;
+            GiveItem(itemMeta.ItemID, itemStats, autoSave);
         }
 
-        public bool GiveRandomItemReward(Transform container, out GameItemView gameItemView)
-        {
-            ItemType itemType = GetRandomItemType();
-            ItemRarity itemRarity = GetRandomItemRarity();
+        public void GiveItem(string itemID, ItemStats itemStats, bool autoSave = true) =>
+            _inventoryService.SetDroppedItemData(itemID, itemStats, autoSave);
 
-            return GiveItemReward(container, itemType, itemRarity, out gameItemView);
+        public void TrySellDroppedItem()
+        {
+            bool containsDroppedItem = _inventoryService.TryGetDroppedItemData(out ItemData itemData);
+
+            if (!containsDroppedItem)
+                return;
+            
+            _inventoryService.RemoveDroppedItemData(autoSave: false);
+
+            int goldReward = CalculateItemGoldReward(itemData.ItemStats);
+            _playerDataService.AddGold(goldReward);
+
+            GlobalEvents.SendCurrencyChanged();
+            OnDroppedItemSoldEvent?.Invoke(goldReward);
+        }
+
+        public static int CalculateItemGoldReward(ItemStats itemStats)
+        {
+            int reward = 0;
+
+            reward += itemStats.Health;
+            reward += itemStats.Damage;
+            reward += itemStats.Defense;
+
+            return reward;
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
-
-        private ItemType GetRandomItemType()
-        {
-            int typesAmount = Enum.GetNames(typeof(ItemType)).Length;
-            int randomValue = Random.Range(0, typesAmount);
-            ItemType itemType = (ItemType)randomValue;
-
-            return itemType;
-        }
-
-        private ItemType GetRandomItemType(ItemType excludedItemType)
-        {
-            int typesAmount = Enum.GetNames(typeof(ItemType)).Length;
-            ItemType itemType;
-
-            const int maxIterations = 100;
-            int iterations = 0;
-
-            while (true)
-            {
-                int randomValue = Random.Range(0, typesAmount);
-                itemType = (ItemType)randomValue;
-
-                if (itemType != excludedItemType)
-                    break;
-
-                if (iterations >= maxIterations)
-                    break;
-
-                iterations++;
-            }
-
-            return itemType;
-        }
 
         private ItemRarity GetRandomItemRarity()
         {
@@ -168,7 +155,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         private bool TryGetRandomItemMeta(ItemType itemType, out ItemMeta result)
         {
             result = null;
-            List<WearableItemMeta> itemsMetaWithCorrectType = new(capacity: 6);
+            List<ItemMeta> itemsMetaWithCorrectType = new(capacity: 6);
             GetCorrectItemsMeta();
 
             int itemsAmount = itemsMetaWithCorrectType.Count;
@@ -184,21 +171,21 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
 
             void GetCorrectItemsMeta()
             {
-                IEnumerable<WearableItemMeta> allItemsMeta = _itemsMetaProvider.GetAllWearableItemsMeta();
+                IEnumerable<ItemMeta> allItemsMeta = _itemsMetaProvider.GetAllItemsMeta();
 
-                foreach (WearableItemMeta wearableItemMeta in allItemsMeta)
+                foreach (ItemMeta itemMeta in allItemsMeta)
                 {
-                    if (wearableItemMeta.ItemType != itemType)
+                    if (itemMeta.ItemType != itemType)
                         continue;
 
-                    itemsMetaWithCorrectType.Add(wearableItemMeta);
+                    itemsMetaWithCorrectType.Add(itemMeta);
                 }
             }
         }
 
-        private ItemStats CreateItemStats(ItemRarity itemRarity = ItemRarity.Common)
+        private static ItemStats CreateItemStats(ItemRarity itemRarity = ItemRarity.Common)
         {
-            int level = 1;
+            const int level = 1;
             int health = GetRandomStatValue();
             int damage = GetRandomStatValue();
             int defense = GetRandomStatValue();
@@ -207,7 +194,41 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             return itemStats;
         }
 
-        private int GetRandomStatValue() =>
+        private static ItemType GetRandomItemType()
+        {
+            int typesAmount = Enum.GetNames(typeof(ItemType)).Length;
+            int randomValue = Random.Range(0, typesAmount);
+            ItemType itemType = (ItemType)randomValue;
+
+            return itemType;
+        }
+
+        private static ItemType GetRandomItemType(ItemType excludedItemType)
+        {
+            int typesAmount = Enum.GetNames(typeof(ItemType)).Length;
+            ItemType itemType;
+
+            const int maxIterations = 100;
+            int iterations = 0;
+
+            while (true)
+            {
+                int randomValue = Random.Range(0, typesAmount);
+                itemType = (ItemType)randomValue;
+
+                if (itemType != excludedItemType)
+                    break;
+
+                if (iterations >= maxIterations)
+                    break;
+
+                iterations++;
+            }
+
+            return itemType;
+        }
+
+        private static int GetRandomStatValue() =>
             Random.Range(MinStatValue, MaxStatValue + 1);
     }
 }

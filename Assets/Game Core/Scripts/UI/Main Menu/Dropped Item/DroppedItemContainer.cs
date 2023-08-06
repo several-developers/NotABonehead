@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,14 +12,22 @@ namespace GameCore.UI.MainMenu.DroppedItem
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(DiContainer diContainer, IItemsShowcaseService itemsShowcaseService)
+        private void Construct(DiContainer diContainer, IItemsShowcaseService itemsShowcaseService,
+            IInventoryService inventoryService)
         {
             _diContainer = diContainer;
             _itemsShowcaseService = itemsShowcaseService;
+            _inventoryService = inventoryService;
+
+            _inventoryService.OnReceivedDroppedItemEvent += OnReceivedDroppedItemEvent;
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
 
+        [Title(Constants.Settings)]
+        [SerializeField, Min(0)]
+        private float _createDelay = 0.5f;
+        
         [Title(Constants.References)]
         [SerializeField, Required]
         private Transform _container;
@@ -29,13 +39,25 @@ namespace GameCore.UI.MainMenu.DroppedItem
 
         private DiContainer _diContainer;
         private IItemsShowcaseService _itemsShowcaseService;
+        private IInventoryService _inventoryService;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
         private void Start() => TryCreateDroppedItemView();
 
+        private void OnDestroy() =>
+            _inventoryService.OnReceivedDroppedItemEvent -= OnReceivedDroppedItemEvent;
+
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
+        private async void TryCreateDroppedItemViewWithDelay()
+        {
+            int delay = (int)(_createDelay * 1000);
+            await UniTask.Delay(delay);
+            
+            TryCreateDroppedItemView();
+        }
+        
         private void TryCreateDroppedItemView()
         {
             bool containsDroppedItem = _itemsShowcaseService.ContainsDroppedItem();
@@ -45,5 +67,9 @@ namespace GameCore.UI.MainMenu.DroppedItem
 
             _diContainer.InstantiatePrefab(_droppedItemViewPrefab, _container);
         }
+
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
+
+        private void OnReceivedDroppedItemEvent() => TryCreateDroppedItemViewWithDelay();
     }
 }

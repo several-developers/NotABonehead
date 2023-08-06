@@ -60,5 +60,17 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
                 break;
             }
         }
+
+        public void SetDifference(StatType statType, int value)
+        {
+            foreach (StatItemView statItemView in _statItemsView)
+            {
+                if (statItemView.StatType != statType)
+                    continue;
+                
+                statItemView.SetDifference(value);
+                break;
+            }
+        }
     }
 }

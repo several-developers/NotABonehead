@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88041e4f255438591df931438f00a4a, type: 3}
-  m_Name: Shield 1
+  m_Script: {fileID: 11500000, guid: 8bac7f1bd5a94a038fb72ee944f8163f, type: 3}
+  m_Name: Shield 3
   m_EditorClassIdentifier: 
-  _metaName: Shield 1
+  _metaName: Shield 3
   _icon: {fileID: 21300000, guid: c3acb55d34fa40a42ad4a4afd18ebec9, type: 3}
   _itemID: shield_3
   _itemName: Wooden Shield

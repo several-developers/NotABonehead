@@ -18,6 +18,9 @@ namespace GameCore.UI.MainMenu.DroppedItem
         {
             _inventoryService = inventoryService;
             _itemsShowcaseService = itemsShowcaseService;
+
+            _inventoryService.OnReceivedDroppedItemEvent += OnReceivedDroppedItemEvent;
+            _inventoryService.OnRemovedDroppedItemEvent += OnRemovedDroppedItemEvent;
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
@@ -43,8 +46,13 @@ namespace GameCore.UI.MainMenu.DroppedItem
             UpdateIcon();
         }
 
-        private void OnDestroy() =>
+        private void OnDestroy()
+        {
             _droppedItemAnimation.Dispose();
+            
+            _inventoryService.OnReceivedDroppedItemEvent -= OnReceivedDroppedItemEvent;
+            _inventoryService.OnRemovedDroppedItemEvent -= OnRemovedDroppedItemEvent;
+        }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
@@ -60,5 +68,9 @@ namespace GameCore.UI.MainMenu.DroppedItem
 
             _itemIconImage.sprite = itemMeta.Icon;
         }
+
+        private void OnReceivedDroppedItemEvent() => Destroy(gameObject);
+        
+        private void OnRemovedDroppedItemEvent() => Destroy(gameObject);
     }
 }

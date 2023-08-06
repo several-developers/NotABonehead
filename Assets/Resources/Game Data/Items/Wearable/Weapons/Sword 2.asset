@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88041e4f255438591df931438f00a4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bac7f1bd5a94a038fb72ee944f8163f, type: 3}
   m_Name: Sword 2
   m_EditorClassIdentifier: 
   _metaName: Sword 2

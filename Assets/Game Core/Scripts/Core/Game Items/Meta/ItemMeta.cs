@@ -1,10 +1,11 @@
-﻿using Sirenix.OdinInspector;
+﻿using GameCore.Enums;
+using Sirenix.OdinInspector;
 using UbicaEditor;
 using UnityEngine;
 
 namespace GameCore.Items
 {
-    public abstract class ItemMeta : EditorMeta
+    public class ItemMeta : EditorMeta
     {
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -18,12 +19,16 @@ namespace GameCore.Items
         
         [VerticalGroup(RowRight), SerializeField]
         private string _itemName = "item_name";
+        
+        [VerticalGroup(RowRight), SerializeField]
+        private ItemType _itemType;
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
         public Sprite Icon => _icon;
         public string ItemID => _itemID;
         public string ItemName => _itemName;
+        public ItemType ItemType => _itemType;
         
         // FIELDS: --------------------------------------------------------------------------------
 

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameCore.Enums;
+using GameCore.Events;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global.ItemsMeta;
 using GameCore.Infrastructure.Services.Global.Data;
+using GameCore.Infrastructure.Services.Global.Rewards;
 using GameCore.Items;
 
 namespace GameCore.Infrastructure.Services.Global.Inventory
@@ -13,32 +15,42 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         public InventoryService(ISaveLoadService saveLoadService, IInventoryDataService inventoryDataService,
-            IItemsMetaProvider itemsMetaProvider)
+            IItemsMetaProvider itemsMetaProvider, IPlayerDataService playerDataService)
         {
             _saveLoadService = saveLoadService;
             _inventoryDataService = inventoryDataService;
             _itemsMetaProvider = itemsMetaProvider;
+            _playerDataService = playerDataService;
 
             CheckForMissingEquippedItemsData();
             CheckEquippedItemsForCorrectTypes();
         }
 
         // FIELDS: --------------------------------------------------------------------------------
-        
+
         public event Action OnItemEquippedEvent;
         public event Action OnItemUnEquippedEvent;
+        public event Action OnReceivedDroppedItemEvent;
+        public event Action OnRemovedDroppedItemEvent;
 
         private readonly ISaveLoadService _saveLoadService;
         private readonly IInventoryDataService _inventoryDataService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
+        private readonly IPlayerDataService _playerDataService;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void AddItem(string itemID, ItemStats itemStats, bool autoSave) =>
+        public string AddItem(string itemID, ItemStats itemStats, bool autoSave) =>
             _inventoryDataService.AddItemData(itemID, itemStats, autoSave);
 
-        public void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave) =>
+        public void RemoveItemData(string itemKey, bool autoSave) =>
+            _inventoryDataService.RemoveItemData(itemKey, autoSave);
+
+        public void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave)
+        {
             _inventoryDataService.SetDroppedItemData(itemID, itemStats, autoSave);
+            OnReceivedDroppedItemEvent?.Invoke();
+        }
 
         public void EquipItem(ItemType itemType, string itemKey, bool autoSave)
         {
@@ -52,8 +64,21 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
             OnItemUnEquippedEvent?.Invoke();
         }
 
-        public void RemoveDroppedItemData(bool autoSave) =>
+        public void EquipDroppedItem(bool autoSave)
+        {
+            bool isSuccessfulEquipped = EquipDroppedItemLogic();
+
+            if (!isSuccessfulEquipped)
+                return;
+            
+            SaveLocalData(autoSave);
+        }
+        
+        public void RemoveDroppedItemData(bool autoSave)
+        {
             _inventoryDataService.RemoveDroppedItemData(autoSave);
+            OnRemovedDroppedItemEvent?.Invoke();
+        }
 
         public IEnumerable<string> GetAllEquippedItemsKeys() =>
             _inventoryDataService.GetAllEquippedItemsKeys();
@@ -71,7 +96,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
             itemMeta = null;
             return false;
         }
-        
+
         public bool TryGetItemMetaByID(string itemID, out ItemMeta itemMeta) =>
             _itemsMetaProvider.TryGetItemMeta(itemID, out itemMeta);
 
@@ -99,10 +124,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 _inventoryDataService.CreateEquippedItemData(itemType, autoSave: false);
             }
 
-            if (!autoSave)
-                return;
-
-            _saveLoadService.Save();
+            SaveLocalData(autoSave);
         }
 
         private void CheckEquippedItemsForCorrectTypes()
@@ -112,11 +134,8 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
 
             foreach (ItemType itemType in array)
                 ValidItem(itemType);
-
-            if (!autoSave)
-                return;
-
-            _saveLoadService.Save();
+            
+            SaveLocalData(autoSave);
 
             // METHODS: -----------------------------------
 
@@ -145,27 +164,61 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                     return;
                 }
 
-                bool isCorrectMetaType = itemMeta is WearableItemMeta;
-
-                if (!isCorrectMetaType)
-                {
-                    autoSave = true;
-                    UnEquip(itemType);
-                    return;
-                }
-
-                WearableItemMeta wearableItemMeta = (WearableItemMeta)itemMeta;
-                bool isCorrectItemType = itemType == wearableItemMeta.ItemType;
+                bool isCorrectItemType = itemType == itemMeta.ItemType;
 
                 if (isCorrectItemType)
                     return;
-                
+
                 autoSave = true;
                 UnEquip(itemType);
             }
 
             void UnEquip(ItemType itemType) =>
                 _inventoryDataService.UnEquipItem(itemType, autoSave: false);
+        }
+
+        private bool EquipDroppedItemLogic()
+        {
+            bool isDroppedItemExists = TryGetDroppedItemData(out ItemData droppedItemData);
+
+            if (!isDroppedItemExists)
+                return false;
+
+            bool isDroppedItemMetaExists = TryGetItemMetaByID(droppedItemData.ItemID, out ItemMeta droppedItemMeta);
+
+            if (!isDroppedItemMetaExists)
+                return false;
+
+            bool isEquippedItemExists = TryGetEquippedItemKey(droppedItemMeta.ItemType, out string equippedItemKey);
+
+            if (isEquippedItemExists)
+            {
+                bool isEquippedDataExists = TryGetItemData(equippedItemKey, out ItemData equippedItemData);
+
+                if (!isEquippedDataExists)
+                    return false;
+
+                int goldReward = RewardsService.CalculateItemGoldReward(equippedItemData.ItemStats);
+                _playerDataService.AddGold(goldReward, autoSave: false);
+                
+                RemoveItemData(equippedItemKey, autoSave: false);
+                GlobalEvents.SendCurrencyChanged();
+            }
+            
+            string newItemKey = AddItem(droppedItemMeta.ItemID, droppedItemData.ItemStats, autoSave: false);
+                
+            EquipItem(droppedItemMeta.ItemType, newItemKey, autoSave: false);
+            RemoveDroppedItemData(autoSave: false);
+
+            return true;
+        }
+
+        private void SaveLocalData(bool autoSave = true)
+        {
+            if (!autoSave)
+                return;
+
+            _saveLoadService.Save();
         }
     }
 }

@@ -26,22 +26,6 @@ namespace GameCore.Infrastructure.Providers.Global.ItemsMeta
 
         public IEnumerable<ItemMeta> GetAllItemsMeta() =>
             _assetsProvider.GetItemsMeta();
-        
-        public IEnumerable<WearableItemMeta> GetAllWearableItemsMeta()
-        {
-            ItemMeta[] itemsMeta = _assetsProvider.GetItemsMeta();
-            List<WearableItemMeta> wearableItemsMeta = new(capacity: itemsMeta.Length);
-
-            foreach (ItemMeta itemMeta in itemsMeta)
-            {
-                if (itemMeta is not WearableItemMeta wearableItemMeta)
-                    continue;
-                
-                wearableItemsMeta.Add(wearableItemMeta);
-            }
-
-            return wearableItemsMeta;
-        }
 
         public bool TryGetItemMeta(string itemID, out ItemMeta itemMeta) =>
             _itemsMetaDictionary.TryGetValue(itemID, out itemMeta);

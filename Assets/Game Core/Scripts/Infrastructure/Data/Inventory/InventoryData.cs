@@ -41,10 +41,28 @@ namespace GameCore.Infrastructure.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void AddItemData(string itemID, ItemStats itemStats)
+        public string AddItemData(string itemID, ItemStats itemStats)
         {
             ItemData itemData = new(itemID, itemStats);
             _itemsData.Add(itemData);
+            
+            return itemData.ItemKey;
+        }
+
+        public void RemoveItemData(string itemKey)
+        {
+            int itemsDataAmount = _itemsData.Count;
+
+            for (int i = itemsDataAmount - 1; i >= 0; i--)
+            {
+                bool isKeyMatches = string.Equals(_itemsData[i].ItemKey, itemKey);
+
+                if (!isKeyMatches)
+                    continue;
+                
+                _itemsData.RemoveAt(i);
+                break;
+            }
         }
 
         public void SetDroppedItemData(string itemID, ItemStats itemStats)

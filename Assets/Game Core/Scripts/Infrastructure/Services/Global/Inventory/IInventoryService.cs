@@ -10,11 +10,15 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
     {
         event Action OnItemEquippedEvent;
         event Action OnItemUnEquippedEvent;
+        event Action OnReceivedDroppedItemEvent;
+        event Action OnRemovedDroppedItemEvent;
         
-        void AddItem(string itemID, ItemStats itemStats, bool autoSave = true);
+        string AddItem(string itemID, ItemStats itemStats, bool autoSave = true);
+        void RemoveItemData(string itemKey, bool autoSave);
         void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave = true);
         void EquipItem(ItemType itemType, string itemKey, bool autoSave = true);
         void UnEquipItem(ItemType itemType, bool autoSave = true);
+        void EquipDroppedItem(bool autoSave = true);
         void RemoveDroppedItemData(bool autoSave = true);
         IEnumerable<string> GetAllEquippedItemsKeys();
         bool TryGetItemData(string itemKey, out ItemData itemData);

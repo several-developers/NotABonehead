@@ -153,7 +153,7 @@ MonoBehaviour:
   _droppedItemAnimation:
     _minScale: 0.85
     _maxScale: 1
-    _scaleDuration: 0.7
+    _scaleDuration: 0.6
     _scaleEase: 7
     _targetRT: {fileID: 47817280133415055}
 --- !u!1 &6111265694064947189

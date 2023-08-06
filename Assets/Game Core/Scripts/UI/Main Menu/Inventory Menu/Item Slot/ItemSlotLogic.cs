@@ -19,6 +19,8 @@ namespace GameCore.UI.MainMenu.InventoryMenu
             _itemsRarityConfig = assetsProvider.GetItemsRarityConfigMeta();
             _itemSlotVisualizer = itemSlotVisualizer;
             _itemType = itemType;
+
+            _inventoryService.OnItemEquippedEvent += OnItemEquippedEvent;
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -32,7 +34,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu
 
         public void UpdateSlotInfo()
         {
-            bool isItemSlotValid = IsItemSlotValid(out WearableItemMeta itemMeta, out ItemData itemData);
+            bool isItemSlotValid = IsItemSlotValid(out ItemMeta itemMeta, out ItemData itemData);
            
             if (!isItemSlotValid)
             {
@@ -43,9 +45,12 @@ namespace GameCore.UI.MainMenu.InventoryMenu
             UpdateInfo(itemMeta, itemData);
         }
 
+        public void Dispose() =>
+            _inventoryService.OnItemEquippedEvent -= OnItemEquippedEvent;
+
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void UpdateInfo(WearableItemMeta itemMeta, ItemData itemData)
+        private void UpdateInfo(ItemMeta itemMeta, ItemData itemData)
         {
             ItemRarity itemRarity = itemData.ItemStats.Rarity;
             int itemLevel = itemData.ItemStats.Level;
@@ -66,25 +71,13 @@ namespace GameCore.UI.MainMenu.InventoryMenu
         private bool TryGetEquippedItemKey(out string itemKey) =>
             _inventoryService.TryGetEquippedItemKey(_itemType, out itemKey);
 
-        private bool TryGetItemMeta(string itemKey, out WearableItemMeta result)
-        {
-            bool containsItemMeta = _inventoryService.TryGetItemMetaByKey(itemKey, out ItemMeta itemMeta);
-            result = null;
-
-            if (!containsItemMeta)
-                return false;
-
-            if (itemMeta is not WearableItemMeta wearableItemMeta)
-                return false;
-
-            result = wearableItemMeta;
-            return true;
-        }
+        private bool TryGetItemMeta(string itemKey, out ItemMeta result) =>
+            _inventoryService.TryGetItemMetaByKey(itemKey, out result);
 
         private bool TryGetItemData(string itemKey, out ItemData itemData) =>
             _inventoryService.TryGetItemData(itemKey, out itemData);
 
-        private bool IsItemSlotValid(out WearableItemMeta itemMeta, out ItemData itemData)
+        private bool IsItemSlotValid(out ItemMeta itemMeta, out ItemData itemData)
         {
             bool containsEquippedItemKey = TryGetEquippedItemKey(out string itemKey);
             itemMeta = null;
@@ -105,5 +98,9 @@ namespace GameCore.UI.MainMenu.InventoryMenu
 
             return true;
         }
+
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
+
+        private void OnItemEquippedEvent() => UpdateSlotInfo();
     }
 }

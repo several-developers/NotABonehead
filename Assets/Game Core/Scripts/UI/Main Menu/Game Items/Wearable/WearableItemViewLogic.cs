@@ -39,7 +39,7 @@ namespace GameCore.UI.MainMenu.GameItems
         {
             string itemID = itemParams.ItemKeyOrID;
 
-            bool isItemMetaValid = IsItemMetaValid(itemID, out WearableItemMeta wearableItemMeta);
+            bool isItemMetaValid = IsItemMetaValid(itemID, out ItemMeta itemMeta);
 
             if (!isItemMetaValid)
                 return;
@@ -53,27 +53,12 @@ namespace GameCore.UI.MainMenu.GameItems
             ItemRarityConfig itemRarityConfig = _itemsRarityConfig.GetItemRarityConfig(itemRarity);
             Sprite rarityFrame = itemRarityConfig.RarityFrame;
 
-            _itemVisualizer.SetItemIcon(wearableItemMeta.Icon);
+            _itemVisualizer.SetItemIcon(itemMeta.Icon);
             _itemVisualizer.SetFrameImage(rarityFrame);
             _itemVisualizer.SetItemLevel(itemLevel);
         }
 
-        private bool IsItemMetaValid(string itemID, out WearableItemMeta result)
-        {
-            bool containsItemMeta = _inventoryService.TryGetItemMetaByID(itemID, out ItemMeta itemMeta);
-            result = null;
-
-            if (!containsItemMeta)
-                return false;
-
-            bool isMetaCorrectType = itemMeta is WearableItemMeta;
-
-            if (!isMetaCorrectType)
-                return false;
-
-            result = (WearableItemMeta)itemMeta;
-
-            return true;
-        }
+        private bool IsItemMetaValid(string itemID, out ItemMeta result) =>
+            _inventoryService.TryGetItemMetaByID(itemID, out result);
     }
 }
