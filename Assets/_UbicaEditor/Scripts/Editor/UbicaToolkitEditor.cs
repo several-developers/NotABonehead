@@ -22,6 +22,7 @@ namespace UbicaEditor
 
         private const string BootstrapScenePath = ScenesPath + "Bootstrap.unity";
         private const string MainMenuScenePath = ScenesPath + "MainMenu.unity";
+        private const string BattleScenePath = ScenesPath + "Battle.unity";
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
@@ -32,6 +33,10 @@ namespace UbicaEditor
         [MenuItem(MainMenuSceneMenuItem)]
         private static void LoadMainMenuScene() =>
             OpenScene(MainMenuScenePath);
+
+        [MenuItem(BattleSceneMenuItem)]
+        private static void LoadBattleScene() =>
+            OpenScene(BattleScenePath);
 
         private static void OpenScene(string path)
         {

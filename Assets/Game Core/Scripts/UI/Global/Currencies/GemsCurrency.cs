@@ -1,3 +1,4 @@
+using GameCore.Enums;
 using GameCore.Events;
 using GameCore.Infrastructure.Services.Global.Data;
 using Zenject;
@@ -41,7 +42,7 @@ namespace GameCore.UI.Global.Currency
         protected override void ClickLogic()
         {
             _playerDataService.AddGems(GemsReward);
-            GlobalEvents.SendCurrencyChanged();
+            GlobalEvents.SendCurrencyChanged(CurrencyType.Gems);
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------

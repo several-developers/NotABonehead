@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metaName: Scarab
   _icon: {fileID: -1828946549344447192, guid: 306903ba18c180f46ac3783156892cb4, type: 3}
-  _health: 10
-  _damage: 3
+  _health: 100
+  _damage: 15
   _monsterPrefab: {fileID: 5771025906570419322, guid: 48fb138254009d848982b13be4abef85, type: 3}

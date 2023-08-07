@@ -5308,6 +5308,7 @@ GameObject:
   - component: {fileID: 5668832714484084080}
   - component: {fileID: 8042479279573925257}
   - component: {fileID: 6232732081763759470}
+  - component: {fileID: 3107803588695470875}
   m_Layer: 5
   m_Name: Currency Base
   m_TagString: Untagged
@@ -5476,3 +5477,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3107803588695470875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7067241611009060249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b21e30b61b404187a2d055cc7f0942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 0

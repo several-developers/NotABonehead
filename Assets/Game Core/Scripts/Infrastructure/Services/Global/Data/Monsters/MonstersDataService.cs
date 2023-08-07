@@ -34,6 +34,7 @@ namespace GameCore.Infrastructure.Services.Global.Data
             int totalMonstersAmount = _monstersData.GetMonstersAmount();
             int currentMonster = _monstersData.CurrentMonster;
             currentMonster++;
+            _monstersData.SetCurrentMonster(currentMonster);
             
             bool isOutOfBounce = currentMonster >= totalMonstersAmount;
             

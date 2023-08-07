@@ -36,6 +36,8 @@ namespace GameCore.Infrastructure.Bootstrap.BattleScene
             CreateMonster();
             CreatePlayer();
             StartBattle();
+            
+            Sounds.PlayBattleMusic();
         }
 
         private void CreateMonster() =>

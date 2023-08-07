@@ -1,4 +1,5 @@
 using System.Collections;
+using GameCore.Enums;
 using GameCore.Events;
 using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.Utilities;
@@ -116,6 +117,6 @@ namespace GameCore.UI.Global.Currency
 
         private void OnCurrencyClicked() => ClickLogic();
 
-        private void OnCurrencyChanged() => UpdateValue();
+        private void OnCurrencyChanged(CurrencyType currencyType) => UpdateValue();
     }
 }

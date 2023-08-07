@@ -61,6 +61,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
 
         private void Start()
         {
+            Sounds.PlaySound(SoundType.Collected);
             _menuLogic.UpdateButtonsState();
             Show();
         }

@@ -13,6 +13,9 @@ namespace GameCore.Battle.Player
         
         [SerializeField, Min(0)]
         private int _damage;
+        
+        [SerializeField, Min(0)]
+        private int _defense;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
@@ -30,16 +33,18 @@ namespace GameCore.Battle.Player
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void Setup(IPlayerTracker monsterTracker, int health, int damage)
+        public void Setup(IPlayerTracker monsterTracker, int health, int damage, int defense)
         {
             _playerTracker = monsterTracker;
             _health = Mathf.Max(health, 0);
             _damage = Mathf.Max(damage, 0);
+            _defense = Mathf.Max(defense, 0);
             _maxHealth = health;
 
             _animator = GetComponent<Animator>();
 
             _playerTracker.SetDamage(_damage);
+            _playerTracker.SetDefense(_defense);
             _playerTracker.OnDoAttackEvent += PlayAttackAnimation;
             _playerTracker.OnTakeDamageEvent += TakeDamage;
         }

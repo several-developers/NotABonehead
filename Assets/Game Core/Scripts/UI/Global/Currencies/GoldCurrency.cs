@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using GameCore.Events;
 using GameCore.Infrastructure.Services.Global.Data;
+using UnityEngine;
 using Zenject;
 
 namespace GameCore.UI.Global.Currency
@@ -12,6 +14,11 @@ namespace GameCore.UI.Global.Currency
         private void Construct(IPlayerDataService playerDataService) =>
             _playerDataService = playerDataService;
 
+        // MEMBERS: -------------------------------------------------------------------------------
+
+        [SerializeField, Min(0)]
+        private float _updateValueDelay;
+        
         // FIELDS: --------------------------------------------------------------------------------
 
         private const long GoldReward = 25;
@@ -20,13 +27,16 @@ namespace GameCore.UI.Global.Currency
         
         // PROTECTED METHODS: ---------------------------------------------------------------------
         
-        protected override void UpdateValue()
+        protected override async void UpdateValue()
         {
             if (!gameObject.activeSelf)
                 return;
             
             long playerMoney = GetGold();
 
+            int delay = (int)(_updateValueDelay * 1000);
+            await UniTask.Delay(delay);
+            
             StopValueUpdater();
             StartValueUpdater(playerMoney);
         }

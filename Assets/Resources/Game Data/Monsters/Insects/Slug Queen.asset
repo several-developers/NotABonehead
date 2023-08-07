@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metaName: Slug Queen
   _icon: {fileID: -7252215782646672311, guid: 28442bc4b10fa97458fc47dc13e9dd68, type: 3}
-  _health: 10
-  _damage: 3
+  _health: 100
+  _damage: 15
   _monsterPrefab: {fileID: 5771025906570419322, guid: de79d9226946d6140bb85bb9df9f4953, type: 3}

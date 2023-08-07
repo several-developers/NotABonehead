@@ -13,6 +13,8 @@ namespace GameCore.Battle.Player
         void SendAttack();
         void TakeDamage(int damage);
         void SetDamage(int damage);
+        void SetDefense(int defense);
         int GetDamage();
+        int GetDefense();
     }
 }

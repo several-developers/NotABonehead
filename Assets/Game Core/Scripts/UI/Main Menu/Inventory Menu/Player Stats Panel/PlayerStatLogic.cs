@@ -2,6 +2,7 @@
 using GameCore.Enums;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
+using GameCore.UI.BattleScene.DamageHints;
 
 namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
 {
@@ -31,6 +32,17 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         {
             IEnumerable<string> allEquippedItemsKeys = _inventoryService.GetAllEquippedItemsKeys();
             int statValue = 0;
+
+            switch (_statType)
+            {
+                case StatType.Health:
+                    statValue += 50;
+                    break;
+                
+                case StatType.Damage:
+                    statValue += 5;
+                    break;
+            }
 
             foreach (string itemKey in allEquippedItemsKeys)
             {

@@ -7,16 +7,13 @@ namespace GameCore.Infrastructure.Installers.MainMenu
     {
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public override void InstallBindings() => BindItemsShowcase();
+        public override void InstallBindings()
+        {
+            
+        }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void BindItemsShowcase()
-        {
-            Container
-                .BindInterfacesTo<ItemsShowcaseService>()
-                .AsSingle()
-                .NonLazy();
-        }
+       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using GameCore.Enums;
 
 namespace GameCore.Events
 {
@@ -6,10 +7,11 @@ namespace GameCore.Events
     {
         // FIELDS: --------------------------------------------------------------------------------
 
-        public static event Action OnCurrencyChanged;
+        public static event Action<CurrencyType> OnCurrencyChanged;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public static void SendCurrencyChanged() => OnCurrencyChanged?.Invoke();
+        public static void SendCurrencyChanged(CurrencyType currencyType = CurrencyType.Gold) =>
+            OnCurrencyChanged?.Invoke(currencyType);
     }
 }
