@@ -1,6 +1,7 @@
 using GameCore.Configs;
 using GameCore.Factories;
 using GameCore.Items;
+using GameCore.Battle.Monsters;
 
 namespace GameCore.Infrastructure.Providers.Global
 {
@@ -11,5 +12,6 @@ namespace GameCore.Infrastructure.Providers.Global
         GameItemPrefabsListMeta GetGameItemPrefabsListMeta();
         ItemsRarityConfigMeta GetItemsRarityConfigMeta();
         ItemsDropChancesConfigMeta GetItemsDropChancesConfigMeta();
+        MonsterMeta[] GetAllMonstersMeta();
     }
 }

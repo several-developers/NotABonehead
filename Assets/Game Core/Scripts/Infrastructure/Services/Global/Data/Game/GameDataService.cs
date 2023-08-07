@@ -20,10 +20,17 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
         
-        public void SetCurrentLevel(int level, bool autoSave = true)
+        public void SetCurrentLevel(int level, bool autoSave)
         {
             _gameData.SetCurrentLevel(level);
             SaveLocalData(autoSave);
+        }
+
+        public void IncreaseCurrentLevel(bool autoSave)
+        {
+            int level = _gameData.CurrentLevel;
+            level++;
+            SetCurrentLevel(level, autoSave);
         }
 
         public int GetCurrentLevel() =>

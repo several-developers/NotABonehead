@@ -1,6 +1,7 @@
 ﻿using GameCore.Configs;
 using GameCore.Factories;
 using GameCore.Items;
+using GameCore.Battle.Monsters;
 using UnityEngine;
 
 namespace GameCore.Infrastructure.Providers.Global
@@ -16,6 +17,7 @@ namespace GameCore.Infrastructure.Providers.Global
             _gameItemPrefabsListMeta = Load<GameItemPrefabsListMeta>(path: AssetsPaths.GameItemPrefabsListMeta);
             _itemsRarityConfigMeta = Load<ItemsRarityConfigMeta>(path: AssetsPaths.ItemsRarityConfigMeta);
             _itemsDropChancesConfigMeta = Load<ItemsDropChancesConfigMeta>(path: AssetsPaths.ItemsDropChancesConfigMeta);
+            _allMonstersMeta = LoadAll<MonsterMeta>(path: AssetsPaths.MonstersMeta);
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -25,6 +27,7 @@ namespace GameCore.Infrastructure.Providers.Global
         private readonly GameItemPrefabsListMeta _gameItemPrefabsListMeta;
         private readonly ItemsRarityConfigMeta _itemsRarityConfigMeta;
         private readonly ItemsDropChancesConfigMeta _itemsDropChancesConfigMeta;
+        private readonly MonsterMeta[] _allMonstersMeta;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -33,6 +36,7 @@ namespace GameCore.Infrastructure.Providers.Global
         public GameItemPrefabsListMeta GetGameItemPrefabsListMeta() => _gameItemPrefabsListMeta;
         public ItemsRarityConfigMeta GetItemsRarityConfigMeta() => _itemsRarityConfigMeta;
         public ItemsDropChancesConfigMeta GetItemsDropChancesConfigMeta() => _itemsDropChancesConfigMeta;
+        public MonsterMeta[] GetAllMonstersMeta() => _allMonstersMeta;
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 

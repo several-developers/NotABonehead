@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using GameCore.Configs;
 using GameCore.Enums;
 using GameCore.Events;
-using GameCore.Factories;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Providers.Global.ItemsMeta;
 using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Items;
-using GameCore.UI.MainMenu.GameItems;
 using GameCore.Utilities;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace GameCore.Infrastructure.Services.Global.Rewards
@@ -37,6 +34,8 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         private const int MaxItemTypesRepeats = 3;
         private const int MinStatValue = 1;
         private const int MaxStatValue = 15;
+        private const int MinItemLevel = 1;
+        private const int MaxItemLevel = 10;
 
         private readonly IInventoryService _inventoryService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
@@ -185,7 +184,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
 
         private static ItemStats CreateItemStats(ItemRarity itemRarity = ItemRarity.Common)
         {
-            const int level = 1;
+            int level = GetRandomItemLevel();
             int health = GetRandomStatValue();
             int damage = GetRandomStatValue();
             int defense = GetRandomStatValue();
@@ -230,5 +229,8 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
 
         private static int GetRandomStatValue() =>
             Random.Range(MinStatValue, MaxStatValue + 1);
+        
+        private static int GetRandomItemLevel() =>
+            Random.Range(MinItemLevel, MaxItemLevel + 1);
     }
 }

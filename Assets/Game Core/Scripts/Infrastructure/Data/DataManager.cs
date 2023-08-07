@@ -17,6 +17,7 @@ namespace GameCore.Infrastructure.Data
             _gameSettingsData = new GameSettingsData();
             _playerData = new PlayerData();
             _inventoryData = new InventoryData();
+            _monstersData = new MonstersData();
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
@@ -33,6 +34,9 @@ namespace GameCore.Infrastructure.Data
 
         [BoxGroup(EditorConstants.InventoryData, showLabel: false), SerializeField]
         private InventoryData _inventoryData;
+        
+        [BoxGroup(EditorConstants.MonstersData, showLabel: false), SerializeField]
+        private MonstersData _monstersData;
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
@@ -40,6 +44,7 @@ namespace GameCore.Infrastructure.Data
         public PlayerData PlayerData => _playerData ??= new();
         public GameSettingsData GameSettingsData => _gameSettingsData ??= new();
         public InventoryData InventoryData => _inventoryData ??= new();
+        public MonstersData MonstersData => _monstersData ??= new();
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -49,6 +54,7 @@ namespace GameCore.Infrastructure.Data
             TryLoadData(ref _playerData);
             TryLoadData(ref _gameSettingsData);
             TryLoadData(ref _inventoryData);
+            TryLoadData(ref _monstersData);
         }
 
         public void SaveLocalData()
@@ -57,6 +63,7 @@ namespace GameCore.Infrastructure.Data
             TrySaveData(_playerData);
             TrySaveData(_gameSettingsData);
             TrySaveData(_inventoryData);
+            TrySaveData(_monstersData);
         }
 
         public void SaveLocalData<T>(T t) where T : DataBase => TrySaveData(t);
@@ -67,6 +74,7 @@ namespace GameCore.Infrastructure.Data
             TryDeleteData(ref _playerData);
             TryDeleteData(ref _gameSettingsData);
             TryDeleteData(ref _inventoryData);
+            TryDeleteData(ref _monstersData);
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------

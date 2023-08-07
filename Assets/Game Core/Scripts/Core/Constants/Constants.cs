@@ -17,5 +17,6 @@ namespace GameCore
         public const string GameSettingsDataKey = "GameSettingsData";
         public const string InventoryDataKey = "InventoryData";
         public const string LevelsDataKey = "LevelsData";
+        public const string MonstersDataKey = "MonstersData";
     }
 }

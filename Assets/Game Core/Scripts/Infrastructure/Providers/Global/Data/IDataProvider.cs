@@ -9,5 +9,6 @@ namespace GameCore.Infrastructure.Providers.Global.Data
         PlayerData GetPlayerData();
         GameSettingsData GetGameSettingsData();
         InventoryData GetInventoryData();
+        MonstersData GetMonstersData();
     }
 }

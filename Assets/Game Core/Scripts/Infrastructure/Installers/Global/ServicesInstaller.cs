@@ -34,6 +34,7 @@ namespace GameCore.Infrastructure.Installers.Global
             BindPlayerData();
             BindGameSettingsData();
             BindInventoryData();
+            BindMonstersData();
             
             // METHODS: -----------------------------------
 
@@ -65,6 +66,14 @@ namespace GameCore.Infrastructure.Installers.Global
             {
                 Container
                     .BindInterfacesTo<InventoryDataService>()
+                    .AsSingle()
+                    .NonLazy();
+            }
+            
+            void BindMonstersData()
+            {
+                Container
+                    .BindInterfacesTo<MonstersDataService>()
                     .AsSingle()
                     .NonLazy();
             }
