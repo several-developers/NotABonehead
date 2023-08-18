@@ -25,7 +25,7 @@ namespace GameCore.Infrastructure.Providers.Global.ItemsMeta
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public IEnumerable<ItemMeta> GetAllItemsMeta() =>
-            _assetsProvider.GetItemsMeta();
+            _assetsProvider.GetAllItemsMeta();
 
         public bool TryGetItemMeta(string itemID, out ItemMeta itemMeta) =>
             _itemsMetaDictionary.TryGetValue(itemID, out itemMeta);
@@ -34,7 +34,7 @@ namespace GameCore.Infrastructure.Providers.Global.ItemsMeta
 
         private void SetupItemDictionary()
         {
-            ItemMeta[] itemsMeta = _assetsProvider.GetItemsMeta();
+            ItemMeta[] itemsMeta = _assetsProvider.GetAllItemsMeta();
 
             foreach (ItemMeta itemMeta in itemsMeta)
             {

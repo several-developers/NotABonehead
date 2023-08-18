@@ -1,4 +1,3 @@
-using System;
 using GameCore.Enums;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Inventory;
@@ -13,8 +12,8 @@ namespace GameCore.UI.MainMenu.InventoryMenu
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IInventoryService inventoryService, IAssetsProvider assetsProvider) =>
-            _itemSlotLogic = new ItemSlotLogic(inventoryService, assetsProvider, _itemSlotVisualizer, _slotItemType);
+        private void Construct(IInventoryService inventoryService, IConfigsProvider configsProvider) =>
+            _itemSlotLogic = new ItemSlotLogic(inventoryService, configsProvider, _itemSlotVisualizer, _slotItemType);
 
         // MEMBERS: -------------------------------------------------------------------------------
 

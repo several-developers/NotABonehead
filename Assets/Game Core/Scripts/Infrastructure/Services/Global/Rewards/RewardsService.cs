@@ -19,11 +19,11 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         public RewardsService(IInventoryService inventoryService, IItemsMetaProvider itemsMetaProvider,
-            IAssetsProvider assetsProvider, IPlayerDataService playerDataService)
+            IConfigsProvider configsProvider, IPlayerDataService playerDataService)
         {
             _inventoryService = inventoryService;
             _itemsMetaProvider = itemsMetaProvider;
-            _assetsProvider = assetsProvider;
+            _configsProvider = configsProvider;
             _playerDataService = playerDataService;
         }
 
@@ -39,7 +39,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
 
         private readonly IInventoryService _inventoryService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
-        private readonly IAssetsProvider _assetsProvider;
+        private readonly IConfigsProvider _configsProvider;
         private readonly IPlayerDataService _playerDataService;
 
         private ItemType _previousItemType;
@@ -107,7 +107,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
 
         private ItemRarity GetRandomItemRarity()
         {
-            ItemsDropChancesConfigMeta itemsDropChancesConfig = _assetsProvider.GetItemsDropChancesConfigMeta();
+            ItemsDropChancesConfigMeta itemsDropChancesConfig = _configsProvider.GetItemsDropChancesConfig();
             int itemRaritiesAmount = Enum.GetNames(typeof(ItemRarity)).Length;
             double[] chances = new double[itemRaritiesAmount];
 

@@ -12,8 +12,8 @@ namespace GameCore.UI.MainMenu.GameItems
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IInventoryService inventoryService, IAssetsProvider assetsProvider) =>
-            _itemLogic = new WearableItemViewLogic(inventoryService, assetsProvider, _itemVisualizer);
+        private void Construct(IInventoryService inventoryService, IConfigsProvider configsProvider) =>
+            _itemLogic = new WearableItemViewLogic(inventoryService, configsProvider, _itemVisualizer);
 
         // MEMBERS: -------------------------------------------------------------------------------
 

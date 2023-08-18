@@ -12,10 +12,10 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IInventoryService inventoryService, IAssetsProvider assetsProvider,
+        private void Construct(IInventoryService inventoryService, IConfigsProvider configsProvider,
             IItemsShowcaseService itemsShowcaseService)
         {
-            _containerLogic = new EquippedItemContainerLogic(inventoryService, assetsProvider, itemsShowcaseService,
+            _containerLogic = new EquippedItemContainerLogic(inventoryService, configsProvider, itemsShowcaseService,
                 _containerVisualizer, _itemContainer);
         }
 

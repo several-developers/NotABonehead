@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;
-using GameCore.Battle.Player;
 using GameCore.Battle.Monsters;
+using GameCore.Battle.Player;
 using GameCore.Configs;
 using GameCore.Factories;
-using GameCore.Infrastructure.Providers.BattleScene.BattleAssets;
+using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.UI.BattleScene.GameOverMenus;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace GameCore.Battle
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public BattleStateController(ICoroutineRunner coroutineRunner, IBattleAssetsProvider battleAssetsProvider,
+        public BattleStateController(ICoroutineRunner coroutineRunner, IConfigsProvider configsProvider,
             IMonsterTracker monsterTracker, IPlayerTracker playerTracker, IMonstersDataService monstersDataService,
             IGameDataService gameDataService)
         {
@@ -25,7 +25,7 @@ namespace GameCore.Battle
             _playerTracker = playerTracker;
             _monstersDataService = monstersDataService;
             _gameDataService = gameDataService;
-            _battleStageConfig = battleAssetsProvider.GetBattleStageConfigMeta();
+            _battleStageConfig = configsProvider.GetBattleStageConfig();
 
             _monsterTracker.OnDiedEvent += OnMonsterDied;
             _playerTracker.OnDiedEvent += OnPlayerDied;

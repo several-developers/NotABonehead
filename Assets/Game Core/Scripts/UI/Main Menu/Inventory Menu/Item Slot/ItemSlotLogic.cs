@@ -12,11 +12,11 @@ namespace GameCore.UI.MainMenu.InventoryMenu
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public ItemSlotLogic(IInventoryService inventoryService, IAssetsProvider assetsProvider,
+        public ItemSlotLogic(IInventoryService inventoryService, IConfigsProvider configsProvider,
             ItemSlotVisualizer itemSlotVisualizer, ItemType itemType)
         {
             _inventoryService = inventoryService;
-            _itemsRarityConfig = assetsProvider.GetItemsRarityConfigMeta();
+            _itemsRarityConfig = configsProvider.GetItemsRarityConfig();
             _itemSlotVisualizer = itemSlotVisualizer;
             _itemType = itemType;
 

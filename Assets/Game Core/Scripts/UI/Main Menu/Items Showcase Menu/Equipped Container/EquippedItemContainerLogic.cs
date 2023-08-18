@@ -15,13 +15,13 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public EquippedItemContainerLogic(IInventoryService inventoryService, IAssetsProvider assetsProvider,
+        public EquippedItemContainerLogic(IInventoryService inventoryService, IConfigsProvider configsProvider,
             IItemsShowcaseService itemsShowcaseService, EquippedItemContainerVisualizer containerVisualizer,
             Transform itemContainer)
         {
             _inventoryService = inventoryService;
             _itemsShowcaseService = itemsShowcaseService;
-            _itemsRarityConfig = assetsProvider.GetItemsRarityConfigMeta();
+            _itemsRarityConfig = configsProvider.GetItemsRarityConfig();
             _containerVisualizer = containerVisualizer;
             _itemContainer = itemContainer;
         }

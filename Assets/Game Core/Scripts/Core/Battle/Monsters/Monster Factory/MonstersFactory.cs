@@ -1,5 +1,4 @@
 using GameCore.Configs;
-using GameCore.Infrastructure.Providers.BattleScene.BattleAssets;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Data;
 using UnityEngine;
@@ -14,14 +13,14 @@ namespace GameCore.Battle.Monsters
         [Inject]
         private void Construct(DiContainer diContainer, IAssetsProvider assetsProvider,
             IMonstersDataService monstersDataService, IMonsterTracker monsterTracker, IGameDataService gameDataService,
-            IBattleAssetsProvider battleAssetsProvider)
+            IConfigsProvider configsProvider)
         {
             _diContainer = diContainer;
             _assetsProvider = assetsProvider;
             _monstersDataService = monstersDataService;
             _monsterTracker = monsterTracker;
             _gameDataService = gameDataService;
-            _battleAssetsProvider = battleAssetsProvider;
+            _configsProvider = configsProvider;
         }
         
         // FIELDS: --------------------------------------------------------------------------------
@@ -31,7 +30,7 @@ namespace GameCore.Battle.Monsters
         private IMonstersDataService _monstersDataService;
         private IMonsterTracker _monsterTracker;
         private IGameDataService _gameDataService;
-        private IBattleAssetsProvider _battleAssetsProvider;
+        private IConfigsProvider _configsProvider;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -59,7 +58,7 @@ namespace GameCore.Battle.Monsters
 
         private int CalculateStat(int baseStat)
         {
-            BattleStageConfigMeta battleStageConfig = _battleAssetsProvider.GetBattleStageConfigMeta();
+            BattleStageConfigMeta battleStageConfig = _configsProvider.GetBattleStageConfig();
             int level = _gameDataService.GetCurrentLevel();
 
             float multiplier = battleStageConfig.StatsIncreasePerLevel * level;

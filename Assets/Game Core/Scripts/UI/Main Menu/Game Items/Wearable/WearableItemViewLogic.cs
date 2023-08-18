@@ -11,10 +11,10 @@ namespace GameCore.UI.MainMenu.GameItems
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public WearableItemViewLogic(IInventoryService inventoryService, IAssetsProvider assetsProvider,
+        public WearableItemViewLogic(IInventoryService inventoryService, IConfigsProvider configsProvider,
             WearableItemViewVisualizer itemVisualizer)
         {
-            _itemsRarityConfig = assetsProvider.GetItemsRarityConfigMeta();
+            _itemsRarityConfig = configsProvider.GetItemsRarityConfig();
             _inventoryService = inventoryService;
             _itemVisualizer = itemVisualizer;
         }

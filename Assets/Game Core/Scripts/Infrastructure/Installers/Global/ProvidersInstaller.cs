@@ -11,14 +11,15 @@ namespace GameCore.Infrastructure.Installers.Global
 
         public override void InstallBindings()
         {
-            BindData();
-            BindAssets();
-            BindItemsMeta();
+            BindDataProvider();
+            BindAssetsProvider();
+            BindConfigsProvider();
+            BindItemsMetaProvider();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void BindData()
+        private void BindDataProvider()
         {
             Container
                 .BindInterfacesTo<DataProvider>()
@@ -26,7 +27,7 @@ namespace GameCore.Infrastructure.Installers.Global
                 .NonLazy();
         }
         
-        private void BindAssets()
+        private void BindAssetsProvider()
         {
             Container
                 .BindInterfacesTo<AssetsProvider>()
@@ -34,7 +35,15 @@ namespace GameCore.Infrastructure.Installers.Global
                 .NonLazy();
         }
         
-        private void BindItemsMeta()
+        private void BindConfigsProvider()
+        {
+            Container
+                .BindInterfacesTo<ConfigsProvider>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindItemsMetaProvider()
         {
             Container
                 .BindInterfacesTo<ItemsMetaProvider>()

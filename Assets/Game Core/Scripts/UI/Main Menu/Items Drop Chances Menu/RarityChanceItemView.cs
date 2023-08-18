@@ -14,8 +14,8 @@ namespace GameCore.UI.MainMenu.ItemsDropChancesMenu
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IAssetsProvider assetsProvider) =>
-            _assetsProvider = assetsProvider;
+        private void Construct(IConfigsProvider configsProvider) =>
+            _configsProvider = configsProvider;
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ namespace GameCore.UI.MainMenu.ItemsDropChancesMenu
 
         // FIELDS: --------------------------------------------------------------------------------
 
-        private IAssetsProvider _assetsProvider;
+        private IConfigsProvider _configsProvider;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ namespace GameCore.UI.MainMenu.ItemsDropChancesMenu
 
         private void UpdateValueChance()
         {
-            ItemsDropChancesConfigMeta itemsDropChancesConfig = _assetsProvider.GetItemsDropChancesConfigMeta();
+            ItemsDropChancesConfigMeta itemsDropChancesConfig = _configsProvider.GetItemsDropChancesConfig();
             float dropChance = itemsDropChancesConfig.GetItemDropChance(_itemRarity);
             
             SetValueChance(dropChance);

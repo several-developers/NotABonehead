@@ -14,12 +14,16 @@ namespace GameCore.Infrastructure.Bootstrap.BootstrapScene
             _scenesLoader = scenesLoader;
 
         // FIELDS: --------------------------------------------------------------------------------
-        
+
         private IScenesLoader _scenesLoader;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
-        private void Start() =>
+        private void Start()
+        {
+            // Load some SDK or assets
+
             _scenesLoader.LoadScene(SceneName.MainMenu);
+        }
     }
 }
