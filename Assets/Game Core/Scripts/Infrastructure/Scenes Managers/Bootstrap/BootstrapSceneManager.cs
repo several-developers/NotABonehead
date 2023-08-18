@@ -3,9 +3,9 @@ using GameCore.Other;
 using UnityEngine;
 using Zenject;
 
-namespace GameCore.Infrastructure.Bootstrap.BootstrapScene
+namespace GameCore.Infrastructure.ScenesManagers.BootstrapScene
 {
-    public class BootstrapSceneBootstrap : MonoBehaviour
+    public class BootstrapSceneManager : MonoBehaviour
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 

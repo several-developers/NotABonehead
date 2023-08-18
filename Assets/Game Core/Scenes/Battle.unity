@@ -1313,7 +1313,7 @@ GameObject:
   - component: {fileID: 1410181699}
   - component: {fileID: 1410181700}
   m_Layer: 0
-  m_Name: Battle Scene Bootstrap
+  m_Name: Battle Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace GameCore.Infrastructure.Bootstrap.MainMenu
+namespace GameCore.Infrastructure.ScenesManagers.MainMenu
 {
-    public class MainMenuBootstrap : MonoBehaviour
+    public class MainMenuSceneManager : MonoBehaviour
     {
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 

@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
-namespace GameCore.Infrastructure.Bootstrap.Global
+namespace GameCore.Infrastructure.Bootstrap
 {
+    // ----------------------------------------------------------------------
+    //      - Находится в Resources/Project Context.prefab
+    //      - Игра корректно работает при запуске из любой сцены.
+    // ----------------------------------------------------------------------
+    
     public class GameBootstrap : MonoBehaviour
     {
         // FIELDS: --------------------------------------------------------------------------------

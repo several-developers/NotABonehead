@@ -14,7 +14,7 @@ namespace GameCore.Infrastructure.Providers.Global.ItemsMeta
             _assetsProvider = assetsProvider;
             _itemsMetaDictionary = new Dictionary<string, ItemMeta>(capacity: 16);
 
-            SetupItemDictionary();
+            SetupItemsDictionary();
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ namespace GameCore.Infrastructure.Providers.Global.ItemsMeta
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void SetupItemDictionary()
+        private void SetupItemsDictionary()
         {
             ItemMeta[] itemsMeta = _assetsProvider.GetAllItemsMeta();
 

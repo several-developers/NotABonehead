@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 712154242}
   - component: {fileID: 712154243}
   m_Layer: 0
-  m_Name: Main Menu Bootstrap
+  m_Name: Main Menu Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

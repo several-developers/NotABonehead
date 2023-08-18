@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 1281206075}
   - component: {fileID: 1281206076}
   m_Layer: 0
-  m_Name: Boostrap Scene Bootstrap
+  m_Name: Boostrap Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace GameCore.Infrastructure.Bootstrap.BattleScene
 {
-    public class BattleSceneBootstrap : MonoBehaviour
+    public class BattleSceneManager : MonoBehaviour
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
