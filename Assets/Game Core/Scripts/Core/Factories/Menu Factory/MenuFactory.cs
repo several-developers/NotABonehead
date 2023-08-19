@@ -75,7 +75,7 @@ namespace GameCore.Factories
 
         private static void SetupMenuDictionary(IAssetsProvider assetsProvider)
         {
-            MenuPrefabsListMeta menuPrefabsListMeta = assetsProvider.GetMenuPrefabsListMeta();
+            MenuPrefabsListMeta menuPrefabsListMeta = assetsProvider.GetMenuPrefabsList();
             MenuView[] menuPrefabs = menuPrefabsListMeta.GetMenuPrefabs();
 
             foreach (MenuView menuPrefab in menuPrefabs)

@@ -14,7 +14,7 @@ namespace GameCore.Infrastructure.Providers.Global
             _itemsMeta = LoadAll<ItemMeta>(path: AssetsPaths.Items);
             _menuPrefabsListMeta = Load<MenuPrefabsListMeta>(path: AssetsPaths.MenuPrefabsListMeta);
             _gameItemPrefabsListMeta = Load<GameItemPrefabsListMeta>(path: AssetsPaths.GameItemPrefabsListMeta);
-            _allMonstersMeta = LoadAll<MonsterMeta>(path: AssetsPaths.MonstersMeta);
+            _availableMonstersList = Load<AvailableMonstersListMeta>(path: AssetsPaths.AvailableMonstersList);
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -22,13 +22,13 @@ namespace GameCore.Infrastructure.Providers.Global
         private readonly ItemMeta[] _itemsMeta;
         private readonly MenuPrefabsListMeta _menuPrefabsListMeta;
         private readonly GameItemPrefabsListMeta _gameItemPrefabsListMeta;
-        private readonly MonsterMeta[] _allMonstersMeta;
+        private readonly AvailableMonstersListMeta _availableMonstersList;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public ItemMeta[] GetAllItemsMeta() => _itemsMeta;
-        public MenuPrefabsListMeta GetMenuPrefabsListMeta() => _menuPrefabsListMeta;
-        public GameItemPrefabsListMeta GetGameItemPrefabsListMeta() => _gameItemPrefabsListMeta;
-        public MonsterMeta[] GetAllMonstersMeta() => _allMonstersMeta;
+        public MenuPrefabsListMeta GetMenuPrefabsList() => _menuPrefabsListMeta;
+        public GameItemPrefabsListMeta GetGameItemPrefabsList() => _gameItemPrefabsListMeta;
+        public AvailableMonstersListMeta GetAvailableMonstersList() => _availableMonstersList;
     }
 }

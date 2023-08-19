@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a69a9244f54065bb0ff9351dd6e29c, type: 3}
+  m_Name: Available Monsters List
+  m_EditorClassIdentifier: 
+  _metaName: Available Monsters List
+  _monstersMeta:
+  - {fileID: 11400000, guid: 20aa0600b7e6d8d4d8216e97df955144, type: 2}
+  - {fileID: 11400000, guid: e049b98ad33a54f46b19df117a9243a0, type: 2}
+  - {fileID: 11400000, guid: ba9ec864a74fe1749a7b314c0c5256f1, type: 2}
+  - {fileID: 11400000, guid: ee717ee5ffd5ebb499420a8784d5a542, type: 2}
+  - {fileID: 11400000, guid: 2322d6e55b325df4fae805b551c946f5, type: 2}
+  - {fileID: 11400000, guid: 1ac99695d4598f84dad1fffda2402ea5, type: 2}
+  - {fileID: 11400000, guid: e140f9f76f4d4d241b5a2d794f4d2d5e, type: 2}
+  - {fileID: 11400000, guid: 45cf88e40242e5c4db99e4027b9e62c3, type: 2}
+  - {fileID: 11400000, guid: f25239998be79d54bb00a7c43983399c, type: 2}
+  - {fileID: 11400000, guid: 53b23edd134513747bc032c37333e92b, type: 2}
+  - {fileID: 11400000, guid: 909fac18485c6b844a2e957f71d82461, type: 2}
+  - {fileID: 11400000, guid: ead1cad54b1079741b42af3baedc973c, type: 2}
+  - {fileID: 11400000, guid: 620bcdfb417455743b2db921a264cf8b, type: 2}
+  - {fileID: 11400000, guid: ab1c460cdf4792648a55adf68a6ed5d3, type: 2}
+  - {fileID: 11400000, guid: 1b2b9276c40f8064884ee81f63029ed0, type: 2}
+  - {fileID: 11400000, guid: 29dca554d17e13449b848b9a0c4e6f7e, type: 2}
+  - {fileID: 11400000, guid: 5aeefbdf1b5227249876aeea7202eaf2, type: 2}

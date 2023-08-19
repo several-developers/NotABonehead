@@ -28,12 +28,11 @@ namespace GameCore.Battle.Monsters
         public GameObject MonsterPrefab => _monsterPrefab;
         
         // FIELDS: --------------------------------------------------------------------------------
-
-        protected const string RowRight = Row + "/Right";
         
         private const string ItemSettings = "Wearable Item Settings";
         private const string Row = ItemSettings + "/Row";
         private const string RowLeft = Row + "/Left";
+        private const string RowRight = Row + "/Right";
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
 

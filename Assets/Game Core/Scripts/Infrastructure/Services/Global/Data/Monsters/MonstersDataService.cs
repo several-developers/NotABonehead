@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameCore.Battle.Monsters;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Providers.Global.Data;
-using GameCore.Battle.Monsters;
 
 namespace GameCore.Infrastructure.Services.Global.Data
 {
@@ -61,8 +61,8 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         private void ResetMonstersQueue(bool autoSave = true)
         {
-            MonsterMeta[] allMonstersMeta = _assetsProvider.GetAllMonstersMeta();
-            int monstersAmount = allMonstersMeta.Length;
+            AvailableMonstersListMeta availableMonstersList = _assetsProvider.GetAvailableMonstersList();
+            int monstersAmount = availableMonstersList.GetMonstersAmount();
             List<int> monstersQueue = new(capacity: monstersAmount);
 
             for (int i = 0; i < monstersAmount; i++)

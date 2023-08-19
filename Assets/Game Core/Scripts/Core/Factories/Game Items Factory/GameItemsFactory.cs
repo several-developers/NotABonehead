@@ -58,7 +58,7 @@ namespace GameCore.Factories
 
         private static void SetupGameItemsDictionary(IAssetsProvider assetsProvider)
         {
-            GameItemPrefabsListMeta gameItemPrefabsListMeta = assetsProvider.GetGameItemPrefabsListMeta();
+            GameItemPrefabsListMeta gameItemPrefabsListMeta = assetsProvider.GetGameItemPrefabsList();
             GameItemView[] gameItemReferences = gameItemPrefabsListMeta.GetGameItemReferences();
 
             foreach (GameItemView gameItemView in gameItemReferences)

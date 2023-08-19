@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metaName: Battle Stage Config
   _attackDelay: 1.2
-  _statsIncreasePerLevel: 0.2
+  _monstersStatsIncreasePerLevel: 0.05

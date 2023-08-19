@@ -7,8 +7,8 @@ namespace GameCore.Infrastructure.Providers.Global
     public interface IAssetsProvider
     {
         ItemMeta[] GetAllItemsMeta();
-        MenuPrefabsListMeta GetMenuPrefabsListMeta();
-        GameItemPrefabsListMeta GetGameItemPrefabsListMeta();
-        MonsterMeta[] GetAllMonstersMeta();
+        MenuPrefabsListMeta GetMenuPrefabsList();
+        GameItemPrefabsListMeta GetGameItemPrefabsList();
+        AvailableMonstersListMeta GetAvailableMonstersList();
     }
 }

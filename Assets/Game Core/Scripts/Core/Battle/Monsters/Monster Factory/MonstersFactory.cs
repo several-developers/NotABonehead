@@ -16,7 +16,7 @@ namespace GameCore.Battle.Monsters
             IConfigsProvider configsProvider)
         {
             _diContainer = diContainer;
-            _assetsProvider = assetsProvider;
+            _availableMonstersList = assetsProvider.GetAvailableMonstersList();
             _monstersDataService = monstersDataService;
             _monsterTracker = monsterTracker;
             _gameDataService = gameDataService;
@@ -26,7 +26,7 @@ namespace GameCore.Battle.Monsters
         // FIELDS: --------------------------------------------------------------------------------
 
         private DiContainer _diContainer;
-        private IAssetsProvider _assetsProvider;
+        private AvailableMonstersListMeta _availableMonstersList;
         private IMonstersDataService _monstersDataService;
         private IMonsterTracker _monsterTracker;
         private IGameDataService _gameDataService;
@@ -52,10 +52,12 @@ namespace GameCore.Battle.Monsters
 
         private MonsterMeta GetMonsterMeta()
         {
-            MonsterMeta[] allMonstersMeta = _assetsProvider.GetAllMonstersMeta();
+            int monstersAmount = _availableMonstersList.GetMonstersAmount();
             int monsterIndex = _monstersDataService.GetCurrentMonsterIndex();
-            monsterIndex = Mathf.Clamp(monsterIndex, 0, allMonstersMeta.Length - 1);
-            return allMonstersMeta[monsterIndex];
+            monsterIndex = Mathf.Clamp(monsterIndex, 0, monstersAmount - 1);
+            
+            MonsterMeta monsterMeta = _availableMonstersList.GetMonsterMetaByIndex(monsterIndex);
+            return monsterMeta;
         }
 
         private GameObject InstantiatePrefab(GameObject prefab) =>
