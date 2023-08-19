@@ -11,6 +11,8 @@ namespace GameCore
         public const string DebugButtons = "Debug Buttons";
         public const string Visualizer = "Visualizer";
         public const string VisualizerIn = "Visualizer/In";
+        public const string Animation = "Animation";
+        public const string AnimationIn = "Animation/In";
         
         public const string GameDataKey = "GameData";
         public const string PlayerDataKey = "PlayerData";

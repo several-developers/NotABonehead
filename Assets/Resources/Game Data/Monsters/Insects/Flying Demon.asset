@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1485fdb6f0e4830975cd9b25a382c8d, type: 3}
+  m_Name: Flying Demon
+  m_EditorClassIdentifier: 
+  _metaName: Flying Demon
+  _icon: {fileID: -1828946549344447192, guid: 2cdf2ec0d2ccd2441b19a296aaa3c5ac, type: 3}
+  _health: 100
+  _damage: 15
+  _monsterPrefab: {fileID: 5923401707093281111, guid: 4d138204baab94245bd8938d92fc57a8, type: 3}

@@ -37,9 +37,11 @@ namespace GameCore.Battle.Monsters
         public void Create()
         {
             MonsterMeta monsterMeta = GetMonsterMeta();
-            GameObject monsterInstance = _diContainer.InstantiatePrefab(monsterMeta.MonsterPrefab, transform);
+            GameObject monsterInstance = InstantiatePrefab(monsterMeta.MonsterPrefab);
             MonsterBrain monsterBrain = monsterInstance.AddComponent<MonsterBrain>();
 
+            monsterInstance.transform.localPosition = Vector3.zero;
+            
             int health = CalculateStat(monsterMeta.Health);
             int damage = CalculateStat(monsterMeta.Damage);
             
@@ -55,6 +57,9 @@ namespace GameCore.Battle.Monsters
             monsterIndex = Mathf.Clamp(monsterIndex, 0, allMonstersMeta.Length - 1);
             return allMonstersMeta[monsterIndex];
         }
+
+        private GameObject InstantiatePrefab(GameObject prefab) =>
+            _diContainer.InstantiatePrefab(prefab, transform);
 
         private int CalculateStat(int baseStat)
         {

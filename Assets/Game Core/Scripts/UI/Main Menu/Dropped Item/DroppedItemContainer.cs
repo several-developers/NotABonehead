@@ -53,7 +53,12 @@ namespace GameCore.UI.MainMenu.DroppedItem
         private async void TryCreateDroppedItemViewWithDelay()
         {
             int delay = (int)(_createDelay * 1000);
-            await UniTask.Delay(delay);
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
             
             TryCreateDroppedItemView();
         }

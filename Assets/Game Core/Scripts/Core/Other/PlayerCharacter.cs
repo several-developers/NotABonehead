@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace GameCore.Other
 {
@@ -13,12 +12,12 @@ namespace GameCore.Other
         [SerializeField, Min(0)]
         private float _resetDelay = 0.9f;
 
-        [TitleGroup("Animation")]
-        [BoxGroup("Animation/In", showLabel: false), SerializeField]
+        [TitleGroup(Constants.Animation)]
+        [BoxGroup(Constants.AnimationIn, showLabel: false), SerializeField]
         private PlayerCharacterAnimation _characterAnimation;
         
         // FIELDS: --------------------------------------------------------------------------------
-
+        
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int State = Animator.StringToHash("State");
         
@@ -52,7 +51,12 @@ namespace GameCore.Other
             }
             
             int delay = (int)(_resetDelay * 1000);
-            await UniTask.Delay(delay);
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
             
             _animator.SetInteger(State, 0);
         }

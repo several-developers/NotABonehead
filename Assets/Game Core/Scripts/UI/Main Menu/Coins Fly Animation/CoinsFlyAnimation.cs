@@ -85,7 +85,12 @@ namespace GameCore.UI.MainMenu.CoinsFlyAnimation
             _canvas.enabled = true;
 
             int delay = (int)(_disableCanvasDelay * 1000);
-            await UniTask.Delay(delay);
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
 
             _canvas.enabled = false;
         }

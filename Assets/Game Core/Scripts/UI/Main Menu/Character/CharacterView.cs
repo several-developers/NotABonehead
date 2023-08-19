@@ -51,7 +51,12 @@ namespace GameCore.UI.MainMenu.Character
                 _playerCharacter.PlayRandomAnimation();
 
                 int delay = (int)(_clickDelay * 1000);
-                await UniTask.Delay(delay);
+                bool isCanceled = await UniTask
+                    .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                    .SuppressCancellationThrow();
+
+                if (isCanceled)
+                    return;
             }
 
             _isBlocked = false;

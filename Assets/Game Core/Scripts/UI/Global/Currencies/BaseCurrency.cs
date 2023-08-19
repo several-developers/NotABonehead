@@ -53,8 +53,12 @@ namespace GameCore.UI.Global.Currency
 
         private void Start() => UpdateValueInstant();
 
-        protected virtual void OnDestroy() =>
+        protected virtual void OnDestroy()
+        {
+            StopValueUpdater();
+            
             GlobalEvents.OnCurrencyChanged -= OnCurrencyChanged;
+        }
 
         private void OnEnable()
         {

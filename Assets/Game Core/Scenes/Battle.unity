@@ -859,6 +859,174 @@ PrefabInstance:
       propertyPath: m_Name
       value: Director
       objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._playerData._gems
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._playerData._gold
+      value: 923
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._gameData._currentLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._currentMonster
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._monstersQueue.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemKey
+      value: d0b-3315684d3028
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._monstersQueue.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._monstersQueue.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._monstersQueue.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._monstersData._monstersQueue.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemID
+      value: helmet_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemID
+      value: sword_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemID
+      value: shield_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemKey
+      value: 947-5a85312e67ec
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemKey
+      value: a3d-3150276604fb
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemKey
+      value: 8fd-85f1b68db4e0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemStats._level
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemStats._damage
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemStats._health
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemStats._rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._droppedItemData._itemStats._defense
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[0]._itemKey
+      value: a3d-3150276604fb
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[1]._itemKey
+      value: 8fd-85f1b68db4e0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[2]._itemKey
+      value: 947-5a85312e67ec
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[1]._itemType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._equippedItemsData.Array.data[2]._itemType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._level
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemStats._level
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemStats._level
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._health
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemStats._damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemStats._health
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemStats._damage
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemStats._health
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemStats._rarity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[0]._itemStats._defense
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[1]._itemStats._defense
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
+      propertyPath: _dataManager._inventoryData._itemsData.Array.data[2]._itemStats._defense
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
