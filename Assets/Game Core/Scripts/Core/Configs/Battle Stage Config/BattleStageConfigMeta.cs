@@ -19,5 +19,10 @@ namespace GameCore.Configs
 
         public float AttackDelay => _attackDelay;
         public float MonstersStatsIncreasePerLevel => _monstersStatsIncreasePerLevel;
+
+        // PUBLIC METHODS: ------------------------------------------------------------------------
+
+        public override string GetMetaCategory() =>
+            EditorConstants.ConfigsCategory;
     }
 }

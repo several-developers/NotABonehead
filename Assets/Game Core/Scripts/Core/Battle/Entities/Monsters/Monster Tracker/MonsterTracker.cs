@@ -9,9 +9,9 @@ namespace GameCore.Battle.Monsters
         public event Action OnDoAttackEvent;
         public event Action<MonsterStats> OnHealthChangedEvent;
         public event Action OnDiedEvent;
-        public event Action<int> OnTakeDamageEvent;
+        public event Action<float> OnTakeDamageEvent;
 
-        private int _damage;
+        private float _damage;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -24,12 +24,12 @@ namespace GameCore.Battle.Monsters
         public void SendAttack() =>
             OnDoAttackEvent?.Invoke();
 
-        public void TakeDamage(int damage) =>
+        public void TakeDamage(float damage) =>
             OnTakeDamageEvent?.Invoke(damage);
 
-        public void SetDamage(int damage) =>
+        public void SetDamage(float damage) =>
             _damage = damage;
 
-        public int GetDamage() => _damage;
+        public float GetDamage() => _damage;
     }
 }

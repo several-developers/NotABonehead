@@ -4,7 +4,7 @@
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public PlayerStats(int currentHealth, int maxHealth)
+        public PlayerStats(float currentHealth, float maxHealth)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
@@ -12,7 +12,7 @@
 
         // PROPERTIES: ----------------------------------------------------------------------------
         
-        public int CurrentHealth { get; }
-        public int MaxHealth { get; }
+        public float CurrentHealth { get; }
+        public float MaxHealth { get; }
     }
 }

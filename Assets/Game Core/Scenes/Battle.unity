@@ -564,8 +564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3fa05241e14cb98695b9512024bb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monstersFactory: {fileID: 38403678}
-  _playerFactory: {fileID: 2139955877}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +774,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1069766378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &785686052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785686053}
+  - component: {fileID: 785686054}
+  m_Layer: 0
+  m_Name: Factories Installer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &785686053
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785686052}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1417048337}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785686054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785686052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9ac894969945c59ec2089145eef185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monstersFactory: {fileID: 38403678}
+  _playerFactory: {fileID: 2139955877}
 --- !u!1 &862077599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,6 +1589,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 482600034}
+  - {fileID: 785686053}
   m_Father: {fileID: 1156634657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1417048338
@@ -1562,6 +1607,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 482600035}
+  - {fileID: 785686054}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2219,10 +2265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0854e5fd164980b83e63306eca78ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 50
-  _damage: 5
-  _defense: 0
-  _playerPrefab: {fileID: 8316402779051580184, guid: 66d06955add7a4a43b42d57062b569ea, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

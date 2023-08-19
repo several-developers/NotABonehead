@@ -7,6 +7,8 @@ namespace GameCore.Configs
 {
     public class ItemsDropChancesConfigMeta : EditorMeta
     {
+        // MEMBERS: -------------------------------------------------------------------------------
+        
         [InfoBox("Value out of bounce!", InfoMessageType.Error, visibleIfMemberName: "@_totalPercent != 100")]
         [InlineButton(nameof(CalculatePercent), "Recalculate")]
         [SerializeField]
@@ -27,7 +29,10 @@ namespace GameCore.Configs
 
             return 0;
         }
-        
+
+        public override string GetMetaCategory() =>
+            EditorConstants.ConfigsCategory;
+
         // PRIVATE METHODS: -----------------------------------------------------------------------
         
         [OnInspectorInit]

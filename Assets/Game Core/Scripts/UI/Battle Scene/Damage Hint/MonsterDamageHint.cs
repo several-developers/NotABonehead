@@ -26,7 +26,7 @@ namespace GameCore.UI.BattleScene.DamageHints
         
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
-        private void OnTakeDamageEvent(int damage)
+        private void OnTakeDamageEvent(float damage)
         {
             SetDamage(damage);
             PlayAnimation();

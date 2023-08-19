@@ -6,7 +6,8 @@ namespace GameCore.Infrastructure.Providers.Global
         
         public const string ItemsRarityConfig = Configs + "Items Rarity Config";
         public const string ItemsDropChancesConfig = Configs + "Items Drop Chances Config";
-        public const string BattleStageConfigMeta = Configs + "Battle Stage Config";
+        public const string BattleStageConfig = Configs + "Battle Stage Config";
+        public const string PlayerConfig = Configs + "Player Config";
         
         private const string GameData = "Game Data/";
         private const string Configs = GameData + "Configs/";

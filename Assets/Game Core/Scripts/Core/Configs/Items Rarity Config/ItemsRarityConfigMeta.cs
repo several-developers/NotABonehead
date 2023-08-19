@@ -38,5 +38,8 @@ namespace GameCore.Configs
                 _ => Color.gray
             };
         }
+
+        public override string GetMetaCategory() =>
+            EditorConstants.ConfigsCategory;
     }
 }

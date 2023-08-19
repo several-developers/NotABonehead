@@ -29,7 +29,7 @@ namespace GameCore.Infrastructure.Data
         private string _itemID;
 
         [BoxGroup(InfoGroup), SerializeField, ReadOnly]
-        [Tooltip("Unique key of the item.")]
+        [Tooltip(ItemKeyTip)]
         private string _itemKey;
 
         [BoxGroup(StatsGroup), SerializeField, InlineProperty, HideLabel]
@@ -39,6 +39,7 @@ namespace GameCore.Infrastructure.Data
 
         private const string InfoGroup = "Info";
         private const string StatsGroup = "Stats";
+        private const string ItemKeyTip = "Unique key of the item.";
 
         // PROPERTIES: ----------------------------------------------------------------------------
 

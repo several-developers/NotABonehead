@@ -121,17 +121,17 @@ namespace GameCore.Battle
 
                 if (_isPlayerAttackTurn)
                 {
-                    int damage = _playerTracker.GetDamage();
+                    float damage = _playerTracker.GetDamage();
                     _playerTracker.SendAttack();
                     _monsterTracker.TakeDamage(damage);
                 }
                 else
                 {
-                    int damage = _monsterTracker.GetDamage();
+                    float damage = _monsterTracker.GetDamage();
                     _monsterTracker.SendAttack();
 
-                    int playerDefense = _playerTracker.GetDefense();
-                    int finalDamage = Mathf.Max(damage - playerDefense, 0);
+                    float playerDefense = _playerTracker.GetDefense();
+                    float finalDamage = Mathf.Max(damage - playerDefense, 0);
 
                     _playerTracker.TakeDamage(finalDamage);
                 }

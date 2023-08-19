@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameCore.Battle.Entities;
 using GameCore.Enums;
 using GameCore.Events;
 using GameCore.Infrastructure.Data;
@@ -198,7 +199,8 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 if (!isEquippedDataExists)
                     return false;
 
-                int goldReward = RewardsService.CalculateItemGoldReward(equippedItemData.ItemStats);
+                EntityStats itemStats = equippedItemData.ItemStats.EntityStats;
+                int goldReward = RewardsService.CalculateItemGoldReward(itemStats);
                 _playerDataService.AddGold(goldReward, autoSave: false);
                 
                 RemoveItemData(equippedItemKey, autoSave: false);

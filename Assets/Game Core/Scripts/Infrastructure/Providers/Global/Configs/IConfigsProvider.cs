@@ -7,5 +7,6 @@ namespace GameCore.Infrastructure.Providers.Global
         ItemsRarityConfigMeta GetItemsRarityConfig();
         ItemsDropChancesConfigMeta GetItemsDropChancesConfig();
         BattleStageConfigMeta GetBattleStageConfig();
+        PlayerConfigMeta GetPlayerConfig();
     }
 }

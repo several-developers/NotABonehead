@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using GameCore.Battle.Entities;
+using Sirenix.OdinInspector;
 using UbicaEditor;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ namespace GameCore.Battle.Monsters
         [VerticalGroup(RowRight), SerializeField, Min(1)]
         private int _damage = 3;
 
+        [Title(StatsTitle)]
+        [SerializeField, InlineProperty, HideLabel]
+        private EntityStats _monsterStats;
+
         [VerticalGroup(RowRight), SerializeField, Required]
         private GameObject _monsterPrefab;
         
@@ -25,6 +30,7 @@ namespace GameCore.Battle.Monsters
         public Sprite Icon => _icon;
         public int Health => _health;
         public int Damage => _damage;
+        public EntityStats MonsterStats => _monsterStats;
         public GameObject MonsterPrefab => _monsterPrefab;
         
         // FIELDS: --------------------------------------------------------------------------------
@@ -33,7 +39,8 @@ namespace GameCore.Battle.Monsters
         private const string Row = ItemSettings + "/Row";
         private const string RowLeft = Row + "/Left";
         private const string RowRight = Row + "/Right";
-        
+        private const string StatsTitle = "Monster Stats";
+
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public override string GetMetaCategory() =>

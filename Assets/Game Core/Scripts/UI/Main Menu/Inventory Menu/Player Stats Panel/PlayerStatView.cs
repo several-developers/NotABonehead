@@ -1,5 +1,6 @@
 using GameCore.Enums;
 using GameCore.Infrastructure.Services.Global.Inventory;
+using GameCore.Infrastructure.Services.Global.Player;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -11,8 +12,12 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IInventoryService inventoryService) =>
-            _statLogic = new PlayerStatLogic(inventoryService, _statVisualizer, coroutineRunner: this, _statType);
+        private void Construct(IInventoryService inventoryService,
+            IPlayerStatsCalculatorService playerStatsCalculatorService)
+        {
+            _statLogic = new PlayerStatLogic(inventoryService, playerStatsCalculatorService, _statVisualizer,
+                coroutineRunner: this, _statType);
+        }
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -29,7 +34,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         private PlayerStatLogic _statLogic;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
-        
+
         private void Start() =>
             _statLogic.UpdateStatInfo(instant: true);
 

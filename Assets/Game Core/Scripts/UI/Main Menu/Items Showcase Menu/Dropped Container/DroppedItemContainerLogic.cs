@@ -1,4 +1,6 @@
-﻿using GameCore.Configs;
+﻿using System;
+using GameCore.Battle.Entities;
+using GameCore.Configs;
 using GameCore.Enums;
 using GameCore.Factories;
 using GameCore.Infrastructure.Data;
@@ -7,6 +9,7 @@ using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Items;
 using GameCore.UI.MainMenu.GameItems;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
 {
@@ -59,6 +62,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
         private void UpdateStatsItemInfo(ItemData itemData, ItemMeta itemMeta)
         {
             ItemStats itemStats = itemData.ItemStats;
+            EntityStats entityStats = itemData.ItemStats.EntityStats;
             ItemRarity itemRarity = itemStats.Rarity;
 
             ItemRarityConfig itemRarityConfig = _itemsRarityConfig.GetItemRarityConfig(itemRarity);
@@ -66,9 +70,15 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
 
             _containerVisualizer.SetItemName(itemRarity, itemMeta.ItemName);
             _containerVisualizer.SetItemNameColor(rarityColor);
-            _containerVisualizer.SetStatValue(StatType.Health, itemStats.Health);
-            _containerVisualizer.SetStatValue(StatType.Damage, itemStats.Damage);
-            _containerVisualizer.SetStatValue(StatType.Defense, itemStats.Defense);
+            
+            SetStatValue(StatType.Health, entityStats.Health);
+            SetStatValue(StatType.Damage, entityStats.Damage);
+            SetStatValue(StatType.Defense, entityStats.Defense);
+            
+            // LOCAL METHODS: -----------------------------
+
+            void SetStatValue(StatType statType, float value) =>
+                _containerVisualizer.SetStatValue(statType, value);
         }
 
         private void UpdateStatsArrowsInfo(ItemData itemData, ItemMeta itemMeta)
@@ -80,24 +90,31 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
                 return;
 
             _inventoryService.TryGetItemData(itemKey, out ItemData equippedItemData);
-            ItemStats equippedItemStats = equippedItemData.ItemStats;
-            ItemStats droppedItemStats = itemData.ItemStats;
+            
+            EntityStats equippedItemStats = equippedItemData.ItemStats.EntityStats;
+            EntityStats droppedItemStats = itemData.ItemStats.EntityStats;
 
-            ArrowState healthArrowState = GetStatArrowState(droppedItemStats.Health, equippedItemStats.Health);
-            ArrowState damageArrowState = GetStatArrowState(droppedItemStats.Damage, equippedItemStats.Damage);
-            ArrowState defenseArrowState = GetStatArrowState(droppedItemStats.Defense, equippedItemStats.Defense);
+            SetArrowState(StatType.Health, droppedItemStats.Health, equippedItemStats.Health);
+            SetArrowState(StatType.Damage, droppedItemStats.Damage, equippedItemStats.Damage);
+            SetArrowState(StatType.Defense, droppedItemStats.Defense, equippedItemStats.Defense);
 
-            _containerVisualizer.SetArrowState(StatType.Health, healthArrowState);
-            _containerVisualizer.SetArrowState(StatType.Damage, damageArrowState);
-            _containerVisualizer.SetArrowState(StatType.Defense, defenseArrowState);
+            SetDifference(StatType.Health, droppedItemStats.Health, equippedItemStats.Health);
+            SetDifference(StatType.Damage, droppedItemStats.Damage, equippedItemStats.Damage);
+            SetDifference(StatType.Defense, droppedItemStats.Defense, equippedItemStats.Defense);
+            
+            // LOCAL METHODS: -----------------------------
 
-            int healthDifference = droppedItemStats.Health - equippedItemStats.Health;
-            int damageDifference = droppedItemStats.Damage - equippedItemStats.Damage;
-            int defenseDifference = droppedItemStats.Defense - equippedItemStats.Defense;
-
-            _containerVisualizer.SetDifference(StatType.Health, healthDifference);
-            _containerVisualizer.SetDifference(StatType.Damage, damageDifference);
-            _containerVisualizer.SetDifference(StatType.Defense, defenseDifference);
+            void SetArrowState(StatType statType, float valueOne, float valueTwo)
+            {
+                ArrowState arrowState = GetStatArrowState(valueOne, valueTwo);
+                _containerVisualizer.SetArrowState(statType, arrowState);
+            }
+            
+            void SetDifference(StatType statType, float valueOne, float valueTwo)
+            {
+                float difference = valueOne - valueTwo;
+                _containerVisualizer.SetDifference(statType, difference);
+            }
         }
 
         private void CreateGameItemView(ItemData itemData)
@@ -143,9 +160,9 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
             _gameItemView = null;
         }
 
-        private static ArrowState GetStatArrowState(int a, int b)
+        private static ArrowState GetStatArrowState(float a, float b)
         {
-            if (a == b)
+            if (Math.Abs(a - b) < 0.0001f)
                 return ArrowState.Hidden;
 
             if (a > b)

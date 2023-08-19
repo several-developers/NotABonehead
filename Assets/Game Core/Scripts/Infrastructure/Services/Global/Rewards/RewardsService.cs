@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameCore.Battle.Entities;
 using GameCore.Configs;
 using GameCore.Enums;
 using GameCore.Events;
@@ -10,6 +11,7 @@ using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Items;
 using GameCore.Utilities;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace GameCore.Infrastructure.Services.Global.Rewards
@@ -85,22 +87,23 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             
             _inventoryService.RemoveDroppedItemData(autoSave: false);
 
-            int goldReward = CalculateItemGoldReward(itemData.ItemStats);
+            EntityStats itemStats = itemData.ItemStats.EntityStats;
+            int goldReward = CalculateItemGoldReward(itemStats);
             _playerDataService.AddGold(goldReward);
 
             GlobalEvents.SendCurrencyChanged();
             OnDroppedItemSoldEvent?.Invoke(goldReward);
         }
 
-        public static int CalculateItemGoldReward(ItemStats itemStats)
+        public static int CalculateItemGoldReward(EntityStats itemStats)
         {
-            int reward = 0;
+            float reward = 0;
 
             reward += itemStats.Health;
             reward += itemStats.Damage;
             reward += itemStats.Defense;
 
-            return reward;
+            return Mathf.RoundToInt(reward);
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------

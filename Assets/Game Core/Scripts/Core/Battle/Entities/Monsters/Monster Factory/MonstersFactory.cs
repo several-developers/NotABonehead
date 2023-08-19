@@ -1,3 +1,4 @@
+using GameCore.Battle.Entities;
 using GameCore.Configs;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Data;
@@ -19,8 +20,8 @@ namespace GameCore.Battle.Monsters
             _availableMonstersList = assetsProvider.GetAvailableMonstersList();
             _monstersDataService = monstersDataService;
             _monsterTracker = monsterTracker;
-            _gameDataService = gameDataService;
             _configsProvider = configsProvider;
+            _currentLevel = gameDataService.GetCurrentLevel();
         }
         
         // FIELDS: --------------------------------------------------------------------------------
@@ -29,8 +30,8 @@ namespace GameCore.Battle.Monsters
         private AvailableMonstersListMeta _availableMonstersList;
         private IMonstersDataService _monstersDataService;
         private IMonsterTracker _monsterTracker;
-        private IGameDataService _gameDataService;
         private IConfigsProvider _configsProvider;
+        private int _currentLevel = 1;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -39,13 +40,9 @@ namespace GameCore.Battle.Monsters
             MonsterMeta monsterMeta = GetMonsterMeta();
             GameObject monsterInstance = InstantiatePrefab(monsterMeta.MonsterPrefab);
             MonsterBrain monsterBrain = monsterInstance.AddComponent<MonsterBrain>();
+            EntityStats monsterStats = CalculateMonsterStats(monsterMeta);
 
-            monsterInstance.transform.localPosition = Vector3.zero;
-            
-            int health = CalculateStat(monsterMeta.Health);
-            int damage = CalculateStat(monsterMeta.Damage);
-            
-            monsterBrain.Setup(_monsterTracker, health, damage);
+            monsterBrain.Setup(_monsterTracker, monsterStats);
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
@@ -60,18 +57,33 @@ namespace GameCore.Battle.Monsters
             return monsterMeta;
         }
 
-        private GameObject InstantiatePrefab(GameObject prefab) =>
-            _diContainer.InstantiatePrefab(prefab, transform);
+        private GameObject InstantiatePrefab(GameObject prefab)
+        {
+            GameObject monsterInstance = _diContainer.InstantiatePrefab(prefab, transform);
+            monsterInstance.transform.localPosition = Vector3.zero;
+            return monsterInstance;
+        }
 
-        private int CalculateStat(int baseStat)
+        private EntityStats CalculateMonsterStats(MonsterMeta monsterMeta)
+        {
+            EntityStats monsterStats = monsterMeta.MonsterStats;
+
+            float health = CalculateStat(monsterStats.Health);
+            float damage = CalculateStat(monsterStats.Damage);
+            float defense = CalculateStat(monsterStats.Defense);
+
+            EntityStats newMonsterStats = new(health, damage, defense);
+            return newMonsterStats;
+        }
+        
+        private float CalculateStat(float baseStat)
         {
             BattleStageConfigMeta battleStageConfig = _configsProvider.GetBattleStageConfig();
-            int level = _gameDataService.GetCurrentLevel();
 
-            float multiplier = battleStageConfig.MonstersStatsIncreasePerLevel * level;
+            float multiplier = battleStageConfig.MonstersStatsIncreasePerLevel * _currentLevel;
             float newStat = baseStat * multiplier;
 
-            return (int)newStat + baseStat;
+            return newStat + baseStat;
         }
     }
 }

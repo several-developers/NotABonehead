@@ -1,4 +1,5 @@
-﻿using GameCore.Configs;
+﻿using GameCore.Battle.Entities;
+using GameCore.Configs;
 using GameCore.Enums;
 using GameCore.Factories;
 using GameCore.Infrastructure.Data;
@@ -62,6 +63,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
         private void UpdateStatsItemInfo(ItemData itemData, ItemMeta itemMeta)
         {
             ItemStats itemStats = itemData.ItemStats;
+            EntityStats entityStats = itemStats.EntityStats;
             ItemRarity itemRarity = itemStats.Rarity;
             
             ItemRarityConfig itemRarityConfig = _itemsRarityConfig.GetItemRarityConfig(itemRarity);
@@ -69,9 +71,15 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
             
             _containerVisualizer.SetItemName(itemRarity, itemMeta.ItemName);
             _containerVisualizer.SetItemNameColor(rarityColor);
-            _containerVisualizer.SetStatValue(StatType.Health, itemStats.Health);
-            _containerVisualizer.SetStatValue(StatType.Damage, itemStats.Damage);
-            _containerVisualizer.SetStatValue(StatType.Defense, itemStats.Defense);
+            
+            SetStatValue(StatType.Health, entityStats.Health);
+            SetStatValue(StatType.Damage, entityStats.Damage);
+            SetStatValue(StatType.Defense, entityStats.Defense);
+            
+            // LOCAL METHODS: -----------------------------
+
+            void SetStatValue(StatType statType, float value) =>
+                _containerVisualizer.SetStatValue(statType, value);
         }
 
         private void CreateGameItemView(ItemData itemData)

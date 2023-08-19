@@ -11,19 +11,22 @@ namespace GameCore.Infrastructure.Providers.Global
         {
             _itemsRarityConfig = Load<ItemsRarityConfigMeta>(path: ConfigsPaths.ItemsRarityConfig);
             _itemsDropChancesConfig = Load<ItemsDropChancesConfigMeta>(path: ConfigsPaths.ItemsDropChancesConfig);
-            _battleStageConfigMeta = Load<BattleStageConfigMeta>(path: ConfigsPaths.BattleStageConfigMeta);
+            _battleStageConfig = Load<BattleStageConfigMeta>(path: ConfigsPaths.BattleStageConfig);
+            _playerConfig = Load<PlayerConfigMeta>(path: ConfigsPaths.PlayerConfig);
         }
 
         // FIELDS: --------------------------------------------------------------------------------
 
         private readonly ItemsRarityConfigMeta _itemsRarityConfig;
         private readonly ItemsDropChancesConfigMeta _itemsDropChancesConfig;
-        private readonly BattleStageConfigMeta _battleStageConfigMeta;
+        private readonly BattleStageConfigMeta _battleStageConfig;
+        private readonly PlayerConfigMeta _playerConfig;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
         
         public ItemsRarityConfigMeta GetItemsRarityConfig() => _itemsRarityConfig;
         public ItemsDropChancesConfigMeta GetItemsDropChancesConfig() => _itemsDropChancesConfig;
-        public BattleStageConfigMeta GetBattleStageConfig() => _battleStageConfigMeta;
+        public BattleStageConfigMeta GetBattleStageConfig() => _battleStageConfig;
+        public PlayerConfigMeta GetPlayerConfig() => _playerConfig;
     }
 }

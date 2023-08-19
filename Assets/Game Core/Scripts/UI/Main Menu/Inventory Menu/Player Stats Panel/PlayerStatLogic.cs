@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using GameCore.Enums;
-using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
+using GameCore.Infrastructure.Services.Global.Player;
 using UnityEngine;
 
 namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
@@ -11,10 +10,12 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public PlayerStatLogic(IInventoryService inventoryService, PlayerStatVisualizer statVisualizer,
+        public PlayerStatLogic(IInventoryService inventoryService,
+            IPlayerStatsCalculatorService playerStatsCalculatorService, PlayerStatVisualizer statVisualizer,
             MonoBehaviour coroutineRunner, StatType statType)
         {
             _inventoryService = inventoryService;
+            _playerStatsCalculatorService = playerStatsCalculatorService;
             _statVisualizer = statVisualizer;
             _coroutineRunner = coroutineRunner;
             _statType = statType;
@@ -26,8 +27,9 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         // FIELDS: --------------------------------------------------------------------------------
 
         private const float TextTypeDuration = 0.5f;
-        
+
         private readonly IInventoryService _inventoryService;
+        private readonly IPlayerStatsCalculatorService _playerStatsCalculatorService;
         private readonly PlayerStatVisualizer _statVisualizer;
         private readonly MonoBehaviour _coroutineRunner;
         private readonly StatType _statType;
@@ -39,16 +41,16 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
 
         public void UpdateStatInfo(bool instant = false)
         {
-            int statValue = GetStatValue();
+            float statValue = _playerStatsCalculatorService.GetPlayerStatValue(_statType);
 
             if (instant)
                 _statVisualizer.SetValue(statValue);
             else
                 UpdateStatWithAnimation(statValue);
-            
+
             _lastStatValue = statValue;
         }
-        
+
         public void Dispose()
         {
             StopTextTypeCO();
@@ -59,49 +61,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private int GetStatValue()
-        {
-            IEnumerable<string> allEquippedItemsKeys = _inventoryService.GetAllEquippedItemsKeys();
-            int statValue = 0;
-
-            switch (_statType)
-            {
-                case StatType.Health:
-                    statValue += 50;
-                    break;
-                
-                case StatType.Damage:
-                    statValue += 5;
-                    break;
-            }
-
-            foreach (string itemKey in allEquippedItemsKeys)
-            {
-                bool isItemDataFound = _inventoryService.TryGetItemData(itemKey, out ItemData itemData);
-                
-                if (!isItemDataFound)
-                    continue;
-
-                switch (_statType)
-                {
-                    case StatType.Health:
-                        statValue += itemData.ItemStats.Health;
-                        break;
-                    
-                    case StatType.Damage:
-                        statValue += itemData.ItemStats.Damage;
-                        break;
-                    
-                    case StatType.Defense:
-                        statValue += itemData.ItemStats.Defense;
-                        break;
-                }
-            }
-
-            return statValue;
-        }
-
-        private void UpdateStatWithAnimation(int statValue) =>
+        private void UpdateStatWithAnimation(float statValue) =>
             _textTypeCO = _coroutineRunner.StartCoroutine(TextTypeCO(_lastStatValue, statValue));
 
         private IEnumerator TextTypeCO(float startValue, float endValue)
@@ -126,7 +86,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         {
             if (_textTypeCO == null)
                 return;
-            
+
             _coroutineRunner.StopCoroutine(_textTypeCO);
         }
 

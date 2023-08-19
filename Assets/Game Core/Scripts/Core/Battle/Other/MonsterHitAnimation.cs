@@ -30,7 +30,7 @@ namespace GameCore.Battle
 
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
-        private void OnTakeDamageEvent(int damage) => StartAnimation();
+        private void OnTakeDamageEvent(float damage) => StartAnimation();
         
         private void OnDiedEvent() =>
             _monsterTracker.OnTakeDamageEvent -= OnTakeDamageEvent;

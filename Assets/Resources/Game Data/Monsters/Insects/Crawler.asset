@@ -16,4 +16,8 @@ MonoBehaviour:
   _icon: {fileID: -7252215782646672311, guid: 6963ab23d2f045346be871119837e36e, type: 3}
   _health: 100
   _damage: 15
+  _monsterStats:
+    _health: 100
+    _damage: 15
+    _defense: 0
   _monsterPrefab: {fileID: 5771025906570419322, guid: 6bfd714c0cba44246ac50edff9504c3d, type: 3}

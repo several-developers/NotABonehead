@@ -35,7 +35,12 @@ namespace GameCore.UI.Global.Currency
             long playerMoney = GetGold();
 
             int delay = (int)(_updateValueDelay * 1000);
-            await UniTask.Delay(delay);
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
             
             StopValueUpdater();
             StartValueUpdater(playerMoney);

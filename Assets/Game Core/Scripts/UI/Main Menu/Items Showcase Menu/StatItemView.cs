@@ -32,16 +32,16 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void SetValue(int value) =>
-            _valueTMP.text = value.ToString();
+        public void SetValue(float value) =>
+            _valueTMP.text = value.ToString(format: "F0");
         
-        public void SetDifference(int value)
+        public void SetDifference(float value)
         {
             bool useGreenColor = value >= 0;
             Color color = useGreenColor ? _greenColor : _redColor;
             
             _differenceTMP.color = color;
-            _differenceTMP.text = $"{(value > 0 ? "+" : "")}{value}";
+            _differenceTMP.text = $"{(value > 0 ? "+" : "")}{value:F0}";
         }
 
         public void SetDifferenceVisibilityState(ArrowState arrowState)
@@ -74,7 +74,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void SetValue(int value) =>
+        public void SetValue(float value) =>
             _itemVisualizer.SetValue(value);
 
         public void SetArrowState(ArrowState arrowState)
@@ -83,7 +83,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
             _itemVisualizer.SetDifferenceVisibilityState(arrowState);
         }
 
-        public void SetDifference(int value) =>
+        public void SetDifference(float value) =>
             _itemVisualizer.SetDifference(value);
     }
 }

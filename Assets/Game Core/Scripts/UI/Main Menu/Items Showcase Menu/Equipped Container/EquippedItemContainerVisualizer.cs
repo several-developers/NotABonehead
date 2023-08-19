@@ -37,7 +37,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
             _container.SetActive(isEquipped);
         }
 
-        public void SetStatValue(StatType statType, int value)
+        public void SetStatValue(StatType statType, float value)
         {
             foreach (StatItemView statItemView in _statItemsView)
             {
@@ -61,7 +61,7 @@ namespace GameCore.UI.MainMenu.ItemsShowcaseMenu
             }
         }
 
-        public void SetDifference(StatType statType, int value)
+        public void SetDifference(StatType statType, float value)
         {
             foreach (StatItemView statItemView in _statItemsView)
             {

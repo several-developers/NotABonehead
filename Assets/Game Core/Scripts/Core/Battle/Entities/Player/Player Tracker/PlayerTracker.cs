@@ -9,10 +9,10 @@ namespace GameCore.Battle.Player
         public event Action OnDoAttackEvent;
         public event Action<PlayerStats> OnHealthChangedEvent;
         public event Action OnDiedEvent;
-        public event Action<int> OnTakeDamageEvent;
+        public event Action<float> OnTakeDamageEvent;
 
-        private int _damage;
-        private int _defense;
+        private float _damage;
+        private float _defense;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
@@ -25,17 +25,17 @@ namespace GameCore.Battle.Player
         public void SendAttack() =>
             OnDoAttackEvent?.Invoke();
         
-        public void TakeDamage(int damage) =>
+        public void TakeDamage(float damage) =>
             OnTakeDamageEvent?.Invoke(damage);
         
-        public void SetDamage(int damage) =>
+        public void SetDamage(float damage) =>
             _damage = damage;
 
-        public void SetDefense(int defense) =>
+        public void SetDefense(float defense) =>
             _defense = defense;
 
-        public int GetDamage() => _damage;
+        public float GetDamage() => _damage;
         
-        public int GetDefense() => _defense;
+        public float GetDefense() => _defense;
     }
 }

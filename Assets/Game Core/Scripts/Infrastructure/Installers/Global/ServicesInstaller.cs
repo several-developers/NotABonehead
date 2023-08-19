@@ -1,40 +1,39 @@
-using GameCore.Factories;
 using GameCore.Infrastructure.Services.Global;
-using GameCore.Infrastructure.Services.Global.Data;
 using GameCore.Infrastructure.Services.Global.Inventory;
+using GameCore.Infrastructure.Services.Global.Player;
 using GameCore.Infrastructure.Services.Global.Rewards;
 using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
-using GameCore.Other;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.Global
 {
-    public class ServicesInstaller : MonoInstaller
+    public partial class ServicesInstaller : MonoInstaller
     {
+        // FIELDS: --------------------------------------------------------------------------------
+
+        private DataInstaller _dataInstaller;
+        
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public override void InstallBindings()
         {
-            BindSaveLoad();
-            BindAllData();
-            BindInventory();
-            BindRewards();
-            BindScenesLoader();
-            BindMenuFactory();
-            BindItemsShowcase();
+            BindDataServices();
+            BindSaveLoadService();
+            BindInventoryService();
+            BindRewardsService();
+            BindItemsShowcaseService();
+            BindPlayerStatsCalculatorService();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void BindMenuFactory()
+        private void BindDataServices()
         {
-            Container
-                .Bind<MenuFactory>()
-                .AsSingle()
-                .NonLazy();
+            _dataInstaller = new DataInstaller(Container);
+            _dataInstaller.BindDataServices();
         }
-        
-        private void BindSaveLoad()
+
+        private void BindSaveLoadService()
         {
             Container
                 .BindInterfacesTo<SaveLoadService>()
@@ -42,58 +41,7 @@ namespace GameCore.Infrastructure.Installers.Global
                 .NonLazy();
         }
 
-        private void BindAllData()
-        {
-            BindGameData();
-            BindPlayerData();
-            BindGameSettingsData();
-            BindInventoryData();
-            BindMonstersData();
-            
-            // METHODS: -----------------------------------
-
-            void BindGameData()
-            {
-                Container
-                    .BindInterfacesTo<GameDataService>()
-                    .AsSingle()
-                    .NonLazy();
-            }
-            
-            void BindPlayerData()
-            {
-                Container
-                    .BindInterfacesTo<PlayerDataService>()
-                    .AsSingle()
-                    .NonLazy();
-            }
-            
-            void BindGameSettingsData()
-            {
-                Container
-                    .BindInterfacesTo<GameSettingsDataService>()
-                    .AsSingle()
-                    .NonLazy();
-            }
-            
-            void BindInventoryData()
-            {
-                Container
-                    .BindInterfacesTo<InventoryDataService>()
-                    .AsSingle()
-                    .NonLazy();
-            }
-            
-            void BindMonstersData()
-            {
-                Container
-                    .BindInterfacesTo<MonstersDataService>()
-                    .AsSingle()
-                    .NonLazy();
-            }
-        }
-
-        private void BindInventory()
+        private void BindInventoryService()
         {
             Container
                 .BindInterfacesTo<InventoryService>()
@@ -101,29 +49,26 @@ namespace GameCore.Infrastructure.Installers.Global
                 .NonLazy();
         }
 
-        private void BindRewards()
+        private void BindRewardsService()
         {
             Container
                 .BindInterfacesTo<RewardsService>()
                 .AsSingle()
                 .NonLazy();
         }
-        
-        private void BindScenesLoader()
-        {
-            ScenesLoader scenesLoaderService = FindObjectOfType<ScenesLoader>();
 
-            Container
-                .Bind<IScenesLoader>()
-                .FromInstance(scenesLoaderService)
-                .AsSingle()
-                .NonLazy();
-        }
-        
-        private void BindItemsShowcase()
+        private void BindItemsShowcaseService()
         {
             Container
                 .BindInterfacesTo<ItemsShowcaseService>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindPlayerStatsCalculatorService()
+        {
+            Container
+                .BindInterfacesTo<PlayerStatsCalculatorService>()
                 .AsSingle()
                 .NonLazy();
         }

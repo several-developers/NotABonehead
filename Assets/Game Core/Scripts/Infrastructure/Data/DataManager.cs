@@ -46,6 +46,12 @@ namespace GameCore.Infrastructure.Data
         public InventoryData InventoryData => _inventoryData ??= new();
         public MonstersData MonstersData => _monstersData ??= new();
 
+        // FIELDS: --------------------------------------------------------------------------------
+        
+        private const string ResetLocalDataTitle = "Reset Local Data";
+        private const string LoadLocalDataTitle = "Load Local Data";
+        private const string SaveLocalDataTitle = "Save Local Data";
+
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public void LoadLocalData()
@@ -85,7 +91,6 @@ namespace GameCore.Infrastructure.Data
                 return;
 
             t ??= (T)Activator.CreateInstance(typeof(T));
-
             t = JsonUtility.FromJson<T>(data);
         }
 
@@ -111,6 +116,7 @@ namespace GameCore.Infrastructure.Data
 
             string path = t.GetDataPath();
             string data = JsonUtility.ToJson(t);
+            
             File.WriteAllText(path, data);
         }
 
@@ -119,6 +125,7 @@ namespace GameCore.Infrastructure.Data
             t ??= (T)Activator.CreateInstance(typeof(T));
 
             string path = t.GetDataPath();
+            
             if (File.Exists(path))
                 File.Delete(path);
 
@@ -127,20 +134,17 @@ namespace GameCore.Infrastructure.Data
 
         // DEBUG BUTTONS: -------------------------------------------------------------------------
 
-        [Title("Debug Buttons")]
-        [Button(ButtonHeight = 35)]
-        [GUIColor(0.4f, 1f, 0.4f)]
-        [LabelText("Save Local Data")]
+        [Title(Constants.DebugButtons)]
+        [Button(ButtonHeight = 35), GUIColor(0.4f, 1f, 0.4f)]
+        [LabelText(SaveLocalDataTitle)]
         private void DebugSaveLocalData() => SaveLocalData();
 
-        [Button(ButtonHeight = 35)]
-        [GUIColor(0.5f, 0.5f, 1)]
-        [LabelText("Load Local Data")]
+        [Button(ButtonHeight = 35), GUIColor(0.5f, 0.5f, 1)]
+        [LabelText(LoadLocalDataTitle)]
         private void DebugLoadLocalData() => LoadLocalData();
 
-        [Button(ButtonHeight = 20)]
-        [GUIColor(1f, 0.4f, 0.4f)]
-        [LabelText("Reset Local Data")]
+        [Button(ButtonHeight = 20), GUIColor(1f, 0.4f, 0.4f)]
+        [LabelText(ResetLocalDataTitle)]
         private void DebugResetLocalData()
         {
             DeleteLocalData();

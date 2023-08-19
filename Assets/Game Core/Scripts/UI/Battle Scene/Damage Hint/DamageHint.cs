@@ -17,8 +17,8 @@ namespace GameCore.UI.BattleScene.DamageHints
 
         // PROTECTED METHODS: ---------------------------------------------------------------------
 
-        protected void SetDamage(int damage) =>
-            _damageTMP.text = damage.ToString();
+        protected void SetDamage(float damage) =>
+            _damageTMP.text = damage.ToString(format: "F0");
 
         protected void PlayAnimation() =>
             _hintAnimation.StartAnimation();

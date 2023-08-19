@@ -4,6 +4,7 @@
     {
         // FIELDS: --------------------------------------------------------------------------------
 
+        public const string ConfigsCategory = "Configs";
         public const string ItemsCategory = "Items";
         public const string MonstersCategory = "Monsters";
 
