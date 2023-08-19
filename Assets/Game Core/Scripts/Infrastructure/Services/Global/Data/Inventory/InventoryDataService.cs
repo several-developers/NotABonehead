@@ -23,12 +23,10 @@ namespace GameCore.Infrastructure.Services.Global.Data
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public string AddItemData(string itemID, ItemStats itemStats, bool autoSave)
+        public void AddItemData(string itemID, ItemStats itemStats, out string itemKey, bool autoSave)
         {
-            string itemKey = _inventoryData.AddItemData(itemID, itemStats);
+            itemKey = _inventoryData.AddItemData(itemID, itemStats);
             SaveLocalData(autoSave);
-
-            return itemKey;
         }
 
         public void RemoveItemData(string itemKey, bool autoSave)

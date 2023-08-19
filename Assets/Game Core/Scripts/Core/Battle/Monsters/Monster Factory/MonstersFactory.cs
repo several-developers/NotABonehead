@@ -61,7 +61,7 @@ namespace GameCore.Battle.Monsters
             BattleStageConfigMeta battleStageConfig = _configsProvider.GetBattleStageConfig();
             int level = _gameDataService.GetCurrentLevel();
 
-            float multiplier = battleStageConfig.StatsIncreasePerLevel * level;
+            float multiplier = battleStageConfig.MonstersStatsIncreasePerLevel * level;
             float newStat = baseStat * multiplier;
 
             return (int)newStat + baseStat;

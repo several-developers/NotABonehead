@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameCore.Other
 {
@@ -11,6 +12,10 @@ namespace GameCore.Other
         [Title(Constants.Settings)]
         [SerializeField, Min(0)]
         private float _resetDelay = 0.9f;
+
+        [TitleGroup("Animation")]
+        [BoxGroup("Animation/In", showLabel: false), SerializeField]
+        private PlayerCharacterAnimation _characterAnimation;
         
         // FIELDS: --------------------------------------------------------------------------------
 
@@ -21,15 +26,14 @@ namespace GameCore.Other
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
         
-        private void Awake()
-        {
+        private void Awake() =>
             _animator = GetComponent<Animator>();
-        }
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public async void PlayRandomAnimation()
         {
+            _characterAnimation.StartAnimation();
             int randomValue = Random.Range(0, 3);
 
             switch (randomValue)
@@ -43,7 +47,7 @@ namespace GameCore.Other
                     break;
                 
                 case 2:
-                    _animator.SetInteger(State, 2);
+                    _animator.SetInteger(State, 9);
                     break;
             }
             

@@ -7,37 +7,44 @@ namespace GameCore.Utilities
     {
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public static DeviceName GetDeviceType()
+        public static DeviceName GetDeviceName()
         {
 #if UNITY_IOS
-            bool deviceIsIpad = UnityEngine.iOS.Device.generation.ToString().Contains("iPad");
-            if (deviceIsIpad)
-            {
-                return DeviceName.Tablet;
-            }
-            bool deviceIsIphone = UnityEngine.iOS.Device.generation.ToString().Contains("iPhone");
-            if (deviceIsIphone)
-            {
-                return DeviceName.Phone;
-            }
+            return GetIOSDeviceName();
 #elif UNITY_ANDROID
-
-            int screenWidth = Screen.width;
-            int screenHeight = Screen.height;
-            
-            float aspectRatio = Mathf.Max(screenWidth, screenHeight) / Mathf.Min(screenWidth, screenHeight);
-            bool isTablet = DeviceDiagonalSizeInInches() > 6.5f && aspectRatio < 2f;
-
-            if (isTablet)
-                return DeviceName.Tablet;
-            
-            return DeviceName.Phone;
+            return GetAndroidDeviceName();
 #endif
-            // ReSharper disable once HeuristicUnreachableCode
-            return DeviceName.Phone;
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
+
+#if UNITY_IOS
+        private static DeviceName GetIOSDeviceName()
+        {
+            bool deviceIsIpad = Device.generation.ToString().Contains("iPad");
+
+            if (deviceIsIpad)
+                return DeviceName.Tablet;
+
+            bool deviceIsIphone = Device.generation.ToString().Contains("iPhone");
+            return deviceIsIphone ? DeviceName.Phone : DeviceName.Tablet;
+        }
+#endif
+
+#if UNITY_ANDROID
+        private static DeviceName GetAndroidDeviceName()
+        {
+            int screenWidth = Screen.width;
+            int screenHeight = Screen.height;
+            float a = Mathf.Max(screenWidth, screenHeight);
+            float b = Mathf.Min(screenWidth, screenHeight);
+            
+            float aspectRatio = a / b;
+            bool isTablet = DeviceDiagonalSizeInInches() > 6.5f && aspectRatio < 2f;
+
+            return isTablet ? DeviceName.Tablet : DeviceName.Phone;
+        }
+#endif
         
         private static float DeviceDiagonalSizeInInches()
         {

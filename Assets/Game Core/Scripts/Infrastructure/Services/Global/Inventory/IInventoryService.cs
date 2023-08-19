@@ -13,7 +13,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
         event Action OnReceivedDroppedItemEvent;
         event Action OnRemovedDroppedItemEvent;
         
-        string AddItem(string itemID, ItemStats itemStats, bool autoSave = true);
+        void AddItem(string itemID, ItemStats itemStats, out string itemKey, bool autoSave = true);
         void RemoveItemData(string itemKey, bool autoSave);
         void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave = true);
         void EquipItem(ItemType itemType, string itemKey, bool autoSave = true);

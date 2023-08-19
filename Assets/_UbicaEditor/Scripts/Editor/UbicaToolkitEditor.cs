@@ -9,7 +9,6 @@ namespace UbicaEditor
     {
         // FIELDS: --------------------------------------------------------------------------------
 
-        private const string UbicaEditorMenuItem = "🕹 Not A Bonehead/⚙ Ubica Editor";
         private const string ScenesMenuItem = "🕹 Not A Bonehead/💾 Scenes/";
         private const string ScenesPath = "Assets/Game Core/Scenes/";
 
@@ -40,9 +39,14 @@ namespace UbicaEditor
 
         private static void OpenScene(string path)
         {
-            if (!Application.isPlaying && EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
-                EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+            if (!CanOpenScene())
+                return;
+            
+            EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
         }
+
+        private static bool CanOpenScene() =>
+            !Application.isPlaying && EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
     }
 }
 #endif

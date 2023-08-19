@@ -7,7 +7,7 @@ namespace GameCore.Infrastructure.Services.Global.Data
 {
     public interface IInventoryDataService
     {
-        string AddItemData(string itemID, ItemStats itemStats, bool autoSave = true);
+        void AddItemData(string itemID, ItemStats itemStats, out string itemKey, bool autoSave = true);
         void RemoveItemData(string itemKey, bool autoSave = true);
         void SetDroppedItemData(string itemID, ItemStats itemStats, bool autoSave = true);
         void EquipItem(ItemType itemType, string itemKey, bool autoSave = true);

@@ -40,8 +40,8 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public string AddItem(string itemID, ItemStats itemStats, bool autoSave) =>
-            _inventoryDataService.AddItemData(itemID, itemStats, autoSave);
+        public void AddItem(string itemID, ItemStats itemStats, out string itemKey, bool autoSave) =>
+            _inventoryDataService.AddItemData(itemID, itemStats, out itemKey, autoSave);
 
         public void RemoveItemData(string itemKey, bool autoSave) =>
             _inventoryDataService.RemoveItemData(itemKey, autoSave);
@@ -205,8 +205,7 @@ namespace GameCore.Infrastructure.Services.Global.Inventory
                 GlobalEvents.SendCurrencyChanged();
             }
             
-            string newItemKey = AddItem(droppedItemMeta.ItemID, droppedItemData.ItemStats, autoSave: false);
-                
+            AddItem(droppedItemMeta.ItemID, droppedItemData.ItemStats, out string newItemKey, autoSave: false);
             EquipItem(droppedItemMeta.ItemType, newItemKey, autoSave: false);
             RemoveDroppedItemData(autoSave: false);
 

@@ -15,7 +15,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
-        public void SetValue(int value) =>
-            _valueTMP.text = value.ToString();
+        public void SetValue(float value) =>
+            _valueTMP.text = value.ToString(format: "F0");
     }
 }

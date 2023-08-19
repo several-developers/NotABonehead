@@ -1,8 +1,8 @@
 ﻿#if UNITY_EDITOR
 using System.IO;
 using System.Linq;
-using GameCore.Items;
 using GameCore.Battle.Monsters;
+using GameCore.Items;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
@@ -11,15 +11,17 @@ using UnityEngine;
 
 namespace UbicaEditor
 {
-    // 
-    // Be sure to check out OdinMenuStyleExample.cs as well. It shows you various ways to customize the look and behaviour of OdinMenuTrees.
-    // 
+    // ------------------------------------------------------------------------------------------
+    //      Be sure to check out OdinMenuStyleExample.cs as well.
+    //      It shows you various ways to customize the look and behaviour of OdinMenuTrees.
+    // ------------------------------------------------------------------------------------------ 
 
     public class UbicaEditor : OdinMenuEditorWindow
     {
         // FIELDS: --------------------------------------------------------------------------------
 
-        private const string UbicaEditorMenuItem = "🕹 Not A Bonehead/⚙ Ubica Editor";
+        private const string EditorMenuItem = "🕹 Not A Bonehead/⚙ Ubica Editor";
+        private const string GameDataPath = "Assets/Resources/Game Data/";
 
         private EditorMenuType _editorMenuType;
 
@@ -27,21 +29,12 @@ namespace UbicaEditor
 
         protected override OdinMenuTree BuildMenuTree()
         {
-            OdinMenuTree tree = new OdinMenuTree(true);
-            SetupMenuStyle(tree);
-
-            tree.AddAllAssetsAtPath(menuPath: "",
-                assetFolderPath: "Assets/Resources/Game Data/",
-                typeof(EditorMeta),
-                includeSubDirectories: true);
+            var tree = new OdinMenuTree(supportsMultiSelect: true);
             
-            // Add icons to items
-            tree.EnumerateTree().AddIcons<ItemMeta>(m => m.Icon);
-            tree.EnumerateTree().AddIcons<MonsterMeta>(m => m.Icon);
-
-            // Add drag handles to items, so they can be easily dragged...
-            tree.EnumerateTree().Where(x => x.Value as ItemMeta).ForEach(AddDragHandles);
-            tree.EnumerateTree().Where(x => x.Value as MonsterMeta).ForEach(AddDragHandles);
+            SetupMenuStyle(tree);
+            LoadAllEditorMeta(tree);
+            AddIconsToItems(tree);
+            AddDraggableItems(tree);
 
             tree.EnumerateTree().SortMenuItemsByName();
             tree.EnumerateTree().AddThumbnailIcons();
@@ -51,18 +44,20 @@ namespace UbicaEditor
 
         protected override void OnBeginDrawEditors()
         {
-            if (MenuTree == null ||
-                MenuTree.Selection == null)
-            {
+            bool isMenuNotSelected = MenuTree?.Selection == null;
+            
+            if (isMenuNotSelected)
                 return;
-            }
 
             OdinMenuTreeSelection selection = MenuTree.Selection;
             OdinMenuItem selected = MenuTree.Selection.FirstOrDefault();
+            
+            var selectedMeta = selection.SelectedValue as EditorMeta;
             int toolbarHeight = MenuTree.Config.SearchToolbarHeight;
             bool selectedIsNull = selected == null;
-            EditorMeta selectedMeta = selection.SelectedValue as EditorMeta;
-            string metaPath = "Assets/Resources/Game Data/";
+            bool drawMetaMenuButtons = !selectedIsNull && selectedMeta;
+            
+            string metaPath = GameDataPath;
 
             // Draws a toolbar with the name of the currently selected menu item.
             SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
@@ -71,8 +66,24 @@ namespace UbicaEditor
             GUILayout.Label(selectedIsNull ? " " : selected.Name);
 
             // Create and Selects the newly created item in the editor
-            if (SirenixEditorGUI.ToolbarButton("Create"))
+            DrawCreateButton();
+
+            if (drawMetaMenuButtons)
             {
+                DrawDuplicateButton();
+                DrawSaveButton();
+                DrawDeleteButton();
+            }
+
+            SirenixEditorGUI.EndHorizontalToolbar();
+            
+            // LOCAL METHODS: -----------------------------
+
+            void DrawCreateButton()
+            {
+                if (!SirenixEditorGUI.ToolbarButton("Create"))
+                    return;
+                
                 if (selectedMeta != null)
                 {
                     metaPath = AssetDatabase.GetAssetPath(selectedMeta);
@@ -83,52 +94,55 @@ namespace UbicaEditor
                 ScriptableObjectCreator.ShowDialog<EditorMeta>(metaPath, TrySelectMenuItemWithObject);
             }
 
-            if (!selectedIsNull && selectedMeta)
+            void DrawDuplicateButton()
             {
-                if (SirenixEditorGUI.ToolbarButton("Duplicate"))
-                {
-                    metaPath = AssetDatabase.GetAssetPath(selectedMeta);
-                    ScriptableObjectCreator.Duplicate(selectedMeta, metaPath, ScriptableObjectUtility.SaveAsset);
-                }
+                if (!SirenixEditorGUI.ToolbarButton("Duplicate"))
+                    return;
                 
-                if (SirenixEditorGUI.ToolbarButton("Save"))
-                {
-                    metaPath = AssetDatabase.GetAssetPath(selectedMeta);
-                    string newName = selectedMeta.GetNewName();
-                    
-                    if (!string.IsNullOrWhiteSpace(newName))
-                    {
-                        AssetDatabase.RenameAsset(metaPath, newName);
-                        AssetDatabase.SaveAssets();
-                        AssetDatabase.Refresh();
-
-                        TrySelectMenuItemWithObject(selectedMeta);
-                    }
-                    
-                }
-                
-                if (SirenixEditorGUI.ToolbarButton("Delete"))
-                {
-                    metaPath = AssetDatabase.GetAssetPath(selectedMeta);
-
-                    AssetDatabase.DeleteAsset(metaPath);
-                    AssetDatabase.SaveAssets();
-                }
+                metaPath = AssetDatabase.GetAssetPath(selectedMeta);
+                ScriptableObjectCreator.Duplicate(selectedMeta, metaPath, ScriptableObjectUtility.SaveAsset);
             }
 
-            SirenixEditorGUI.EndHorizontalToolbar();
+            void DrawSaveButton()
+            {
+                if (!SirenixEditorGUI.ToolbarButton("Save"))
+                    return;
+                
+                metaPath = AssetDatabase.GetAssetPath(selectedMeta);
+                string newName = selectedMeta.GetMetaName();
+
+                if (string.IsNullOrWhiteSpace(newName))
+                    return;
+                
+                AssetDatabase.RenameAsset(metaPath, newName);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                TrySelectMenuItemWithObject(selectedMeta);
+            }
+
+            void DrawDeleteButton()
+            {
+                if (!SirenixEditorGUI.ToolbarButton("Delete"))
+                    return;
+                
+                metaPath = AssetDatabase.GetAssetPath(selectedMeta);
+
+                AssetDatabase.DeleteAsset(metaPath);
+                AssetDatabase.SaveAssets();
+            }
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        [MenuItem(UbicaEditorMenuItem)]
-        private static void OpenWindow()
+        [MenuItem(EditorMenuItem)]
+        private static void OpenEditorWindow()
         {
             var window = GetWindow<UbicaEditor>();
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-        private void SetupMenuStyle(OdinMenuTree tree)
+        private static void SetupMenuStyle(OdinMenuTree tree)
         {
             tree.Config.DrawSearchToolbar = true;
             tree.DefaultMenuStyle = OdinMenuStyle.TreeViewStyle;
@@ -143,10 +157,37 @@ namespace UbicaEditor
             //tree.Add("Menu Style", tree.DefaultMenuStyle);
         }
 
-        private void AddDragHandles(OdinMenuItem menuItem)
+        private static void LoadAllEditorMeta(OdinMenuTree tree)
         {
-            menuItem.OnDrawItem += x =>
-                DragAndDropUtilities.DragZone(menuItem.Rect, menuItem.Value, false, false);
+            tree.AddAllAssetsAtPath(menuPath: "",
+                assetFolderPath: GameDataPath,
+                typeof(EditorMeta),
+                includeSubDirectories: true);
+        }
+
+        private static void AddIconsToItems(OdinMenuTree tree)
+        {
+            tree.EnumerateTree().AddIcons<ItemMeta>(itemMeta => itemMeta.Icon);
+            tree.EnumerateTree().AddIcons<MonsterMeta>(monsterMeta => monsterMeta.Icon);
+        }
+
+        private static void AddDraggableItems(OdinMenuTree tree)
+        {
+            AddDraggable<ItemMeta>(tree);
+            AddDraggable<MonsterMeta>(tree);
+        }
+
+        private static void AddDraggable<T>(OdinMenuTree tree) where T : EditorMeta
+        {
+            tree.EnumerateTree()
+                .Where(odinMenuItem => odinMenuItem.Value as T)
+                .ForEach(AddDragHandles);
+        }
+        
+        private static void AddDragHandles(OdinMenuItem menuItem)
+        {
+            menuItem.OnDrawItem += _ =>
+                DragAndDropUtilities.DragZone(menuItem.Rect, menuItem.Value, allowMove: false, allowSwap: false);
         }
     }
 }

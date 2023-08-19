@@ -21,7 +21,7 @@ namespace GameCore.Utilities
         {
             int phoneWidth = _useWidthOnPhone ? 0 : 1;
             int tabletWidth = _useWidthOnPhone ? 1 : 0;
-            bool isPhone = DeviceTypeChecker.GetDeviceType() == DeviceName.Phone;
+            bool isPhone = DeviceTypeChecker.GetDeviceName() == DeviceName.Phone;
             float matchWidth = isPhone ? phoneWidth : tabletWidth;
             GetComponent<CanvasScaler>().matchWidthOrHeight = matchWidth;
         }

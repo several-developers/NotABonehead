@@ -32,10 +32,10 @@ namespace GameCore.UI.MainMenu.Character
             CreateItemsShowcaseMenu();
         }
 
-        // PRIVATE METHODS: -----------------------------------------------------------------------
-
-        private bool ContainsDroppedItem() =>
+        public bool ContainsDroppedItem() =>
             _itemsShowcaseService.ContainsDroppedItem();
+
+        // PRIVATE METHODS: -----------------------------------------------------------------------
 
         private void GiveRandomItem() =>
             _rewardsService.GiveRandomItem();

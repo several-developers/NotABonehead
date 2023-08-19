@@ -12,7 +12,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
 
         [Inject]
         private void Construct(IInventoryService inventoryService) =>
-            _statLogic = new PlayerStatLogic(inventoryService, _statVisualizer, _statType);
+            _statLogic = new PlayerStatLogic(inventoryService, _statVisualizer, coroutineRunner: this, _statType);
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ namespace GameCore.UI.MainMenu.InventoryMenu.PlayerStatsPanel
         // GAME ENGINE METHODS: -------------------------------------------------------------------
         
         private void Start() =>
-            _statLogic.UpdateStatInfo();
+            _statLogic.UpdateStatInfo(instant: true);
 
         private void OnDestroy() =>
             _statLogic.Dispose();

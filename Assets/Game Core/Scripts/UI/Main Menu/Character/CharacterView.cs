@@ -22,7 +22,7 @@ namespace GameCore.UI.MainMenu.Character
         [Title(Constants.Settings)]
         [SerializeField, Min(0)]
         private float _clickDelay = 1f;
-        
+
         [Title(Constants.References)]
         [SerializeField, Required]
         private Button _characterButton;
@@ -36,7 +36,7 @@ namespace GameCore.UI.MainMenu.Character
         private bool _isBlocked;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
-        
+
         private void Awake() =>
             _characterButton.onClick.AddListener(OnCharacterClicked);
 
@@ -44,15 +44,20 @@ namespace GameCore.UI.MainMenu.Character
 
         private async void HandleClick()
         {
-            _playerCharacter.PlayRandomAnimation();
-            
-            int delay = (int)(_clickDelay * 1000);
-            await UniTask.Delay(delay);
-            
+            bool containsDroppedItem = _characterLogic.ContainsDroppedItem();
+
+            if (!containsDroppedItem)
+            {
+                _playerCharacter.PlayRandomAnimation();
+
+                int delay = (int)(_clickDelay * 1000);
+                await UniTask.Delay(delay);
+            }
+
             _isBlocked = false;
             _characterLogic.HandleClickLogic();
         }
-        
+
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
         private void OnCharacterClicked()

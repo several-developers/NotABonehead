@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1028914186809588127}
   - component: {fileID: 3411821881142153197}
   m_Layer: 5
-  m_Name: Player Stats Panel View
+  m_Name: Stats panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

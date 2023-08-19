@@ -13,11 +13,11 @@ namespace GameCore.Configs
         private float _attackDelay = 3f;
 
         [SerializeField, Min(0), SuffixLabel("%", overlay: true)]
-        private float _statsIncreasePerLevel = 0.1f;
+        private float _monstersStatsIncreasePerLevel = 0.2f;
 
         // PROPERTIES: ----------------------------------------------------------------------------
 
         public float AttackDelay => _attackDelay;
-        public float StatsIncreasePerLevel => _statsIncreasePerLevel;
+        public float MonstersStatsIncreasePerLevel => _monstersStatsIncreasePerLevel;
     }
 }
