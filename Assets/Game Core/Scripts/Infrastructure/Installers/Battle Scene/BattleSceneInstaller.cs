@@ -1,6 +1,6 @@
 ﻿using GameCore.Battle;
-using GameCore.Battle.Player;
 using GameCore.Battle.Monsters;
+using GameCore.Battle.Player;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.BattleScene
@@ -15,6 +15,9 @@ namespace GameCore.Infrastructure.Installers.BattleScene
             BindMonsterTracker();
             BindPlayerTracker();
             BindBattleStateController();
+            BindVictoryHandler();
+            BindDefeatHandler();
+            BindGameOverHandler();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
@@ -48,6 +51,30 @@ namespace GameCore.Infrastructure.Installers.BattleScene
         {
             Container
                 .BindInterfacesTo<BattleStateController>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindVictoryHandler()
+        {
+            Container
+                .BindInterfacesTo<DefaultModeVictoryHandler>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindDefeatHandler()
+        {
+            Container
+                .BindInterfacesTo<DefaultModeDefeatHandler>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindGameOverHandler()
+        {
+            Container
+                .BindInterfacesTo<GameOverHandler>()
                 .AsSingle()
                 .NonLazy();
         }

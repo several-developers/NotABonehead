@@ -29,7 +29,7 @@ namespace GameCore.UI.BattleScene.RoundsCounter
         private IBattleStateController _battleStateController;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
-        
+
         private void OnDestroy() =>
             _battleStateController.OnRoundChangedEvent -= OnRoundChangedEvent;
 

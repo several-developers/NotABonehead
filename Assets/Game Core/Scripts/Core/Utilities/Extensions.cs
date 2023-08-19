@@ -32,6 +32,9 @@ namespace GameCore.Utilities
         public static bool IsItemKeyOrIDValid(this string itemKey) =>
             !string.IsNullOrEmpty(itemKey);
 
+        public static int ConvertToMilliseconds(this float value) =>
+            Mathf.RoundToInt(value * 1000);
+
         public static void ConvertToMinutes(this float time, out string result)
         {
             time = Mathf.Max(time, 0);

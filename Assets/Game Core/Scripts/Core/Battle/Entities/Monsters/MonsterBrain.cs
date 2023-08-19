@@ -23,7 +23,7 @@ namespace GameCore.Battle.Monsters
             _monsterTracker = monsterTracker;
             _entityStats = monsterStats;
             
-            _monsterTracker.SetDamage(monsterStats.Health);
+            _monsterTracker.SetDamage(monsterStats.Damage);
             _monsterTracker.OnDoAttackEvent += PlayAttackAnimation;
             _monsterTracker.OnTakeDamageEvent += TakeDamage;
         }

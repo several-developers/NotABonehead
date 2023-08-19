@@ -20,7 +20,7 @@ namespace GameCore.Battle.Monsters
             _availableMonstersList = assetsProvider.GetAvailableMonstersList();
             _monstersDataService = monstersDataService;
             _monsterTracker = monsterTracker;
-            _configsProvider = configsProvider;
+            _monstersConfig = configsProvider.GetMonstersConfig();
             _currentLevel = gameDataService.GetCurrentLevel();
         }
         
@@ -30,7 +30,7 @@ namespace GameCore.Battle.Monsters
         private AvailableMonstersListMeta _availableMonstersList;
         private IMonstersDataService _monstersDataService;
         private IMonsterTracker _monsterTracker;
-        private IConfigsProvider _configsProvider;
+        private MonstersConfigMeta _monstersConfig;
         private int _currentLevel = 1;
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
@@ -78,9 +78,7 @@ namespace GameCore.Battle.Monsters
         
         private float CalculateStat(float baseStat)
         {
-            BattleStageConfigMeta battleStageConfig = _configsProvider.GetBattleStageConfig();
-
-            float multiplier = battleStageConfig.MonstersStatsIncreasePerLevel * _currentLevel;
+            float multiplier = _monstersConfig.MonstersStatsIncreasePerLevel * _currentLevel;
             float newStat = baseStat * multiplier;
 
             return newStat + baseStat;

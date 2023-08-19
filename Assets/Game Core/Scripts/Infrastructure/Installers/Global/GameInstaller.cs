@@ -15,9 +15,10 @@ namespace GameCore.Infrastructure.Installers.Global
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
-        
+
         private void BindScenesLoader()
         {
+#warning Вынести в фабрику
             ScenesLoader scenesLoaderService = FindObjectOfType<ScenesLoader>();
 
             Container
@@ -26,7 +27,7 @@ namespace GameCore.Infrastructure.Installers.Global
                 .AsSingle()
                 .NonLazy();
         }
-        
+
         private void BindMenuFactory()
         {
             Container

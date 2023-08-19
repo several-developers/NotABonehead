@@ -33,11 +33,10 @@ namespace GameCore.Infrastructure.Bootstrap.BattleScene
 
         private void Init()
         {
+            PlayBattleMusic();
             CreateMonster();
             CreatePlayer();
             StartBattle();
-            
-            Sounds.PlayBattleMusic();
         }
 
         private void CreateMonster() =>
@@ -48,5 +47,8 @@ namespace GameCore.Infrastructure.Bootstrap.BattleScene
 
         private void StartBattle() =>
             _battleStateController.StartBattle();
+
+        private static void PlayBattleMusic() =>
+            Sounds.PlayBattleMusic();
     }
 }

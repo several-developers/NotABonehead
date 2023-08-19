@@ -6,6 +6,6 @@ namespace GameCore.Battle
     {
         event Action<int> OnRoundChangedEvent;
         void StartBattle();
-        void FinishBattle();
+        void FinishBattle(bool isPlayerWon);
     }
 }

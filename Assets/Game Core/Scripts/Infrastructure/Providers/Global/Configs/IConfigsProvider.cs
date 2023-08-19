@@ -8,5 +8,6 @@ namespace GameCore.Infrastructure.Providers.Global
         ItemsDropChancesConfigMeta GetItemsDropChancesConfig();
         BattleStageConfigMeta GetBattleStageConfig();
         PlayerConfigMeta GetPlayerConfig();
+        MonstersConfigMeta GetMonstersConfig();
     }
 }
