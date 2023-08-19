@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -53,13 +50,18 @@ namespace GameCore
         [SerializeField, Required]
         private AudioClip _lvlUp;
 
+        // FIELDS: --------------------------------------------------------------------------------
+
+        private const string Buttons = "Buttons";
+
         // GAME ENGINE METHODS: -------------------------------------------------------------------
         
         private void Awake() =>
-            Sounds.Setup(this);
+            Sounds.Setup(soundManager: this);
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
+        [Title(Buttons)]
         [Button]
         public void PlayMainMenuMusic()
         {
