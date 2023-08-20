@@ -70,7 +70,6 @@ namespace GameCore.Battle
                 else
                     MonsterTurn();
 
-                PlayHitSound();
                 HandleEndOfTheTurn();
             }
         }
@@ -102,6 +101,7 @@ namespace GameCore.Battle
             
             attacker.SendAttackEvent();
             defender.TakeDamage(finalDamage);
+            PlayHitSound();
         }
 
         private static float CalculateDamage(float damage, float defense) =>

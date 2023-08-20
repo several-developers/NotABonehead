@@ -72,7 +72,7 @@ namespace GameCore.Battle.Entities
         private void Die()
         {
             PlayDeathAnimation();
-            _entityTracker.SendDied();
+            _entityTracker.SendDieEvent();
 
             _entityTracker.OnTakeDamageEvent -= TakeDamage;
             _entityTracker.OnAttackEvent -= OnAttackEvent;

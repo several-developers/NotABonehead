@@ -1,6 +1,5 @@
 ﻿using GameCore.Battle;
-using GameCore.Battle.Entities.Monsters;
-using GameCore.Battle.Entities.Player;
+using GameCore.Battle.Entities;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.BattleScene

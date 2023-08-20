@@ -12,7 +12,7 @@ namespace GameCore.Battle.Entities
         void TakeDamage(float damage);
         void SendHealthChanged(float currentHealth, float maxHealth);
         void SendAttackEvent();
-        void SendDied();
+        void SendDieEvent();
         EntityStats GetEntityStats();
     }
 }
