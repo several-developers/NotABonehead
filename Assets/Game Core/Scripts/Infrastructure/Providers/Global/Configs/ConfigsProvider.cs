@@ -14,6 +14,7 @@ namespace GameCore.Infrastructure.Providers.Global
             _battleStageConfig = Load<BattleStageConfigMeta>(path: ConfigsPaths.BattleStageConfig);
             _playerConfig = Load<PlayerConfigMeta>(path: ConfigsPaths.PlayerConfig);
             _monstersConfig = Load<MonstersConfigMeta>(path: ConfigsPaths.MonstersConfig);
+            _gameConfig = Load<GameConfigMeta>(path: ConfigsPaths.GameConfig);
         }
 
         // FIELDS: --------------------------------------------------------------------------------
@@ -23,6 +24,7 @@ namespace GameCore.Infrastructure.Providers.Global
         private readonly BattleStageConfigMeta _battleStageConfig;
         private readonly PlayerConfigMeta _playerConfig;
         private readonly MonstersConfigMeta _monstersConfig;
+        private readonly GameConfigMeta _gameConfig;
         
         // PUBLIC METHODS: ------------------------------------------------------------------------
         
@@ -31,5 +33,6 @@ namespace GameCore.Infrastructure.Providers.Global
         public BattleStageConfigMeta GetBattleStageConfig() => _battleStageConfig;
         public PlayerConfigMeta GetPlayerConfig() => _playerConfig;
         public MonstersConfigMeta GetMonstersConfig() => _monstersConfig;
+        public GameConfigMeta GetGameConfig() => _gameConfig;
     }
 }

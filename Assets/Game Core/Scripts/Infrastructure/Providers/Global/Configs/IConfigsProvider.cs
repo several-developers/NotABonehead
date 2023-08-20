@@ -9,5 +9,6 @@ namespace GameCore.Infrastructure.Providers.Global
         BattleStageConfigMeta GetBattleStageConfig();
         PlayerConfigMeta GetPlayerConfig();
         MonstersConfigMeta GetMonstersConfig();
+        GameConfigMeta GetGameConfig();
     }
 }

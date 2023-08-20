@@ -1,4 +1,7 @@
 using Cysharp.Threading.Tasks;
+using GameCore.Configs;
+using GameCore.Infrastructure.Providers.Global;
+using GameCore.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -10,18 +13,15 @@ namespace GameCore.MainMenu
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IPlayerPreviewObserver playerPreviewObserver)
+        private void Construct(IPlayerPreviewObserver playerPreviewObserver, IConfigsProvider configsProvider)
         {
             _playerPreviewObserver = playerPreviewObserver;
+            _gameConfig = configsProvider.GetGameConfig();
             
             _playerPreviewObserver.OnClickedEvent += OnClickedEvent;
         }
         
         // MEMBERS: -------------------------------------------------------------------------------
-
-        [Title(Constants.Settings)]
-        [SerializeField, Min(0)]
-        private float _resetDelay = 0.9f;
 
         [TitleGroup(Constants.Animation)]
         [BoxGroup(Constants.AnimationIn, showLabel: false), SerializeField]
@@ -33,6 +33,7 @@ namespace GameCore.MainMenu
         private static readonly int State = Animator.StringToHash("State");
         
         private IPlayerPreviewObserver _playerPreviewObserver;
+        private GameConfigMeta _gameConfig;
         private Animator _animator;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
@@ -48,6 +49,21 @@ namespace GameCore.MainMenu
         private async void PlayRandomAnimation()
         {
             _previewAnimation.StartAnimation();
+            PlayAnimatorAnimation();
+            
+            int delay = _gameConfig.ItemRewardDelay.ConvertToMilliseconds();
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
+            
+            ResetAnimatorAnimation();
+        }
+
+        private void PlayAnimatorAnimation()
+        {
             int randomValue = Random.Range(0, 3);
 
             switch (randomValue)
@@ -64,17 +80,10 @@ namespace GameCore.MainMenu
                     _animator.SetInteger(State, 9);
                     break;
             }
-            
-            int delay = (int)(_resetDelay * 1000);
-            bool isCanceled = await UniTask
-                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
-                .SuppressCancellationThrow();
-
-            if (isCanceled)
-                return;
-            
-            _animator.SetInteger(State, 0);
         }
+
+        private void ResetAnimatorAnimation() =>
+            _animator.SetInteger(State, 0);
 
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GameCore.Enums;
 using GameCore.Events;
+using GameCore.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -84,7 +85,7 @@ namespace GameCore.UI.MainMenu.CoinsFlyAnimation
             DropCoins();
             _canvas.enabled = true;
 
-            int delay = (int)(_disableCanvasDelay * 1000);
+            int delay = _disableCanvasDelay.ConvertToMilliseconds();
             bool isCanceled = await UniTask
                 .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
                 .SuppressCancellationThrow();
@@ -112,8 +113,13 @@ namespace GameCore.UI.MainMenu.CoinsFlyAnimation
 
         private async void StartAnimationWithDelay()
         {
-            int delay = (int)(_wholeAnimationDelay * 1000);
-            await UniTask.Delay(delay);
+            int delay = _wholeAnimationDelay.ConvertToMilliseconds();
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
             
             StartAnimation();
         }
@@ -139,9 +145,14 @@ namespace GameCore.UI.MainMenu.CoinsFlyAnimation
         private async void FlyToTarget(GoldItem goldItem)
         {
             float randomDelay = Random.Range(_minFlyDelay, _maxFlyDelay);
-            int delay = (int)(randomDelay * 1000);
+            int delay = randomDelay.ConvertToMilliseconds();
 
-            await UniTask.Delay(delay);
+            bool isCanceled = await UniTask
+                .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
+
+            if (isCanceled)
+                return;
 
             float flyTime = Random.Range(_minFlyTime, _maxFlyTime);
             goldItem.transform.SetParent(_coinsTarget);

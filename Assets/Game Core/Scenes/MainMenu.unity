@@ -993,11 +993,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,6 +1030,10 @@ PrefabInstance:
     - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 2850868066457758278, guid: faa7f19f6e9e56445b285111ebf11d62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3072,7 +3076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8019053975026086630, guid: 92e67e912d4635f45834da2234407629, type: 3}
       propertyPath: m_Name
-      value: Character View
+      value: Player Button View
       objectReference: {fileID: 0}
     - target: {fileID: 8338486562690356736, guid: 92e67e912d4635f45834da2234407629, type: 3}
       propertyPath: _playerPreview

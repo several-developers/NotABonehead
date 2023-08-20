@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
+using GameCore.Configs;
+using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Services.Global.Inventory;
 using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
+using GameCore.Utilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -13,20 +16,17 @@ namespace GameCore.UI.MainMenu.DroppedItem
 
         [Inject]
         private void Construct(DiContainer diContainer, IItemsShowcaseService itemsShowcaseService,
-            IInventoryService inventoryService)
+            IInventoryService inventoryService, IConfigsProvider configsProvider)
         {
             _diContainer = diContainer;
             _itemsShowcaseService = itemsShowcaseService;
             _inventoryService = inventoryService;
+            _gameConfig = configsProvider.GetGameConfig();
 
             _inventoryService.OnReceivedDroppedItemEvent += OnReceivedDroppedItemEvent;
         }
 
         // MEMBERS: -------------------------------------------------------------------------------
-
-        [Title(Constants.Settings)]
-        [SerializeField, Min(0)]
-        private float _createDelay = 0.5f;
         
         [Title(Constants.References)]
         [SerializeField, Required]
@@ -40,6 +40,7 @@ namespace GameCore.UI.MainMenu.DroppedItem
         private DiContainer _diContainer;
         private IItemsShowcaseService _itemsShowcaseService;
         private IInventoryService _inventoryService;
+        private GameConfigMeta _gameConfig;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ namespace GameCore.UI.MainMenu.DroppedItem
 
         private async void TryCreateDroppedItemViewWithDelay()
         {
-            int delay = (int)(_createDelay * 1000);
+            int delay = _gameConfig.DroppedItemCreateDelay.ConvertToMilliseconds();
             bool isCanceled = await UniTask
                 .Delay(delay, cancellationToken: this.GetCancellationTokenOnDestroy())
                 .SuppressCancellationThrow();

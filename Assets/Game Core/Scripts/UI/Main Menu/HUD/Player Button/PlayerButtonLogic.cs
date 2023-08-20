@@ -5,11 +5,11 @@ using GameCore.UI.MainMenu.ItemsShowcaseMenu;
 
 namespace GameCore.UI.MainMenu.HUD.Character
 {
-    public class CharacterButtonLogic
+    public class PlayerButtonLogic
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public CharacterButtonLogic(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService)
+        public PlayerButtonLogic(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService)
         {
             _itemsShowcaseService = itemsShowcaseService;
             _rewardsService = rewardsService;

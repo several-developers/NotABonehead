@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e042102cd0d43429a7be731059504f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _checkInteractable: 0
-  _button: {fileID: 0}
+  _checkInteractable: 1
+  _button: {fileID: 4455600912988240131}
   _scaleTime: 0.15
   _scale: {x: 0.85, y: 0.85}
   _rectTransform: {fileID: 5436581306990659349}
@@ -191,7 +191,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 3925008536320164330}
   m_OnClick:
     m_PersistentCalls:
