@@ -39,7 +39,7 @@ namespace GameCore.Infrastructure.Installers.BattleScene
         private void BindPlayerFactory()
         {
             Container
-                .Bind<IPlayerFactory>()
+                .BindInterfacesTo<PlayerFactory>()
                 .FromInstance(_playerFactory)
                 .AsSingle()
                 .NonLazy();
