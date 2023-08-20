@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace GameCore.Other
 {
+#warning Temprorary, delete later.
     public class Director : MonoBehaviour
     {
         // FIELDS: --------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ namespace GameCore.Other
             }
 
             _instance = this;
-            
+
             DontDestroyOnLoad(target: this);
         }
     }

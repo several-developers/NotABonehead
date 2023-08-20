@@ -1,22 +1,32 @@
-using System;
-using System.Collections;
 using DG.Tweening;
 using GameCore.Enums;
+using GameCore.Infrastructure.Services.Global;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace GameCore.Other
 {
-    public class ScenesLoader : MonoBehaviour, IScenesLoader
+    public class ScenesLoader : MonoBehaviour
     {
+        // CONSTRUCTORS: --------------------------------------------------------------------------
+
+        [Inject]
+        private void Construct(IScenesLoaderService scenesLoaderService)
+        {
+            _scenesLoaderService = scenesLoaderService;
+
+            _scenesLoaderService.OnSceneStartLoading += OnSceneStartLoading;
+            _scenesLoaderService.OnSceneFinishedLoading += OnSceneFinishedLoading;
+        }
+
         // MEMBERS: -------------------------------------------------------------------------------
 
-        [Title(Settings)]
+        [Title(Constants.Settings)]
         [SerializeField, Min(0)]
         private float _fadeTime;
 
-        [Title(References)]
+        [Title(Constants.References)]
         [SerializeField, Required]
         private Canvas _canvas;
 
@@ -24,76 +34,54 @@ namespace GameCore.Other
         private CanvasGroup _canvasGroup;
 
         // FIELDS: --------------------------------------------------------------------------------
+        
+        private IScenesLoaderService _scenesLoaderService;
 
-        public event Action OnLoadingStarted;
-        public event Action OnLoadingFinished;
+        // GAME ENGINE METHODS: -------------------------------------------------------------------
 
-        private const string Settings = "Settings";
-        private const string References = "References";
-        private const string DebugButtons = "Debug Buttons";
+        private void Awake() => DontDestroyOnLoad(gameObject);
 
-        private bool _isLoading;
-
-        // PUBLIC METHODS: ------------------------------------------------------------------------
-
-        public void LoadScene(SceneName sceneName)
+        private void OnDestroy()
         {
-            if (_isLoading)
-                return;
-
-            FadeAnimation(true, sceneName);
+            _scenesLoaderService.OnSceneStartLoading -= OnSceneStartLoading;
+            _scenesLoaderService.OnSceneFinishedLoading -= OnSceneFinishedLoading;
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void FadeAnimation(bool fadeIn, SceneName sceneName = SceneName.MainMenu)
+        private void FadeAnimation(bool fadeIn)
         {
             if (fadeIn)
                 _canvas.enabled = true;
 
+            float value = fadeIn ? 1 : 0;
+
             _canvasGroup
-                .DOFade(fadeIn ? 1 : 0, _fadeTime)
+                .DOFade(value, _fadeTime)
                 .OnComplete(() =>
                 {
-                    if (fadeIn)
-                        StartCoroutine(SceneLoader(sceneName));
-                    else
+                    if (!fadeIn)
                         _canvas.enabled = false;
                 });
         }
 
-        private IEnumerator SceneLoader(SceneName sceneName)
-        {
-            // The Application loads the Scene in the background as the current Scene runs.
-            // This is particularly good for creating loading screens.
-            // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-            // a sceneBuildIndex of 1 as shown in Build Settings.
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
-            OnLoadingStarted?.Invoke();
-            _isLoading = true;
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName.ToString());
+        private void OnSceneStartLoading() =>
+            FadeAnimation(fadeIn: true);
 
-            // Wait until the asynchronous scene fully loads
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-
-            OnLoadingFinished?.Invoke();
-            _isLoading = false;
-            FadeAnimation(false);
-        }
+        private void OnSceneFinishedLoading() =>
+            FadeAnimation(fadeIn: false);
 
         // DEBUG BUTTONS: -------------------------------------------------------------------------
 
-        [Title(DebugButtons)]
-
-        [Button(25)]
+        [Title(Constants.DebugButtons)]
+        [Button(25), DisableInEditorMode]
         private void DebugLoadMainMenu() =>
-            LoadScene(SceneName.MainMenu);
+            _scenesLoaderService.LoadScene(SceneName.MainMenu);
 
-        [Button(25)]
+        [Button(25), DisableInEditorMode]
         private void DebugLoadBattle() =>
-            LoadScene(SceneName.Battle);
+            _scenesLoaderService.LoadScene(SceneName.Battle);
     }
 }

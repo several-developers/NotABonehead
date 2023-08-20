@@ -4,13 +4,12 @@ using Zenject;
 
 namespace GameCore.Infrastructure.Installers.BattleScene
 {
-    public class BattleSceneInstaller : MonoInstaller, ICoroutineRunner
+    public class BattleSceneInstaller : MonoInstaller
     {
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public override void InstallBindings()
         {
-            BindCoroutineRunner();
             BindMonsterTracker();
             BindPlayerTracker();
             BindBattleStateController();
@@ -20,15 +19,6 @@ namespace GameCore.Infrastructure.Installers.BattleScene
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
-        
-        private void BindCoroutineRunner()
-        {
-            Container
-                .Bind<ICoroutineRunner>()
-                .FromInstance(this)
-                .AsSingle()
-                .NonLazy();
-        }
 
         private void BindMonsterTracker()
         {

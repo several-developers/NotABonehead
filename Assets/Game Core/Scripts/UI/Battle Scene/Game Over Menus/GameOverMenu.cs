@@ -1,5 +1,5 @@
 using GameCore.Enums;
-using GameCore.Other;
+using GameCore.Infrastructure.Services.Global;
 using GameCore.UI.Global.MenuView;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,8 +13,8 @@ namespace GameCore.UI.BattleScene.GameOverMenus
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IScenesLoader scenesLoader) =>
-            _scenesLoader = scenesLoader;
+        private void Construct(IScenesLoaderService scenesLoaderService) =>
+            _scenesLoaderService = scenesLoaderService;
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ namespace GameCore.UI.BattleScene.GameOverMenus
 
         // FIELDS: --------------------------------------------------------------------------------
         
-        private IScenesLoader _scenesLoader;
+        private IScenesLoaderService _scenesLoaderService;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
 
@@ -40,6 +40,6 @@ namespace GameCore.UI.BattleScene.GameOverMenus
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
         private void OnContinueClicked() =>
-            _scenesLoader.LoadScene(SceneName.MainMenu);
+            _scenesLoaderService.LoadScene(SceneName.MainMenu);
     }
 }

@@ -1,5 +1,5 @@
 using GameCore.Enums;
-using GameCore.Other;
+using GameCore.Infrastructure.Services.Global;
 using GameCore.UI.Global.Buttons;
 using Zenject;
 
@@ -10,16 +10,16 @@ namespace GameCore.UI.MainMenu.HUD
         // CONSTRUCTORS: --------------------------------------------------------------------------
         
         [Inject]
-        private void Construct(IScenesLoader scenesLoader) =>
-            _scenesLoader = scenesLoader;
+        private void Construct(IScenesLoaderService scenesLoaderService) =>
+            _scenesLoaderService = scenesLoaderService;
 
         // FIELDS: --------------------------------------------------------------------------------
         
-        private IScenesLoader _scenesLoader;
+        private IScenesLoaderService _scenesLoaderService;
         
         // PROTECTED METHODS: ---------------------------------------------------------------------
 
         protected override void ClickLogic() =>
-            _scenesLoader.LoadScene(SceneName.Battle);
+            _scenesLoaderService.LoadScene(SceneName.Battle);
     }
 }

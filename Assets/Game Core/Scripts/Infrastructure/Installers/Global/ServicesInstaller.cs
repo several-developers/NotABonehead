@@ -19,6 +19,7 @@ namespace GameCore.Infrastructure.Installers.Global
         {
             BindDataServices();
             BindSaveLoadService();
+            BindScenesLoaderService();
             BindInventoryService();
             BindRewardsService();
             BindItemsShowcaseService();
@@ -37,6 +38,14 @@ namespace GameCore.Infrastructure.Installers.Global
         {
             Container
                 .BindInterfacesTo<SaveLoadService>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindScenesLoaderService()
+        {
+            Container
+                .BindInterfacesTo<ScenesLoaderService>()
                 .AsSingle()
                 .NonLazy();
         }

@@ -1,29 +1,26 @@
+using GameCore.Battle;
 using GameCore.Factories;
-using GameCore.Other;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.Global
 {
-    public class GameInstaller : MonoInstaller
+    public class GameInstaller : MonoInstaller, ICoroutineRunner
     {
         // PUBLIC METHODS: ------------------------------------------------------------------------
 
         public override void InstallBindings()
         {
-            BindScenesLoader();
+            BindCoroutineRunner();
             BindMenuFactory();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private void BindScenesLoader()
+        private void BindCoroutineRunner()
         {
-#warning Вынести в фабрику
-            ScenesLoader scenesLoaderService = FindObjectOfType<ScenesLoader>();
-
             Container
-                .Bind<IScenesLoader>()
-                .FromInstance(scenesLoaderService)
+                .Bind<ICoroutineRunner>()
+                .FromInstance(this)
                 .AsSingle()
                 .NonLazy();
         }
