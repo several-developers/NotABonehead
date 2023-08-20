@@ -5,7 +5,7 @@ namespace GameCore.Battle.Entities
     public interface IEntityTracker
     {
         event Action<float> OnTakeDamageEvent;
-        event Action<float, float> OnHealthChangedEvent;
+        event Action<HealthDifferenceData> OnHealthChangedEvent;
         event Action OnAttackEvent;
         event Action OnDiedEvent;
         void SetEntityBrain(EntityBrain entityBrain);

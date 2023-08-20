@@ -51,9 +51,9 @@ namespace GameCore.UI.BattleScene.HealthBars
         
         // EVENTS RECEIVERS: ----------------------------------------------------------------------
 
-        private void OnHealthChangedEvent(float currentHealth, float maxHealth)
+        private void OnHealthChangedEvent(HealthDifferenceData healthDifferenceData)
         {
-            float fillValue = Mathf.Clamp01(currentHealth / maxHealth);
+            float fillValue = Mathf.Clamp01(healthDifferenceData.Health / healthDifferenceData.MaxHealth);
             SetFill(fillValue);
         }
     }

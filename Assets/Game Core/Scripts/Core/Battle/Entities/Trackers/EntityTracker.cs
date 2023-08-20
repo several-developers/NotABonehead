@@ -7,7 +7,7 @@ namespace GameCore.Battle.Entities
         // FIELDS: --------------------------------------------------------------------------------
 
         public event Action<float> OnTakeDamageEvent;
-        public event Action<float, float> OnHealthChangedEvent;
+        public event Action<HealthDifferenceData> OnHealthChangedEvent;
         public event Action OnAttackEvent;
         public event Action OnDiedEvent;
 
@@ -21,8 +21,11 @@ namespace GameCore.Battle.Entities
         public void TakeDamage(float damage) =>
             OnTakeDamageEvent?.Invoke(damage);
 
-        public void SendHealthChanged(float currentHealth, float maxHealth) =>
-            OnHealthChangedEvent?.Invoke(currentHealth, maxHealth);
+        public void SendHealthChanged(float currentHealth, float maxHealth)
+        {
+            HealthDifferenceData healthDifferenceData = new(currentHealth, maxHealth);
+            OnHealthChangedEvent?.Invoke(healthDifferenceData);
+        }
 
         public void SendAttackEvent() =>
             OnAttackEvent?.Invoke();
