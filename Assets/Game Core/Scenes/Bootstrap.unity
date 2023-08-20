@@ -580,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9002861971171392712, guid: a3ab4a7ec9deef74588fee0437727852, type: 3}
       propertyPath: _dataManager._inventoryData._droppedItemData._itemKey
-      value: d0b-3315684d3028
+      value: 405-89e9c563399c
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

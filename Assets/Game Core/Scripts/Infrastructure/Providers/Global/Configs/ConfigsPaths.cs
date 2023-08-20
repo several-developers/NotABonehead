@@ -10,6 +10,7 @@ namespace GameCore.Infrastructure.Providers.Global
         public const string PlayerConfig = Configs + "Player Config";
         public const string MonstersConfig = Configs + "Monsters Config";
         public const string GameConfig = Configs + "Game Config";
+        public const string ItemsRewardConfig = Configs + "Items Reward Config";
         
         private const string GameData = "Game Data/";
         private const string Configs = GameData + "Configs/";

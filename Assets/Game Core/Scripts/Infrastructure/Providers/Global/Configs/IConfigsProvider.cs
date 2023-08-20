@@ -10,5 +10,6 @@ namespace GameCore.Infrastructure.Providers.Global
         PlayerConfigMeta GetPlayerConfig();
         MonstersConfigMeta GetMonstersConfig();
         GameConfigMeta GetGameConfig();
+        ItemsRewardConfigMeta GetItemsRewardConfig();
     }
 }

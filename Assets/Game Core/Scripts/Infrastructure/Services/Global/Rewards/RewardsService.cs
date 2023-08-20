@@ -27,20 +27,16 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             _itemsMetaProvider = itemsMetaProvider;
             _configsProvider = configsProvider;
             _playerDataService = playerDataService;
+            _itemsRewardConfig = configsProvider.GetItemsRewardConfig();
         }
 
         // FIELDS: --------------------------------------------------------------------------------
         
-        private const int MaxItemTypesRepeats = 3;
-        private const int MinStatValue = 1;
-        private const int MaxStatValue = 15;
-        private const int MinItemLevel = 1;
-        private const int MaxItemLevel = 10;
-
         private readonly IInventoryService _inventoryService;
         private readonly IItemsMetaProvider _itemsMetaProvider;
         private readonly IConfigsProvider _configsProvider;
         private readonly IPlayerDataService _playerDataService;
+        private readonly ItemsRewardConfigMeta _itemsRewardConfig;
 
         private ItemType _previousItemType;
         private int _sameItemTypeRepeats;
@@ -142,7 +138,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
                 return false;
             }
 
-            bool isRepeatsLimitReached = _sameItemTypeRepeats >= MaxItemTypesRepeats;
+            bool isRepeatsLimitReached = _sameItemTypeRepeats >= _itemsRewardConfig.MaxSameTypesRepeats;
             _sameItemTypeRepeats++;
 
             if (isRepeatsLimitReached)
@@ -182,7 +178,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             }
         }
 
-        private static ItemStats CreateItemStats(ItemRarity itemRarity = ItemRarity.Common)
+        private ItemStats CreateItemStats(ItemRarity itemRarity = ItemRarity.Common)
         {
             int level = GetRandomItemLevel();
             int health = GetRandomStatValue();
@@ -227,10 +223,10 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             return itemType;
         }
 
-        private static int GetRandomStatValue() =>
-            Random.Range(MinStatValue, MaxStatValue + 1);
+        private int GetRandomStatValue() =>
+            Random.Range(_itemsRewardConfig.MinStatValue, _itemsRewardConfig.MaxStatValue + 1);
         
-        private static int GetRandomItemLevel() =>
-            Random.Range(MinItemLevel, MaxItemLevel + 1);
+        private int GetRandomItemLevel() =>
+            Random.Range(_itemsRewardConfig.MinItemLevel, _itemsRewardConfig.MaxItemLevel + 1);
     }
 }
