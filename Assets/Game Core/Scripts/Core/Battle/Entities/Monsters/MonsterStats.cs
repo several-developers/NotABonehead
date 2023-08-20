@@ -1,4 +1,4 @@
-﻿namespace GameCore.Battle.Monsters
+﻿namespace GameCore.Battle.Entities.Monsters
 {
     public struct MonsterStats
     {

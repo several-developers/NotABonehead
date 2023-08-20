@@ -1,4 +1,4 @@
-﻿using GameCore.Battle.Monsters;
+﻿using GameCore.Battle.Entities.Monsters;
 using GameCore.Factories;
 using GameCore.Items;
 using GameCore.Utilities;

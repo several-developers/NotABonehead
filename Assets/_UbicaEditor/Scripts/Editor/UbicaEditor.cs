@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.IO;
 using System.Linq;
-using GameCore.Battle.Monsters;
+using GameCore.Battle.Entities.Monsters;
 using GameCore.Items;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;

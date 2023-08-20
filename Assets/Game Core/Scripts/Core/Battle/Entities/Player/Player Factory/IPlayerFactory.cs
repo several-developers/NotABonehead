@@ -1,4 +1,4 @@
-namespace GameCore.Battle.Player
+namespace GameCore.Battle.Entities.Player
 {
     public interface IPlayerFactory
     {

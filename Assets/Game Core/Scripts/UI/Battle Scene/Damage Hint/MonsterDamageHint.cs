@@ -1,4 +1,4 @@
-using GameCore.Battle.Monsters;
+using GameCore.Battle.Entities;
 using Zenject;
 
 namespace GameCore.UI.BattleScene.DamageHints
@@ -8,28 +8,7 @@ namespace GameCore.UI.BattleScene.DamageHints
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IMonsterTracker monsterTracker)
-        {
-            _monsterTracker = monsterTracker;
-
-            _monsterTracker.OnTakeDamageEvent += OnTakeDamageEvent;
-        }
-
-        // FIELDS: --------------------------------------------------------------------------------
-
-        private IMonsterTracker _monsterTracker;
-
-        // GAME ENGINE METHODS: -------------------------------------------------------------------
-
-        private void OnDestroy() =>
-            _monsterTracker.OnTakeDamageEvent -= OnTakeDamageEvent;
-        
-        // EVENTS RECEIVERS: ----------------------------------------------------------------------
-
-        private void OnTakeDamageEvent(float damage)
-        {
-            SetDamage(damage);
-            PlayAnimation();
-        }
+        private void Construct(IMonsterTracker monsterTracker) =>
+            EntityTracker = monsterTracker;
     }
 }

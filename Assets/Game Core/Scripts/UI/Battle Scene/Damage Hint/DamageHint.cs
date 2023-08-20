@@ -1,3 +1,4 @@
+using GameCore.Battle.Entities;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -15,12 +16,32 @@ namespace GameCore.UI.BattleScene.DamageHints
         [SerializeField, Required]
         private HintAnimation _hintAnimation;
 
-        // PROTECTED METHODS: ---------------------------------------------------------------------
+        // FIELDS: --------------------------------------------------------------------------------
 
-        protected void SetDamage(float damage) =>
+        protected IEntityTracker EntityTracker;
+
+        // GAME ENGINE METHODS: -------------------------------------------------------------------
+
+        private void Awake() =>
+            EntityTracker.OnTakeDamageEvent += OnTakeDamageEvent;
+
+        private void OnDestroy() =>
+            EntityTracker.OnTakeDamageEvent -= OnTakeDamageEvent;
+
+        // PRIVATE METHODS: -----------------------------------------------------------------------
+
+        private void SetDamage(float damage) =>
             _damageTMP.text = damage.ToString(format: "F0");
 
-        protected void PlayAnimation() =>
+        private void PlayAnimation() =>
             _hintAnimation.StartAnimation();
+
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
+        
+        private void OnTakeDamageEvent(float damage)
+        {
+            SetDamage(damage);
+            PlayAnimation();
+        }
     }
 }

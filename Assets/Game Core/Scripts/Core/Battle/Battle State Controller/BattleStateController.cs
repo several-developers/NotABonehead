@@ -1,6 +1,5 @@
 ﻿using System;
-using GameCore.Battle.Monsters;
-using GameCore.Battle.Player;
+using GameCore.Battle.Entities;
 using GameCore.Infrastructure.Providers.Global;
 
 namespace GameCore.Battle

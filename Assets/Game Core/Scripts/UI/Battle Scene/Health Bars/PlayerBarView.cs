@@ -1,4 +1,4 @@
-﻿using GameCore.Battle.Player;
+﻿using GameCore.Battle.Entities;
 using Zenject;
 
 namespace GameCore.UI.BattleScene.HealthBars
@@ -8,28 +8,7 @@ namespace GameCore.UI.BattleScene.HealthBars
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IPlayerTracker playerTracker)
-        {
-            _playerTracker = playerTracker;
-
-            _playerTracker.OnHealthChangedEvent += OnHealthChangedEvent;
-        }
-
-        // FIELDS: --------------------------------------------------------------------------------
-        
-        private IPlayerTracker _playerTracker;
-
-        // GAME ENGINE METHODS: -------------------------------------------------------------------
-
-        private void OnDestroy() =>
-            _playerTracker.OnHealthChangedEvent -= OnHealthChangedEvent;
-
-        // EVENTS RECEIVERS: ----------------------------------------------------------------------
-
-        private void OnHealthChangedEvent(PlayerStats playerStats)
-        {
-            float fillValue = playerStats.CurrentHealth / (float)playerStats.MaxHealth;
-            SetFill(fillValue);
-        }
+        private void Construct(IPlayerTracker playerTracker) =>
+            EntityTracker = playerTracker;
     }
 }

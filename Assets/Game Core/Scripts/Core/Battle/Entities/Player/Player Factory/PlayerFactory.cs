@@ -5,7 +5,7 @@ using GameCore.Infrastructure.Services.Global.Player;
 using UnityEngine;
 using Zenject;
 
-namespace GameCore.Battle.Player
+namespace GameCore.Battle.Entities.Player
 {
     public class PlayerFactory : MonoBehaviour, IPlayerFactory
     {

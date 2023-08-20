@@ -1,4 +1,4 @@
-﻿using GameCore.Battle.Monsters;
+﻿using GameCore.Battle.Entities;
 using Zenject;
 
 namespace GameCore.UI.BattleScene.HealthBars
@@ -8,28 +8,7 @@ namespace GameCore.UI.BattleScene.HealthBars
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IMonsterTracker monsterTracker)
-        {
-            _monsterTracker = monsterTracker;
-
-            _monsterTracker.OnHealthChangedEvent += OnHealthChangedEvent;
-        }
-
-        // FIELDS: --------------------------------------------------------------------------------
-        
-        private IMonsterTracker _monsterTracker;
-
-        // GAME ENGINE METHODS: -------------------------------------------------------------------
-
-        private void OnDestroy() =>
-            _monsterTracker.OnHealthChangedEvent -= OnHealthChangedEvent;
-
-        // EVENTS RECEIVERS: ----------------------------------------------------------------------
-
-        private void OnHealthChangedEvent(MonsterStats monsterStats)
-        {
-            float fillValue = monsterStats.CurrentHealth / (float)monsterStats.MaxHealth;
-            SetFill(fillValue);
-        }
+        private void Construct(IMonsterTracker monsterTracker) =>
+            EntityTracker = monsterTracker;
     }
 }

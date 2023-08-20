@@ -1,6 +1,6 @@
 using GameCore.Battle;
-using GameCore.Battle.Monsters;
-using GameCore.Battle.Player;
+using GameCore.Battle.Entities.Monsters;
+using GameCore.Battle.Entities.Player;
 using UnityEngine;
 using Zenject;
 

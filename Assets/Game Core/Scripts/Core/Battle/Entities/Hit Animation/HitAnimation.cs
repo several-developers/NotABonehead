@@ -2,7 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore.Battle
+namespace GameCore.Battle.Entities
 {
     public class HitAnimation : MonoBehaviour
     {

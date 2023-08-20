@@ -1,7 +1,6 @@
-using GameCore.Battle.Player;
 using Zenject;
 
-namespace GameCore.Battle
+namespace GameCore.Battle.Entities
 {
     public class PlayerHitAnimation : HitAnimation
     {

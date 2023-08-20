@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameCore.Battle.Monsters;
+using GameCore.Battle.Entities.Monsters;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Providers.Global;
 using GameCore.Infrastructure.Providers.Global.Data;

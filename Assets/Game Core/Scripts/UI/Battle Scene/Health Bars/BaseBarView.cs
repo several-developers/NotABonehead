@@ -1,5 +1,5 @@
-using System;
 using DG.Tweening;
+using GameCore.Battle.Entities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,11 +23,21 @@ namespace GameCore.UI.BattleScene.HealthBars
 
         // FIELDS: --------------------------------------------------------------------------------
 
+        protected IEntityTracker EntityTracker;
+        
         private Tweener _fillTN;
 
-        // PROTECTED METHODS: ---------------------------------------------------------------------
+        // GAME ENGINE METHODS: -------------------------------------------------------------------
 
-        protected void SetFill(float value)
+        private void Awake() =>
+            EntityTracker.OnHealthChangedEvent += OnHealthChangedEvent;
+
+        private void OnDestroy() =>
+            EntityTracker.OnHealthChangedEvent -= OnHealthChangedEvent;
+
+        // PRIVATE METHODS: -----------------------------------------------------------------------
+        
+        private void SetFill(float value)
         {
             value = Mathf.Clamp01(value);
             
@@ -37,6 +47,14 @@ namespace GameCore.UI.BattleScene.HealthBars
                 .DOValue(value, _fillTime)
                 .SetEase(_fillEase)
                 .SetLink(gameObject);
+        }
+        
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
+
+        private void OnHealthChangedEvent(float currentHealth, float maxHealth)
+        {
+            float fillValue = Mathf.Clamp01(currentHealth / maxHealth);
+            SetFill(fillValue);
         }
     }
 }

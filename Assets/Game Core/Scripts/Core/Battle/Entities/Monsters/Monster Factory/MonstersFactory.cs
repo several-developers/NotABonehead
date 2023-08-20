@@ -5,7 +5,7 @@ using GameCore.Infrastructure.Services.Global.Data;
 using UnityEngine;
 using Zenject;
 
-namespace GameCore.Battle.Monsters
+namespace GameCore.Battle.Entities.Monsters
 {
     public class MonstersFactory : MonoBehaviour, IMonstersFactory
     {

@@ -1,4 +1,4 @@
-using GameCore.Battle.Player;
+using GameCore.Battle.Entities;
 using Zenject;
 
 namespace GameCore.UI.BattleScene.DamageHints
@@ -8,28 +8,7 @@ namespace GameCore.UI.BattleScene.DamageHints
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IPlayerTracker playerTracker)
-        {
-            _playerTracker = playerTracker;
-
-            _playerTracker.OnTakeDamageEvent += OnTakeDamageEvent;
-        }
-
-        // FIELDS: --------------------------------------------------------------------------------
-
-        private IPlayerTracker _playerTracker;
-
-        // GAME ENGINE METHODS: -------------------------------------------------------------------
-
-        private void OnDestroy() =>
-            _playerTracker.OnTakeDamageEvent -= OnTakeDamageEvent;
-        
-        // EVENTS RECEIVERS: ----------------------------------------------------------------------
-
-        private void OnTakeDamageEvent(float damage)
-        {
-            SetDamage(damage);
-            PlayAnimation();
-        }
+        private void Construct(IPlayerTracker playerTracker) =>
+            EntityTracker = playerTracker;
     }
 }

@@ -1,7 +1,6 @@
-﻿using GameCore.Battle.Monsters;
-using Zenject;
+﻿using Zenject;
 
-namespace GameCore.Battle
+namespace GameCore.Battle.Entities
 {
     public class MonsterHitAnimation : HitAnimation
     {

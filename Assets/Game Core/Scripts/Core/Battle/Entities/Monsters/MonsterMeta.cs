@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UbicaEditor;
 using UnityEngine;
 
-namespace GameCore.Battle.Monsters
+namespace GameCore.Battle.Entities.Monsters
 {
     public class MonsterMeta : EditorMeta
     {

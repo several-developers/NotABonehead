@@ -1,80 +1,83 @@
 ﻿using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace GameCore.UI.BattleScene.DamageHints
 {
     public class HintAnimation : MonoBehaviour
     {
         // MEMBERS: -------------------------------------------------------------------------------
+
+        [TitleGroup(Constants.Settings)]
+        [BoxGroup(Constants.SettingsIn, showLabel: false), SerializeField]
+        private float _animationDuration;
+
         
-        [TitleGroup("Settings")]
-        [BoxGroup("Settings/In", showLabel: false)]
-        [SerializeField] private float _animationDuration;
+        [TitleGroup(ScaleSettings)]
+        [BoxGroup(ScaleSettingsIn, showLabel: false), SerializeField]
+        private Vector2 _punchScale;
 
-        [TitleGroup("Scale Settings")]
-        [BoxGroup("Scale Settings/In", showLabel: false)]
-        [SerializeField] private Vector2 _punchScale;
-
-        [BoxGroup("Scale Settings/In")]
-        [SerializeField] private float _punchScaleTime;
-
-        [Space(5)]
-
-        [BoxGroup("Scale Settings/In")]
-        [SerializeField] private float _scaleDownDelay;
+        [BoxGroup(ScaleSettingsIn), SerializeField]
+        private float _punchScaleTime;
         
-        [BoxGroup("Scale Settings/In")]
-        [SerializeField] private float _scaleDownTime;
-        [BoxGroup("Scale Settings/In")]
-        [SerializeField] private float _scaleDown;
-        
-        [BoxGroup("Scale Settings/In")]
-        [SerializeField] private Ease _scaleDownEase;
+        [BoxGroup(ScaleSettingsIn), SerializeField, Space(5)]
+        private float _scaleDownDelay;
+
+        [BoxGroup(ScaleSettingsIn), SerializeField]
+        private float _scaleDownTime;
+
+        [BoxGroup(ScaleSettingsIn), SerializeField]
+        private float _scaleDown;
+
+        [BoxGroup(ScaleSettingsIn), SerializeField]
+        private Ease _scaleDownEase;
 
 
-        [TitleGroup("Fade Settings")]
-        [BoxGroup("Fade Settings/In", showLabel: false)]
-        [SerializeField] private float _fadeInTime;
-        
-        [BoxGroup("Fade Settings/In")]
-        [SerializeField] private Ease _fadeInEase;
+        [TitleGroup(FadeSettings)]
+        [BoxGroup(FadeSettingsIn, showLabel: false), SerializeField]
+        private float _fadeInTime;
 
-        [Space(5)]
+        [BoxGroup(FadeSettingsIn), SerializeField]
+        private Ease _fadeInEase;
 
-        [BoxGroup("Fade Settings/In")]
-        [SerializeField] private float _fadeOutDelay;
-        
-        [BoxGroup("Fade Settings/In")]
-        [SerializeField] private float _fadeOutTime;
-        
-        [BoxGroup("Fade Settings/In")]
-        [SerializeField] private Ease _fadeOutEase;
+        [BoxGroup(FadeSettingsIn), SerializeField, Space(5)]
+        private float _fadeOutDelay;
+
+        [BoxGroup(FadeSettingsIn), SerializeField]
+        private float _fadeOutTime;
+
+        [BoxGroup(FadeSettingsIn), SerializeField]
+        private Ease _fadeOutEase;
 
 
-        [TitleGroup("Move Settings")]
-        [BoxGroup("Move Settings/In", showLabel: false)]
-        [SerializeField] private float _offset;
+        [TitleGroup(MoveSettings)]
+        [BoxGroup(MoveSettingsIn, showLabel: false), SerializeField]
+        private float _offset;
 
-        [BoxGroup("Move Settings/In")]
-        [SerializeField] private float _moveTime;
+        [BoxGroup(MoveSettingsIn), SerializeField]
+        private float _moveTime;
 
-        [BoxGroup("Move Settings/In")]
-        [SerializeField] private Ease _moveEase;
+        [BoxGroup(MoveSettingsIn), SerializeField]
+        private Ease _moveEase;
 
 
-        [TitleGroup("References")]
-        [BoxGroup("References/In", showLabel: false)]
-        [SerializeField] private RectTransform _targetRT;
-        
-        [BoxGroup("References/In")]
-        [SerializeField] private CanvasGroup _canvasGroup;
+        [TitleGroup(References)]
+        [BoxGroup(ReferencesIn, showLabel: false), SerializeField]
+        private RectTransform _targetRT;
 
-        [TitleGroup("Events")]
-        [SerializeField] private UnityEvent _onAnimationEndedEvent;
+        [BoxGroup(ReferencesIn), SerializeField]
+        private CanvasGroup _canvasGroup;
 
         // FIELDS: --------------------------------------------------------------------------------
+
+        private const string ScaleSettings = "Scale Settings";
+        private const string ScaleSettingsIn = "Scale Settings/In";
+        private const string FadeSettings = "Fade Settings";
+        private const string FadeSettingsIn = "Fade Settings/In";
+        private const string MoveSettings = "Move Settings";
+        private const string MoveSettingsIn = "Move Settings/In";
+        private const string References = "References";
+        private const string ReferencesIn = "References/In";
         
         private Tweener _fadeTN;
         private Tweener _scaleTN;
@@ -85,7 +88,7 @@ namespace GameCore.UI.BattleScene.DamageHints
         private void Start() => ResetAnimation();
 
         // PUBLIC METHODS: ------------------------------------------------------------------------
-        
+
         [Button]
         public void StartAnimation()
         {
@@ -99,7 +102,7 @@ namespace GameCore.UI.BattleScene.DamageHints
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
-        
+
         [Button]
         private void ResetAnimation()
         {
@@ -136,10 +139,6 @@ namespace GameCore.UI.BattleScene.DamageHints
         private void MoveAnimation() =>
             _moveTN = _targetRT.DOAnchorPosY(_offset, _moveTime).SetEase(_moveEase);
 
-        private void OnAnimationEnded()
-        {
-            ResetAnimation();
-            _onAnimationEndedEvent.Invoke();
-        }
+        private void OnAnimationEnded() => ResetAnimation();
     }
 }
