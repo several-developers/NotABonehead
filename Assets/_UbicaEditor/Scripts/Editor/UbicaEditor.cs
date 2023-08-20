@@ -22,9 +22,7 @@ namespace UbicaEditor
 
         private const string EditorMenuItem = "🕹 Not A Bonehead/⚙ Ubica Editor";
         private const string GameDataPath = "Assets/Resources/Game Data/";
-
-        private EditorMenuType _editorMenuType;
-
+        
         // PROTECTED METHODS: ---------------------------------------------------------------------
 
         protected override OdinMenuTree BuildMenuTree()
