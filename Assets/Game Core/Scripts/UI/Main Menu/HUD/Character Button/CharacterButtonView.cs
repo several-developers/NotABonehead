@@ -1,21 +1,25 @@
 using Cysharp.Threading.Tasks;
 using GameCore.Infrastructure.Services.Global.Rewards;
 using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
-using GameCore.Other;
+using GameCore.MainMenu;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace GameCore.UI.MainMenu.Character
+namespace GameCore.UI.MainMenu.HUD.Character
 {
-    public class CharacterView : MonoBehaviour
+    public class CharacterButtonView : MonoBehaviour
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
         [Inject]
-        private void Construct(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService) =>
-            _characterLogic = new CharacterLogic(itemsShowcaseService, rewardsService);
+        private void Construct(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService,
+            IPlayerPreviewObserver playerPreviewObserver)
+        {
+            _playerPreviewObserver = playerPreviewObserver;
+            _characterButtonLogic = new CharacterButtonLogic(itemsShowcaseService, rewardsService);
+        }
 
         // MEMBERS: -------------------------------------------------------------------------------
 
@@ -26,13 +30,11 @@ namespace GameCore.UI.MainMenu.Character
         [Title(Constants.References)]
         [SerializeField, Required]
         private Button _characterButton;
-
-        [SerializeField, Required]
-        private PlayerCharacter _playerCharacter;
-
+        
         // PRIVATE METHODS: -----------------------------------------------------------------------
 
-        private CharacterLogic _characterLogic;
+        private IPlayerPreviewObserver _playerPreviewObserver;
+        private CharacterButtonLogic _characterButtonLogic;
         private bool _isBlocked;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
@@ -44,11 +46,11 @@ namespace GameCore.UI.MainMenu.Character
 
         private async void HandleClick()
         {
-            bool containsDroppedItem = _characterLogic.ContainsDroppedItem();
+            bool containsDroppedItem = _characterButtonLogic.ContainsDroppedItem();
 
             if (!containsDroppedItem)
             {
-                _playerCharacter.PlayRandomAnimation();
+                _playerPreviewObserver.SendClickEvent();
 
                 int delay = (int)(_clickDelay * 1000);
                 bool isCanceled = await UniTask
@@ -60,7 +62,7 @@ namespace GameCore.UI.MainMenu.Character
             }
 
             _isBlocked = false;
-            _characterLogic.HandleClickLogic();
+            _characterButtonLogic.HandleClickLogic();
         }
 
         // EVENTS RECEIVERS: ----------------------------------------------------------------------

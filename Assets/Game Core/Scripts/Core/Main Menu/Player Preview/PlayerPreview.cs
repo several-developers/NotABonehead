@@ -1,11 +1,22 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
-namespace GameCore.Other
+namespace GameCore.MainMenu
 {
-    public class PlayerCharacter : MonoBehaviour
+    public class PlayerPreview : MonoBehaviour
     {
+        // CONSTRUCTORS: --------------------------------------------------------------------------
+
+        [Inject]
+        private void Construct(IPlayerPreviewObserver playerPreviewObserver)
+        {
+            _playerPreviewObserver = playerPreviewObserver;
+            
+            _playerPreviewObserver.OnClickedEvent += OnClickedEvent;
+        }
+        
         // MEMBERS: -------------------------------------------------------------------------------
 
         [Title(Constants.Settings)]
@@ -14,13 +25,14 @@ namespace GameCore.Other
 
         [TitleGroup(Constants.Animation)]
         [BoxGroup(Constants.AnimationIn, showLabel: false), SerializeField]
-        private PlayerCharacterAnimation _characterAnimation;
+        private PlayerPreviewAnimation _previewAnimation;
         
         // FIELDS: --------------------------------------------------------------------------------
         
         private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int State = Animator.StringToHash("State");
         
+        private IPlayerPreviewObserver _playerPreviewObserver;
         private Animator _animator;
 
         // GAME ENGINE METHODS: -------------------------------------------------------------------
@@ -28,11 +40,14 @@ namespace GameCore.Other
         private void Awake() =>
             _animator = GetComponent<Animator>();
 
-        // PUBLIC METHODS: ------------------------------------------------------------------------
-
-        public async void PlayRandomAnimation()
+        private void OnDestroy() =>
+            _playerPreviewObserver.OnClickedEvent -= OnClickedEvent;
+        
+        // PRIVATE METHODS: -----------------------------------------------------------------------
+        
+        private async void PlayRandomAnimation()
         {
-            _characterAnimation.StartAnimation();
+            _previewAnimation.StartAnimation();
             int randomValue = Random.Range(0, 3);
 
             switch (randomValue)
@@ -60,5 +75,9 @@ namespace GameCore.Other
             
             _animator.SetInteger(State, 0);
         }
+
+        // EVENTS RECEIVERS: ----------------------------------------------------------------------
+
+        private void OnClickedEvent() => PlayRandomAnimation();
     }
 }

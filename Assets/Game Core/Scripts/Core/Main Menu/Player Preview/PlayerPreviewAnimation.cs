@@ -3,10 +3,10 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore.Other
+namespace GameCore.MainMenu
 {
     [Serializable]
-    public class PlayerCharacterAnimation
+    public class PlayerPreviewAnimation
     {
         // MEMBERS: -------------------------------------------------------------------------------
 

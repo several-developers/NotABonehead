@@ -30,9 +30,7 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
         }
 
         // FIELDS: --------------------------------------------------------------------------------
-
-        public event Action<int> OnDroppedItemSoldEvent;
-
+        
         private const int MaxItemTypesRepeats = 3;
         private const int MinStatValue = 1;
         private const int MaxStatValue = 15;
@@ -92,7 +90,6 @@ namespace GameCore.Infrastructure.Services.Global.Rewards
             _playerDataService.AddGold(goldReward);
 
             GlobalEvents.SendCurrencyChanged();
-            OnDroppedItemSoldEvent?.Invoke(goldReward);
         }
 
         public static int CalculateItemGoldReward(EntityStats itemStats)

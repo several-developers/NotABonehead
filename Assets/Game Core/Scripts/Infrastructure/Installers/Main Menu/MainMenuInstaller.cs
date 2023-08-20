@@ -1,4 +1,5 @@
 ﻿using GameCore.Factories;
+using GameCore.MainMenu;
 using Zenject;
 
 namespace GameCore.Infrastructure.Installers.MainMenu
@@ -10,6 +11,7 @@ namespace GameCore.Infrastructure.Installers.MainMenu
         public override void InstallBindings()
         {
             BindGameItemsFactory();
+            BindPlayerPreviewObserver();
         }
 
         // PRIVATE METHODS: -----------------------------------------------------------------------
@@ -18,6 +20,14 @@ namespace GameCore.Infrastructure.Installers.MainMenu
         {
             Container
                 .BindInterfacesAndSelfTo<GameItemsFactory>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindPlayerPreviewObserver()
+        {
+            Container
+                .BindInterfacesTo<PlayerPreviewObserver>()
                 .AsSingle()
                 .NonLazy();
         }

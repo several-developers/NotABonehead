@@ -1474,7 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resetDelay: 0.9
-  _characterAnimation:
+  _previewAnimation:
     _startScale: {x: -0.6, y: 0.6, z: 1}
     _minScale: {x: -0.47, y: 0.47, z: 1}
     _scaleDuration: 0.1
@@ -3074,6 +3074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character View
       objectReference: {fileID: 0}
+    - target: {fileID: 8338486562690356736, guid: 92e67e912d4635f45834da2234407629, type: 3}
+      propertyPath: _playerPreview
+      value: 
+      objectReference: {fileID: 1311552736}
     - target: {fileID: 8338486562690356736, guid: 92e67e912d4635f45834da2234407629, type: 3}
       propertyPath: _playerCharacter
       value: 

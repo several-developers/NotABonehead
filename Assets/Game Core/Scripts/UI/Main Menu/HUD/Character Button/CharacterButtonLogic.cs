@@ -3,13 +3,13 @@ using GameCore.Infrastructure.Services.Global.Rewards;
 using GameCore.Infrastructure.Services.MainMenu.ItemsShowcase;
 using GameCore.UI.MainMenu.ItemsShowcaseMenu;
 
-namespace GameCore.UI.MainMenu.Character
+namespace GameCore.UI.MainMenu.HUD.Character
 {
-    public class CharacterLogic
+    public class CharacterButtonLogic
     {
         // CONSTRUCTORS: --------------------------------------------------------------------------
 
-        public CharacterLogic(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService)
+        public CharacterButtonLogic(IItemsShowcaseService itemsShowcaseService, IRewardsService rewardsService)
         {
             _itemsShowcaseService = itemsShowcaseService;
             _rewardsService = rewardsService;
